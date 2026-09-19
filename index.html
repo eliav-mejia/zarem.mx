@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zarem — Uniformes escolares</title>
+  <meta name="description" content="Uniformes escolares del Colegio La Florida. Elige prenda y talla, paga con tarjeta, OXXO o efectivo en tienda.">
+  <meta name="theme-color" content="#1d4ed8">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d4ed8'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='800' text-anchor='middle' fill='white' font-family='Arial'%3EZ%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind (Play CDN — fine for a small static page; see README note to swap for a build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Figtree', 'system-ui', 'sans-serif'] },
+          colors: {
+            zarem: {
+              50: '#f2f7ff', 100: '#e3edff', 200: '#c4d8ff',
+              500: '#3b6ff0', 600: '#1d4ed8', 700: '#17398f', 900: '#0e2259'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Layout file -->
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+
+<body class="font-sans">
+  <div class="site-shell">
+
+    <!-- ===== Header ===== -->
+    <header class="site-header">
+      <div class="container site-header__bar">
+        <a href="#inicio" class="brand" aria-label="Zarem, inicio">
+          <span class="brand__mark" aria-hidden="true">Z</span>
+          Zarem
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" type="button"
+                aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path id="icon-open" d="M4 7h16M4 12h16M4 17h16"/>
+            <path id="icon-close" d="M6 6l12 12M18 6L6 18" style="display:none"/>
+          </svg>
+        </button>
+
+        <nav class="nav" id="site-nav" aria-label="Principal">
+          <a href="#catalogo">Uniformes</a>
+          <a href="#pedidos">Cómo funciona</a>
+          <a href="#contacto">Contacto</a>
+          <a href="#catalogo" class="nav__cta">Comprar</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+
+      <!-- ===== Hero + wallpaper ===== -->
+      <section class="hero" id="inicio">
+        <div class="container">
+          <div class="hero__inner">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.05]">
+              Uniformes del Colegio La Florida, sin filas.
+            </h1>
+            <p class="text-lg sm:text-xl text-zarem-200 leading-relaxed max-w-xl">
+              Elige prenda y talla desde tu celular. Paga con tarjeta, en OXXO o en efectivo en tienda.
+            </p>
+            <div class="hero__actions">
+              <a href="#catalogo" class="btn btn--solid">Ver uniformes</a>
+              <a href="#pedidos" class="btn btn--ghost">Cómo recibirlo</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Catálogo ===== -->
+      <section class="section" id="catalogo">
+        <div class="container section__inner">
+          <div class="section__head">
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-zarem-900">
+              Todas las prendas, por talla
+            </h2>
+            <p class="text-zarem-900/70 leading-relaxed">
+              Escoge la prenda, el modelo para niña o niño y tu talla. Te mostramos la existencia al momento.
+            </p>
+          </div>
+
+          <!-- Aquí se montará el catálogo (datos desde el Worker). -->
+          <div id="catalogo-grid"
+               class="flex flex-col items-start gap-3 rounded-2xl border border-dashed border-zarem-200 bg-zarem-50 p-6 sm:p-8">
+            <p class="font-semibold text-zarem-900">El catálogo se publica aquí.</p>
+            <p class="text-zarem-900/70 max-w-md">
+              Mientras se carga, revisa cómo funciona tu pedido más abajo.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Cómo funciona ===== -->
+      <section class="section section--ice" id="pedidos">
+        <div class="container section__inner">
+          <div class="section__head">
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-zarem-900">
+              Cómo funciona tu pedido
+            </h2>
+          </div>
+
+          <dl class="rows">
+            <div class="row">
+              <dt>Recoger en tienda</dt>
+              <dd>Te avisamos cuando esté listo, máximo 48 horas hábiles después de tu pago.</dd>
+            </div>
+            <div class="row">
+              <dt>Envío a domicilio</dt>
+              <dd>Lo enviamos en 48 horas hábiles desde que se confirma tu pago con tarjeta.</dd>
+            </div>
+            <div class="row">
+              <dt>Pago en OXXO</dt>
+              <dd>Genera tu ficha y paga en tienda. Solo con envío, de 3 a 5 días hábiles después de que se confirme el pago.</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="site-footer" id="contacto">
+      <div class="container site-footer__bar">
+        <span class="font-bold text-zarem-600">Zarem</span>
+        <span>&copy; 2026 Zarem. zarem.mx</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    (function () {
+      var btn = document.getElementById('nav-toggle');
+      var nav = document.getElementById('site-nav');
+      var iOpen = document.getElementById('icon-open');
+      var iClose = document.getElementById('icon-close');
+
+      function setOpen(open) {
+        nav.setAttribute('data-open', open ? 'true' : 'false');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        iOpen.style.display = open ? 'none' : '';
+        iClose.style.display = open ? '' : 'none';
+      }
+
+      btn.addEventListener('click', function () {
+        setOpen(nav.getAttribute('data-open') !== 'true');
+      });
+      nav.addEventListener('click', function (e) {
+        if (e.target.tagName === 'A') setOpen(false);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') setOpen(false);
+      });
+    })();
+  </script>
+</body>
+</html>
