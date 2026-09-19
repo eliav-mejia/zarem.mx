@@ -1,0 +1,250 @@
+/* ==========================================================================
+   Zarem.mx — layout.css
+   Mobile-first flexbox layout. Tailwind handles color/spacing/type utilities;
+   this file owns structure: page shell, header + nav, hero wallpaper, sections.
+   ========================================================================== */
+
+:root {
+  --zarem-blue: #1d4ed8;
+  --zarem-blue-deep: #17398f;
+  --zarem-ice: #f2f7ff;
+  --zarem-line: #d6e3fb;
+  --zarem-ink: #0e2259;
+
+  /* Optional photo wallpaper. Drop a file at /assets/wallpaper.jpg and
+     uncomment the next line — the twill pattern below stays on top of it. */
+  /* --wallpaper-image: url("../assets/wallpaper.jpg"); */
+
+  --header-h: 4rem;
+  --gutter: 1.25rem;
+  --max: 68rem;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+
+body {
+  margin: 0;
+  color: var(--zarem-ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Page shell: header / main / footer stacked in a column ---------- */
+.site-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+.site-main { flex: 1 0 auto; display: flex; flex-direction: column; }
+
+.container {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--zarem-line);
+}
+.site-header__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-h);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .625rem;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--zarem-blue);
+  text-decoration: none;
+}
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: .5rem;
+  background: var(--zarem-blue);
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+/* Nav — mobile: dropdown panel under the bar, toggled with [data-open] */
+.nav {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: calc(var(--gutter) * -1);
+  right: calc(var(--gutter) * -1);
+  padding: .5rem var(--gutter) 1rem;
+  background: #fff;
+  border-bottom: 1px solid var(--zarem-line);
+}
+.nav[data-open="true"] { display: flex; }
+.nav a {
+  padding: .875rem 0;
+  border-bottom: 1px solid var(--zarem-ice);
+  font-weight: 600;
+  color: var(--zarem-ink);
+  text-decoration: none;
+}
+.nav a:last-child { border-bottom: 0; }
+.nav a:hover { color: var(--zarem-blue); }
+
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--zarem-line);
+  border-radius: .625rem;
+  background: #fff;
+  color: var(--zarem-blue);
+  cursor: pointer;
+}
+
+/* ---------- Hero with wallpaper ---------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100dvh - var(--header-h) - 6rem);
+  padding-block: 4rem;
+  color: #fff;
+  background-color: var(--zarem-blue);
+  /* Layers, top → bottom: optional photo, twill weave lines, blue gradient */
+  background-image:
+    var(--wallpaper-image, none),
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 18px,
+      rgba(255, 255, 255, .09) 18px 19px
+    ),
+    linear-gradient(180deg, var(--zarem-blue) 0%, var(--zarem-blue-deep) 100%);
+  background-size: cover, auto, cover;
+  background-position: center;
+}
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 40rem;
+}
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+/* ---------- Content sections ---------- */
+.section { padding-block: 3.5rem; }
+.section--ice { background: var(--zarem-ice); }
+.section__inner { display: flex; flex-direction: column; gap: 2rem; }
+.section__head { display: flex; flex-direction: column; gap: .75rem; max-width: 38rem; }
+
+/* Rows: label on the left, description on the right at wider sizes */
+.rows { display: flex; flex-direction: column; margin: 0; padding: 0; }
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--zarem-line);
+}
+.row:last-child { border-bottom: 1px solid var(--zarem-line); }
+.row dt { font-weight: 700; }
+.row dd { margin: 0; max-width: 34rem; color: #3b4d80; line-height: 1.6; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding-inline: 1.5rem;
+  border-radius: .75rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn--solid { background: #fff; color: var(--zarem-blue); }
+.btn--solid:hover { background: var(--zarem-ice); }
+.btn--ghost { border-color: rgba(255, 255, 255, .6); color: #fff; }
+.btn--ghost:hover { background: rgba(255, 255, 255, .12); border-color: #fff; }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--zarem-line); }
+.site-footer__bar {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding-block: 1.5rem;
+  font-size: .9rem;
+  color: #3b4d80;
+}
+
+/* ---------- Focus + motion ---------- */
+:focus-visible {
+  outline: 3px solid #7aa2ff;
+  outline-offset: 3px;
+  border-radius: .25rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
+
+/* ==========================================================================
+   ≥ 640px
+   ========================================================================== */
+@media (min-width: 640px) {
+  :root { --gutter: 2rem; }
+  .hero__actions { flex-direction: row; }
+  .row { flex-direction: row; gap: 2rem; }
+  .row dt { flex: 0 0 14rem; }
+}
+
+/* ==========================================================================
+   ≥ 768px — nav becomes a horizontal row, toggle disappears
+   ========================================================================== */
+@media (min-width: 768px) {
+  :root { --header-h: 4.5rem; }
+  .nav-toggle { display: none; }
+  .nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+  .nav a { padding: .5rem 0; border: 0; }
+  .nav a.nav__cta {
+    padding: .5rem 1.125rem;
+    border-radius: .625rem;
+    background: var(--zarem-blue);
+    color: #fff;
+  }
+  .nav a.nav__cta:hover { background: var(--zarem-blue-deep); color: #fff; }
+
+  .section { padding-block: 5rem; }
+  .site-footer__bar { flex-direction: row; justify-content: space-between; }
+}
