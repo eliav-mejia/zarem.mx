@@ -1,0 +1,101 @@
+/* Styles for every page. Everything else is Tailwind classes in the markup (theme in /js/tailwind.config.js). */
+
+/* Palette (light theme, blue tones):
+   1 white     #ffffff  page background, cards
+   2 noche     #0b1b34  headings, text, dark sections (midnight blue)
+   3 zafiro    #1e3a6e  primary buttons, active states
+   4 acero     #4a6fa5  accents: italic words, stitch line, links on hover
+   5 hielo     #ebf1f9  soft sections, product backgrounds
+   6 slate     #5a6b85  secondary text
+   Fonts: Bodoni Moda (headings, the tailor's label) · Manrope (text) */
+:root {
+    --white: #ffffff;
+    --noche: #0b1b34;
+    --noche-800: #10264a;
+    --zafiro: #1e3a6e;
+    --zafiro-600: #264985;
+    --acero: #4a6fa5;
+    --acero-300: #8fb0dc;
+    --hielo: #ebf1f9;
+    --hielo-50: #f6f9fd;
+    --slate: #5a6b85;
+    --line: #dbe3ee;
+    color-scheme: light;
+}
+
+html { background-color: var(--white); scroll-behavior: smooth; }
+
+body {
+    font-family: 'Manrope', system-ui, sans-serif;
+    background-color: var(--white);
+    color: var(--noche);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display { font-family: 'Bodoni Moda', Didot, Georgia, serif; font-weight: 400; letter-spacing: -0.015em; }
+
+::selection { background: var(--hielo); color: var(--zafiro); }
+:focus-visible { outline: 2px solid var(--zafiro); outline-offset: 3px; }
+
+.kicker { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+
+/* Italic accent word inside a heading */
+.accent { font-style: italic; color: var(--acero); }
+
+/* Basting stitch (hilván): the tailor's temporary seam, used as a divider and underline */
+.stitch { border: 0; height: 2px; background: repeating-linear-gradient(90deg, var(--acero-300) 0 10px, transparent 10px 18px); }
+.stitch-under { background-image: repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 10px); background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 100%; padding-bottom: 3px; }
+
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+    padding: .95rem 1.7rem; border-radius: 999px;
+    font-size: .85rem; font-weight: 600; letter-spacing: .02em;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s;
+    cursor: pointer;
+}
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-dark { background: var(--noche); color: var(--white); border: 1px solid var(--noche); }
+.btn-dark:hover:not(:disabled) { background: var(--zafiro); border-color: var(--zafiro); }
+.btn-blue { background: var(--zafiro); color: var(--white); border: 1px solid var(--zafiro); }
+.btn-blue:hover:not(:disabled) { background: var(--zafiro-600); box-shadow: 0 10px 24px -12px rgba(30, 58, 110, .8); }
+.btn-ice { background: var(--hielo); color: var(--noche); border: 1px solid var(--hielo); }
+.btn-ice:hover:not(:disabled) { background: #dfe8f5; }
+.btn-line { background: transparent; color: var(--noche); border: 1px solid var(--noche); }
+.btn-line:hover:not(:disabled) { background: var(--noche); color: var(--white); }
+.btn-ghost-light { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,.45); }
+.btn-ghost-light:hover:not(:disabled) { background: var(--white); color: var(--noche); }
+
+.field {
+    width: 100%; background: var(--white);
+    border: 1px solid var(--line); border-radius: .6rem;
+    padding: .75rem .95rem; font-size: .95rem; color: var(--noche);
+}
+.field:focus { outline: none; border-color: var(--zafiro); box-shadow: 0 0 0 3px rgba(143, 176, 220, .45); }
+
+/* Fine twill (sarga) weave for dark sections: the diagonal of a suiting fabric */
+.twill {
+    background-color: var(--noche);
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.035) 0 1px, transparent 1px 9px);
+}
+
+/* Soft blue gradient used behind product illustrations */
+.ice-wash { background: radial-gradient(120% 90% at 30% 10%, #ffffff 0%, var(--hielo) 55%, #dde7f4 100%); }
+
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.is-in { opacity: 1; transform: none; }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes slide-in { from { transform: translateX(100%); } to { transform: none; } }
+.animate-fade-in { animation: fade-in .3s ease both; }
+.animate-rise-in { animation: rise-in .5s ease both; }
+.animate-slide-in { animation: slide-in .35s cubic-bezier(.2,.8,.2,1) both; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; }
+}

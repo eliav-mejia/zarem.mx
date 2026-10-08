@@ -1,0 +1,25 @@
+{
+  "_schema": "fabrics: id, name, composition, weight, feel, care, origin, colors[{ id, name, hex }]",
+  "_note": "Telas y colores de ejemplo: confirmar con el cliente. Los colores se comparten entre telas por id.",
+  "updated_at": "2026-10-08",
+  "fabrics": [
+    { "id": "lana-fria", "name": "Lana fría", "composition": "55% lana · 45% poliéster", "weight": "240 g/m²",
+      "feel": "Caída de sastrería, transpirable todo el año; recupera la forma después de la jornada.", "care": "Tintorería recomendada; vaporizar entre usos.", "origin": "Hilado en Puebla",
+      "colors": [ { "id": "marino", "name": "Azul marino", "hex": "#1b2a4a" }, { "id": "medianoche", "name": "Medianoche", "hex": "#0e1a2f" }, { "id": "acero", "name": "Azul acero", "hex": "#44607f" }, { "id": "carbon", "name": "Carbón", "hex": "#2f3238" }, { "id": "gris-perla", "name": "Gris perla", "hex": "#a5abb3" } ] },
+    { "id": "gabardina-stretch", "name": "Gabardina stretch", "composition": "64% poliéster · 33% rayón · 3% elastano", "weight": "260 g/m²",
+      "feel": "Estructura firme con elasticidad; no se arruga en ocho horas.", "care": "Lavadora en frío, ciclo delicado, secar a la sombra.", "origin": "Tejida en Hidalgo",
+      "colors": [ { "id": "marino", "name": "Azul marino", "hex": "#1b2a4a" }, { "id": "medianoche", "name": "Medianoche", "hex": "#0e1a2f" }, { "id": "grafito", "name": "Grafito", "hex": "#3a3f47" }, { "id": "negro", "name": "Negro", "hex": "#17181b" } ] },
+    { "id": "popelina", "name": "Popelina antiarrugas", "composition": "60% algodón · 40% poliéster", "weight": "115 g/m²",
+      "feel": "Fresca, suave y fácil de planchar.", "care": "Lavadora a 30 °C, planchado ligero.", "origin": "Tejida en Puebla",
+      "colors": [ { "id": "blanco", "name": "Blanco", "hex": "#fbfbf9" }, { "id": "hielo", "name": "Azul hielo", "hex": "#e3ecf7" }, { "id": "celeste", "name": "Celeste", "hex": "#c3d6ee" }, { "id": "cielo", "name": "Azul cielo", "hex": "#93b4df" } ] },
+    { "id": "dril", "name": "Dril de algodón", "composition": "100% algodón", "weight": "280 g/m²",
+      "feel": "Resistente al calor de cocina y a lavados industriales.", "care": "Lavadora hasta 60 °C; se puede blanquear el blanco.", "origin": "Tejido en Tlaxcala",
+      "colors": [ { "id": "blanco", "name": "Blanco", "hex": "#fbfbf9" }, { "id": "marino", "name": "Azul marino", "hex": "#1b2a4a" }, { "id": "negro", "name": "Negro", "hex": "#17181b" }, { "id": "pizarra", "name": "Pizarra", "hex": "#4b5560" } ] },
+    { "id": "antifluido", "name": "Antifluido stretch", "composition": "92% poliéster · 8% elastano, acabado repelente", "weight": "170 g/m²",
+      "feel": "Repele salpicaduras, se estira con el movimiento y seca rápido.", "care": "Lavadora hasta 60 °C, sin suavizante.", "origin": "Importada, confeccionada en CDMX",
+      "colors": [ { "id": "marino", "name": "Azul marino", "hex": "#1b2a4a" }, { "id": "rey", "name": "Azul rey", "hex": "#2c4f9e" }, { "id": "cielo", "name": "Azul cielo", "hex": "#93b4df" }, { "id": "grafito", "name": "Grafito", "hex": "#3a3f47" } ] },
+    { "id": "lona", "name": "Lona encerada ligera", "composition": "100% algodón, acabado encerado", "weight": "300 g/m²",
+      "feel": "Firme y con carácter; envejece bien con el uso.", "care": "Limpiar con paño húmedo; lavado a mano en frío.", "origin": "Tejida en Tlaxcala",
+      "colors": [ { "id": "mezclilla", "name": "Mezclilla", "hex": "#3b5376" }, { "id": "marino", "name": "Azul marino", "hex": "#1b2a4a" }, { "id": "negro", "name": "Negro", "hex": "#17181b" } ] }
+  ]
+}

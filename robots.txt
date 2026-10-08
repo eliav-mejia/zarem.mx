@@ -1,0 +1,22 @@
+# Zarem — https://zarem.mx/robots.txt
+# Search engines may index the site. AI-training and dataset crawlers may not use its images or texts.
+# robots.txt is a request, not a lock.
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: Meta-ExternalAgent
+User-agent: PerplexityBot
+User-agent: cohere-ai
+User-agent: img2dataset
+Disallow: /
+
+User-agent: *
+Disallow: /pages/bolsa/
+Allow: /
+
+Sitemap: https://zarem.mx/sitemap.xml

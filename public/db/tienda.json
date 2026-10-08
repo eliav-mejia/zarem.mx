@@ -1,0 +1,19 @@
+{
+  "_schema": "volume_tiers[{ min_qty, pct }] · embroidery_mxn · shipping[{ id, label, detail, cost_mxn, free_from_mxn }] · company_from_qty",
+  "_note": "Reglas comerciales de ejemplo (Etapa 1): confirmar con el cliente. Precios con IVA incluido. En la Etapa 2 el servidor recalcula todo con estas mismas reglas.",
+  "updated_at": "2026-10-08",
+  "volume_tiers": [
+    { "min_qty": 1, "pct": 0 },
+    { "min_qty": 10, "pct": 5 },
+    { "min_qty": 25, "pct": 10 },
+    { "min_qty": 50, "pct": 15 }
+  ],
+  "company_from_qty": 100,
+  "embroidery_mxn": 95,
+  "embroidery_setup_mxn": 450,
+  "shipping": [
+    { "id": "taller", "label": "Recoger en el taller", "detail": "Roma Norte, CDMX · listo en 2 días hábiles (en existencia)", "cost_mxn": 0, "free_from_mxn": 0 },
+    { "id": "cdmx", "label": "Envío CDMX y zona metropolitana", "detail": "1 – 2 días hábiles", "cost_mxn": 149, "free_from_mxn": 2500 },
+    { "id": "nacional", "label": "Envío nacional", "detail": "2 – 5 días hábiles", "cost_mxn": 249, "free_from_mxn": 4500 }
+  ]
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda · Uniformes Zarem</title>
+    <meta name="description" content="Sacos, pantalones, faldas, camisas, blusas, chalecos, filipinas, mandiles y uniformes clínicos. Elige color y talla; descuento automático desde 10 piezas.">
+    <link rel="canonical" href="https://zarem.mx/pages/tienda/">
+    <meta property="og:title" content="Tienda · Uniformes Zarem">
+    <meta property="og:description" content="Sacos, pantalones, faldas, camisas, blusas, chalecos, filipinas, mandiles y uniformes clínicos. Elige color y talla; descuento automático desde 10 piezas.">
+    <meta property="og:url" content="https://zarem.mx/pages/tienda/">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0b1b34">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel">
+        const SORTS = { destacados: 'Destacados', 'precio-asc': 'Precio: menor a mayor', 'precio-desc': 'Precio: mayor a menor', nombre: 'Nombre' };
+
+        const ShopPage = () => {
+            const catalog = useCatalog();
+            const params = new URLSearchParams(window.location.search);
+            const [line, setLine] = useState(params.get('linea') || 'all');
+            const [type, setType] = useState(params.get('tipo') || 'all');
+            const [fit, setFit] = useState(params.get('corte') || 'all');
+            const [sort, setSort] = useState('destacados');
+
+            // Keep the filters in the URL so a filtered view can be shared.
+            useEffect(() => {
+                const url = new URL(window.location);
+                [['linea', line], ['tipo', type], ['corte', fit]].forEach(([k, v]) => (v === 'all' ? url.searchParams.delete(k) : url.searchParams.set(k, v)));
+                history.replaceState(null, '', url);
+            }, [line, type, fit]);
+
+            const order = Object.fromEntries(catalog.types.map(t => [t.id, t.sort_order]));
+            const inLine = catalog.products.filter(p => line === 'all' || p.line_id === line);
+            const types = catalog.types.filter(t => inLine.some(p => p.type_id === t.id));
+            const products = inLine
+                .filter(p => type === 'all' || p.type_id === type)
+                .filter(p => fit === 'all' || p.fit === fit || p.fit === 'unisex')
+                .sort({
+                    destacados: (a, b) => (b.featured - a.featured) || order[a.type_id] - order[b.type_id],
+                    'precio-asc': (a, b) => a.price_mxn - b.price_mxn,
+                    'precio-desc': (a, b) => b.price_mxn - a.price_mxn,
+                    nombre: (a, b) => a.name.localeCompare(b.name, 'es'),
+                }[sort]);
+            const current = catalog.line[line];
+
+            const chip = (active) => `shrink-0 px-4 py-2 rounded-full text-sm border transition-colors ${active ? 'bg-noche text-white border-noche' : 'border-noche-line hover:border-noche'}`;
+
+            return (
+                <>
+                    <PageHero kicker={current ? current.sectors.join(' · ') : 'Tienda en línea'} title={current ? 'Línea' : 'Todas las'} accent={current ? current.label : 'prendas'}
+                        intro={current ? current.description : 'Compra por pieza o arma el uniforme de todo tu equipo: el descuento por volumen se aplica solo en tu bolsa, sumando todas las prendas.'} />
+                    <section className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+                        <div className="flex flex-col gap-4 mb-12 pb-6 border-b border-noche-line">
+                            <div className="flex gap-2 overflow-x-auto no-scrollbar" role="group" aria-label="Línea">
+                                <button className={chip(line === 'all')} aria-pressed={line === 'all'} onClick={() => { setLine('all'); setType('all'); }}>Todas las líneas</button>
+                                {catalog.lines.map(l => <button key={l.id} className={chip(line === l.id)} aria-pressed={line === l.id} onClick={() => { setLine(l.id); setType('all'); }}>{l.label}</button>)}
+                            </div>
+                            <div className="flex flex-col md:flex-row gap-3 md:items-center justify-between">
+                                <div className="flex gap-2 overflow-x-auto no-scrollbar" role="group" aria-label="Tipo de prenda">
+                                    <button className={chip(type === 'all')} aria-pressed={type === 'all'} onClick={() => setType('all')}>Todo</button>
+                                    {types.map(t => <button key={t.id} className={chip(type === t.id)} aria-pressed={type === t.id} onClick={() => setType(t.id)}>{t.label}</button>)}
+                                </div>
+                                <div className="flex gap-2">
+                                    <select className="field !w-auto !py-2 text-sm" value={fit} onChange={e => setFit(e.target.value)} aria-label="Corte">
+                                        <option value="all">Dama y caballero</option><option value="dama">Dama</option><option value="caballero">Caballero</option>
+                                    </select>
+                                    <select className="field !w-auto !py-2 text-sm" value={sort} onChange={e => setSort(e.target.value)} aria-label="Ordenar">
+                                        {Object.entries(SORTS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        {catalog.status === 'loading' && <GridSkeleton n={8} />}
+                        {catalog.status === 'error' && <LoadError />}
+                        {catalog.status === 'ready' && products.length === 0 && <p className="text-center text-acero-600 py-12">No hay prendas con estos filtros.</p>}
+                        {catalog.status === 'ready' && <p className="text-sm text-acero-400 mb-6">{products.length} {products.length === 1 ? 'prenda' : 'prendas'}</p>}
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+                            {products.map(p => <ProductCard key={p.id} product={p} catalog={catalog} />)}
+                        </div>
+                    </section>
+                    <section className="max-w-4xl mx-auto px-4 md:px-8 py-10 text-center">
+                        <hr className="stitch w-24 mx-auto mb-10" />
+                        <h2 className="text-3xl md:text-4xl">¿Necesitas un diseño <span className="accent">propio?</span></h2>
+                        <p className="text-acero-600 mt-3">Desarrollamos prendas con la imagen de tu empresa: colores institucionales, cortes especiales y bordado.</p>
+                        <a href="/pages/empresas/" className="btn btn-line mt-6">Programa para empresas</a>
+                    </section>
+                </>
+            );
+        };
+
+        renderPage(ShopPage);
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro taller y confección · Zarem</title>
+    <meta name="description" content="Así confeccionamos nuestros uniformes en la Ciudad de México: patronaje, corte, costura y revisión. Telas, guía de tallas y cuidados.">
+    <link rel="canonical" href="https://zarem.mx/pages/confeccion/">
+    <meta property="og:title" content="Nuestro taller y confección · Zarem">
+    <meta property="og:description" content="Así confeccionamos nuestros uniformes en la Ciudad de México: patronaje, corte, costura y revisión. Telas, guía de tallas y cuidados.">
+    <meta property="og:url" content="https://zarem.mx/pages/confeccion/">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0b1b34">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel">
+        const PROCESS = [
+            { n: '01', title: 'Patronaje propio', text: 'Cada modelo tiene patrones por talla, probados en cuerpos reales. Ajustamos hombros, sisas y largos para que el uniforme se mueva contigo.' },
+            { n: '02', title: 'Corte al hilo', text: 'Cortamos siguiendo el hilo de la tela y casando rayas y cuadros. Así la prenda no se tuerce después de lavarla.' },
+            { n: '03', title: 'Entretelas termofijadas', text: 'Cuellos, solapas y pretinas llevan entretela fusionada a temperatura controlada: no hacen burbujas ni se despegan.' },
+            { n: '04', title: '12 puntadas por pulgada', text: 'Costuras densas y rematadas, con refuerzo en hombro, sisa, entrepierna y aberturas, donde un uniforme sufre más.' },
+            { n: '05', title: 'Planchado a vapor', text: 'Cada pieza se plancha en forma, no en plano, para que llegue con la caída correcta.' },
+            { n: '06', title: 'Revisión en 18 puntos', text: 'Medidas, simetría, botones, ojales, hilos sueltos y etiquetas. Si no pasa, no sale del taller.' },
+        ];
+
+        // Body measurements in cm. Corporate garments use numeric sizes; casual ones letter sizes. [verificar con el taller]
+        const SIZE_TABLES = [
+            { title: 'Caballero · sacos y chalecos', head: ['Talla', 'Pecho', 'Cintura', 'Largo de manga'], rows: [['36', '91', '76', '61'], ['38', '96', '81', '62'], ['40', '101', '86', '63'], ['42', '106', '91', '64'], ['44', '111', '96', '65'], ['46', '116', '101', '65'], ['48', '121', '106', '66'], ['50', '126', '111', '66']] },
+            { title: 'Dama · sacos, faldas y pantalones', head: ['Talla', 'Busto', 'Cintura', 'Cadera'], rows: [['3 / 28', '82', '64', '90'], ['5 / 30', '86', '68', '94'], ['7 / 32', '90', '72', '98'], ['9 / 34', '94', '76', '102'], ['11 / 36', '98', '80', '106'], ['13 / 38', '103', '85', '111'], ['15 / 40', '108', '90', '116'], ['17 / 42', '113', '95', '121']] },
+            { title: 'Unisex · filipinas, clínicos y blusas', head: ['Talla', 'Pecho', 'Cintura', 'Cadera'], rows: [['XCH', '84', '68', '88'], ['CH', '90', '74', '94'], ['M', '98', '82', '102'], ['G', '106', '90', '110'], ['XG', '114', '98', '118'], ['2XG', '122', '106', '126'], ['3XG', '130', '114', '134']] },
+        ];
+
+        const HOW_TO_MEASURE = [
+            ['Pecho / busto', 'Alrededor de la parte más amplia, con la cinta horizontal y los brazos relajados.'],
+            ['Cintura', 'En la parte más angosta del torso, sin apretar.'],
+            ['Cadera', 'Alrededor de la parte más amplia, con los pies juntos.'],
+            ['Largo de manga', 'Del hueso del hombro a la muñeca, con el brazo ligeramente doblado.'],
+        ];
+
+        const CraftPage = () => {
+            const catalog = useCatalog();
+            return (
+                <>
+                    <PageHero kicker="El taller · Roma Norte, CDMX" title="Confección con" accent="oficio de sastre."
+                        intro="En Zarem diseñamos, cortamos y cosemos cada uniforme en nuestro propio taller. No subcontratamos la confección: así respondemos por cada costura." />
+
+                    <section className="max-w-7xl mx-auto px-4 md:px-8 py-20">
+                        <SectionTitle kicker="Cómo se hace un uniforme Zarem" accent="seis pasos">En</SectionTitle>
+                        <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {PROCESS.map(p => (
+                                <li key={p.n} className="reveal rounded-2xl border border-noche-line p-7">
+                                    <p className="font-display text-4xl text-acero-300">{p.n}</p>
+                                    <h3 className="text-2xl mt-3">{p.title}</h3>
+                                    <p className="text-sm text-acero-600 mt-2 leading-relaxed">{p.text}</p>
+                                </li>
+                            ))}
+                        </ol>
+                    </section>
+
+                    <section id="telas" className="twill text-white py-20 scroll-mt-24">
+                        <div className="max-w-7xl mx-auto px-4 md:px-8">
+                            <SectionTitle kicker="Telas" accent="mexicanas, elegidas por su uso" light>Hilos</SectionTitle>
+                            {catalog.status === 'loading' && <div className="h-40 rounded-2xl bg-white/5 animate-pulse" />}
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                {catalog.fabrics.map(fb => (
+                                    <article key={fb.id} className="reveal rounded-2xl bg-white/[.04] border border-white/10 p-6">
+                                        <p className="kicker text-acero-300">{fb.origin} · {fb.weight}</p>
+                                        <h3 className="text-2xl mt-2">{fb.name}</h3>
+                                        <p className="text-sm text-white/70 mt-1">{fb.composition}</p>
+                                        <p className="text-sm text-white/80 mt-3">{fb.feel}</p>
+                                        <div className="flex gap-2 mt-4">{fb.colors.map(c => <span key={c.id} title={c.name} className="w-6 h-6 rounded-full border border-white/30" style={{ background: c.hex }} />)}</div>
+                                        <p className="text-xs text-white/55 mt-4">{fb.care}</p>
+                                    </article>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="tallas" className="max-w-7xl mx-auto px-4 md:px-8 py-20 scroll-mt-24">
+                        <SectionTitle kicker="Guía de tallas" accent="sin adivinar">Tu talla,</SectionTitle>
+                        <div className="grid lg:grid-cols-3 gap-10">
+                            <div className="reveal">
+                                <p className="text-acero-600 leading-relaxed">Mide sobre ropa ligera con una cinta flexible. Si quedas entre dos tallas, elige la mayor: ajustamos sin costo el largo de manga y el dobladillo.</p>
+                                <dl className="mt-6 space-y-4">
+                                    {HOW_TO_MEASURE.map(([k, v]) => <div key={k}><dt className="font-semibold text-sm">{k}</dt><dd className="text-sm text-acero-600">{v}</dd></div>)}
+                                </dl>
+                                <a href="/pages/contacto/?asunto=medidas" className="btn btn-line mt-8">Agendar toma de medidas</a>
+                            </div>
+                            <div className="lg:col-span-2 space-y-8">
+                                {SIZE_TABLES.map(t => (
+                                    <div key={t.title} className="reveal overflow-x-auto">
+                                        <p className="kicker text-acero mb-3">{t.title} · cm</p>
+                                        <table className="w-full text-sm min-w-[28rem]">
+                                            <thead><tr>{t.head.map(h => <th key={h} className="text-left font-semibold py-2 border-b-2 border-noche">{h}</th>)}</tr></thead>
+                                            <tbody>{t.rows.map(r => <tr key={r[0]} className="border-b border-noche-line">{r.map((c, i) => <td key={i} className={`py-2 ${i === 0 ? 'font-semibold' : 'text-acero-600'}`}>{c}</td>)}</tr>)}</tbody>
+                                        </table>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="cuidados" className="bg-hielo-50 py-16 scroll-mt-24">
+                        <div className="max-w-5xl mx-auto px-4 md:px-8 text-center reveal">
+                            <h2 className="text-3xl md:text-4xl">Cuídalo y te <span className="accent">durará años.</span></h2>
+                            <p className="text-acero-600 mt-4 max-w-2xl mx-auto">Lava en frío y del revés, sin suavizante en las telas técnicas, cuelga en gancho ancho y vaporiza en lugar de planchar las prendas de lana. Cada prenda trae su etiqueta de cuidados.</p>
+                        </div>
+                    </section>
+                </>
+            );
+        };
+
+        renderPage(CraftPage);
+    </script>
+</body>
+</html>

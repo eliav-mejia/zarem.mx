@@ -1,0 +1,14 @@
+# Documentación interna: nunca en el repositorio ni en el sitio.
+_interno/
+
+# Configuración local del editor / agente
+.claude/
+
+# Secretos (Etapa 2+: Supabase service_role, pasarela de pago, SMTP). Solo .env.example se publica.
+.env
+.env.*
+!.env.example
+
+# Futuro build (Variante E)
+node_modules/
+dist/

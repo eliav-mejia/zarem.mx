@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página no encontrada · Zarem</title>
+    <meta name="description" content="Página no encontrada.">
+    <link rel="canonical" href="https://zarem.mx/404.html">
+    <meta property="og:title" content="Página no encontrada · Zarem">
+    <meta property="og:description" content="Página no encontrada.">
+    <meta property="og:url" content="https://zarem.mx/404.html">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#0b1b34">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel">
+        // Old URL → new URL. Add one entry per moved or deleted page (e.g. a product removed from the catalogue).
+        const MOVED = {};
+        const target = MOVED[location.pathname];
+        if (target) location.replace(target + location.search + location.hash);
+
+        renderPage(() => (
+            <PageHero kicker="404" title="Esta página" accent="no existe." intro="Puede que el enlace haya cambiado o que la prenda ya no esté en catálogo.">
+                <div className="flex flex-wrap gap-3 mt-8">
+                    <a href="/" className="btn btn-dark">Inicio</a>
+                    <a href="/pages/tienda/" className="btn btn-line">Tienda</a>
+                    <a href="/pages/contacto/" className="btn btn-line">Contacto</a>
+                </div>
+            </PageHero>
+        ));
+    </script>
+</body>
+</html>
