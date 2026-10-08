@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu bolsa · Zarem</title>
-    <meta name="description" content="Revisa tus prendas, elige el envío y confirma tu pedido de uniformes.">
+    <title>Bolsa · Zarem</title>
+    <meta name="description" content="Revisa tus prendas, elige entrega y forma de pago, y confirma tu pedido de uniformes.">
     <link rel="canonical" href="https://zarem.mx/pages/bolsa/">
-    <meta property="og:title" content="Tu bolsa · Zarem">
-    <meta property="og:description" content="Revisa tus prendas, elige el envío y confirma tu pedido de uniformes.">
+    <meta property="og:title" content="Bolsa · Zarem">
+    <meta property="og:description" content="Revisa tus prendas, elige entrega y forma de pago, y confirma tu pedido de uniformes.">
     <meta property="og:url" content="https://zarem.mx/pages/bolsa/">
+    <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
     <meta name="robots" content="noindex">
-    <meta name="theme-color" content="#0b1b34">
+    <meta name="theme-color" content="#ffffff">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -31,54 +32,56 @@
     <script type="text/babel" src="/js/layout.jsx"></script>
     <script type="text/babel" src="/js/tienda.jsx"></script>
     <script type="text/babel">
-        // Etapa 1 checkout: the order is saved in this browser (db.createOrder) and sent by WhatsApp; we confirm stock and send
-        // a payment link by hand. Etapa 2: db.createOrder → Edge Function (re-prices) → Stripe / Mercado Pago checkout.
-        const STATES = ['Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima', 'Durango', 'Estado de México', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'];
-        const EMPTY = { name: '', email: '', phone: '', company: '', invoice: false, rfc: '', street: '', colonia: '', zip: '', city: '', state: 'Ciudad de México', notes: '', consent: false };
+        // Etapa 1 checkout: the order is saved in this browser (db.createOrder) and sent by WhatsApp; we reply with the card
+        // payment link or the OXXO slip. Etapa 2: db.createOrder → Edge Function (re-prices) → Stripe / Mercado Pago.
+        // Payment depends on delivery (tienda.json): pickup → card or cash; home delivery → card or OXXO.
+        const EMPTY = { parent: '', email: '', phone: '', student: '', grade: '', street: '', colonia: '', zip: '', city: '', notes: '', consent: false };
 
         const BagPage = () => {
             const catalog = useCatalog();
             const lines = useBagLines(catalog);
-            const [shippingId, setShippingId] = useState('cdmx');
+            const [shippingId, setShippingId] = useState('tienda');
+            const [paymentId, setPaymentId] = useState('tarjeta');
             const [form, setForm] = useState(EMPTY);
             const [sent, setSent] = useState(null);
             const f = (key) => ({ value: form[key], onChange: (e) => setForm({ ...form, [key]: e.target.value }) });
 
             if (sent) return (
-                <PageHero kicker={`Pedido ${sent.id}`} title="Gracias. Tu uniforme ya está" accent="en camino al taller."
-                    intro={`Abrimos WhatsApp con tu pedido. Te confirmamos existencias y te enviamos la liga de pago en horario de atención. Si no se abrió, escríbenos a ${BRAND.email} con la referencia ${sent.id}.`}>
-                    <div className="flex flex-wrap gap-3 mt-8"><a href="/pages/tienda/" className="btn btn-dark">Seguir comprando</a><a href="/" className="btn btn-line">Inicio</a></div>
+                <PageHero kicker={`Pedido ${sent.id}`} title="Gracias. Recibimos tu pedido."
+                    intro={`Abrimos WhatsApp con el detalle. Te enviamos ${sent.payment_id === 'oxxo' ? 'tu ficha de OXXO' : sent.payment_id === 'efectivo' ? 'la confirmación para pagar al recoger' : 'la liga de pago con tarjeta'} en horario de atención. Si no se abrió, escríbenos a ${BRAND.email} con la referencia ${sent.id}.`}>
+                    <div className="flex flex-wrap gap-2 mt-10"><a href="/pages/tienda/" className="btn btn-ink">Seguir comprando</a><a href="/" className="btn btn-line">Inicio</a></div>
+                </PageHero>
+            );
+            if (catalog.status !== 'ready') return <PageHero kicker="Bolsa" title="Bolsa">{catalog.status === 'error' && <LoadError />}</PageHero>;
+            if (lines.length === 0) return (
+                <PageHero kicker="Bolsa" title="Tu bolsa está vacía.">
+                    <a href="/pages/tienda/" className="btn btn-ink mt-10">Ir a la tienda</a>
                 </PageHero>
             );
 
-            if (catalog.status !== 'ready') return (
-                <>
-                    <PageHero kicker="Bolsa" title="Tu" accent="bolsa" />
-                    <section className="max-w-7xl mx-auto px-4 md:px-8 py-12">{catalog.status === 'error' ? <LoadError /> : <div className="h-40 rounded-2xl bg-hielo-50 animate-pulse" />}</section>
-                </>
-            );
-
-            const priced = priceBag(lines, catalog.rules, shippingId);
-            const delivery = shippingId !== 'taller';
+            const rules = catalog.rules;
+            const priced = priceBag(lines, rules, shippingId);
+            const allowed = priced.method.payments;
+            const payment = allowed.includes(paymentId) ? paymentId : allowed[0];
+            const delivery = shippingId !== 'tienda';
+            const paymentLabel = rules.payments.find(p => p.id === payment).label;
 
             const submit = async (e) => {
                 e.preventDefault();
-                const customer = { ...form };
-                const order = await db.createOrder({ customer, shippingId, priced });
+                const order = await db.createOrder({ customer: form, shippingId, paymentId: payment, priced });
                 const text = [
-                    `Hola Zarem, quiero confirmar mi pedido ${order.id}:`,
+                    `Hola Zarem, quiero confirmar mi pedido ${order.id} de uniformes ${BRAND.school}:`,
                     '',
-                    ...priced.lines.map(l => `• ${l.qty} × ${l.product.name} (${l.product.sku}) — ${l.color?.name}, talla ${l.size}${l.embroidery ? ', con bordado' : ''} — ${formatMXN(l.qty * l.product.price_mxn)}`),
+                    ...priced.lines.map(l => `• ${l.qty} × ${l.product.name} (${l.product.sku}) talla ${l.size}${l.name ? `, bordado «${l.name}»` : ''} — ${formatMXN(l.qty * l.product.price_mxn)}`),
                     '',
-                    `Subtotal: ${formatMXN(priced.subtotal)}`,
-                    priced.discount > 0 && `Descuento por volumen (${priced.tier.pct} %): −${formatMXN(priced.discount)}`,
-                    priced.embroidery > 0 && `Bordado (${priced.embPieces} pzs + digitalización): ${formatMXN(priced.embroidery)}`,
+                    priced.embroidery > 0 && `Bordado de nombre (${priced.embPieces}): ${formatMXN(priced.embroidery)}`,
                     `${priced.method.label}: ${priced.shipping ? formatMXN(priced.shipping) : 'sin costo'}`,
                     `Total (IVA incluido): ${formatMXN(priced.total)}`,
+                    `Pago: ${paymentLabel}`,
                     '',
-                    `${form.name}${form.company ? ` · ${form.company}` : ''} · ${form.email} · ${form.phone}`,
-                    delivery && `Entrega: ${form.street}, ${form.colonia}, ${form.zip} ${form.city}, ${form.state}`,
-                    form.invoice && `Factura a RFC ${form.rfc.toUpperCase()}`,
+                    `Alumno(a): ${form.student}${form.grade ? `, ${form.grade}` : ''}`,
+                    `${form.parent} · ${form.email} · ${form.phone}`,
+                    delivery && `Entrega: ${form.street}, ${form.colonia}, ${form.zip}, ${form.city}`,
                     form.notes && `Notas: ${form.notes}`,
                 ].filter(x => x !== false && x !== '' && x != null).join('\n');
                 window.open(waLink(text), '_blank', 'noopener,noreferrer');
@@ -86,101 +89,85 @@
                 setSent(order);
             };
 
-            if (lines.length === 0) return (
-                <>
-                    <PageHero kicker="Bolsa" title="Tu bolsa está" accent="vacía" intro="Elige tus prendas en la tienda; el descuento por volumen se calcula aquí, sumando todas." >
-                        <div className="flex flex-wrap gap-3 mt-8"><a href="/pages/tienda/" className="btn btn-dark">Ir a la tienda</a><a href="/pages/empresas/" className="btn btn-line">Programa para empresas</a></div>
-                    </PageHero>
-                </>
+            const Option = ({ name, value, checked, onChange, title, detail, right, disabled }) => (
+                <label className={`flex gap-4 items-start border-t border-line py-4 ${disabled ? 'opacity-40' : 'cursor-pointer'}`}>
+                    <input type="radio" name={name} value={value} checked={checked} onChange={onChange} disabled={disabled} className="mt-0.5 accent-black" />
+                    <span className="flex-1"><span className="label-strong block">{title}</span><span className="text-xs text-ink-500">{detail}</span></span>
+                    {right && <span className="label">{right}</span>}
+                </label>
             );
 
             return (
                 <>
-                    <PageHero kicker={`${priced.pieces} ${priced.pieces === 1 ? 'pieza' : 'piezas'}`} title="Tu" accent="bolsa" />
-                    <form onSubmit={submit} className="max-w-7xl mx-auto px-4 md:px-8 py-12 grid lg:grid-cols-5 gap-10">
-                        <div className="lg:col-span-3 space-y-10">
-                            <div>
-                                <ul className="divide-y divide-noche-line border-y border-noche-line">
-                                    {lines.map(l => (
-                                        <li key={l.key} className="py-5 flex gap-4 items-center">
-                                            <a href={`/pages/tienda/${l.product.slug}/?color=${l.colorId}`} className="w-20 h-24 shrink-0 rounded-xl ice-wash"><Garment product={l.product} color={l.color} className="w-full h-full p-1.5" /></a>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="font-display text-xl">{l.product.name}</p>
-                                                <p className="text-sm text-acero-600">{l.color?.name} · Talla {l.size}{l.embroidery ? ' · Bordado' : ''}</p>
-                                                <p className="text-xs text-acero-400 mt-0.5">{l.product.sku} · {formatMXN(l.product.price_mxn)} c/u</p>
-                                                <div className="flex items-center gap-4 mt-2">
-                                                    <div className="flex items-center border border-noche-line rounded-full text-sm">
-                                                        <button type="button" className="w-9 h-9" onClick={() => bag.set(l.key, l.qty - 1)} aria-label={`Una pieza menos de ${l.product.name}`}>−</button>
-                                                        <span className="w-7 text-center">{l.qty}</span>
-                                                        <button type="button" className="w-9 h-9" onClick={() => bag.set(l.key, l.qty + 1)} aria-label={`Una pieza más de ${l.product.name}`}>+</button>
-                                                    </div>
-                                                    <button type="button" className="text-xs text-acero-400 hover:text-noche underline" onClick={() => bag.set(l.key, 0)}>Quitar</button>
+                    <section className="max-w-[1600px] mx-auto px-4 md:px-10 pt-14 md:pt-20 pb-6">
+                        <h1 className="text-5xl md:text-7xl uppercase">Bolsa <span className="text-ink-300">({priced.pieces})</span></h1>
+                    </section>
+                    <form onSubmit={submit} className="max-w-[1600px] mx-auto px-4 md:px-10 grid lg:grid-cols-12 gap-12">
+                        <div className="lg:col-span-7 space-y-14">
+                            <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-1 gap-y-8">
+                                {lines.map(l => (
+                                    <li key={l.key}>
+                                        <a href={`/pages/tienda/${l.product.slug}/`}><Photo product={l.product} className="aspect-[3/4]" /></a>
+                                        <div className="pt-3 label space-y-1">
+                                            <p className="flex justify-between gap-2"><span>{l.product.name}</span><span>{formatMXN(l.qty * l.product.price_mxn)}</span></p>
+                                            <p className="text-ink-500">Talla {l.size}{l.name ? ` · ${l.name}` : ''}</p>
+                                            <div className="flex items-center gap-4 pt-1">
+                                                <div className="flex items-center border border-line">
+                                                    <button type="button" className="w-8 h-8" onClick={() => bag.set(l.key, l.qty - 1)} aria-label={`Una pieza menos de ${l.product.name}`}>−</button>
+                                                    <span className="w-5 text-center">{l.qty}</span>
+                                                    <button type="button" className="w-8 h-8" onClick={() => bag.set(l.key, l.qty + 1)} aria-label={`Una pieza más de ${l.product.name}`}>+</button>
                                                 </div>
+                                                <button type="button" className="link text-ink-500" onClick={() => bag.set(l.key, 0)}>Eliminar</button>
                                             </div>
-                                            <p className="font-display text-xl whitespace-nowrap">{formatMXN(l.qty * l.product.price_mxn)}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <a href="/pages/tienda/" className="inline-block text-sm underline mt-4">+ Agregar más prendas</a>
-                            </div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
 
                             <fieldset>
-                                <legend className="kicker text-acero-600 mb-4">Entrega</legend>
-                                <div className="grid gap-3">
-                                    {catalog.rules.shipping.map(s => (
-                                        <label key={s.id} className={`flex gap-3 items-start rounded-xl border p-4 cursor-pointer ${shippingId === s.id ? 'border-zafiro bg-hielo-50' : 'border-noche-line'}`}>
-                                            <input type="radio" name="shipping" value={s.id} checked={shippingId === s.id} onChange={() => setShippingId(s.id)} className="mt-1 accent-[#1e3a6e]" />
-                                            <span className="flex-1 text-sm"><strong>{s.label}</strong><span className="block text-acero-600">{s.detail}</span></span>
-                                            <span className="text-sm">{s.cost_mxn ? (s.free_from_mxn ? `${formatMXN(s.cost_mxn)} · gratis desde ${formatMXN(s.free_from_mxn)}` : formatMXN(s.cost_mxn)) : 'Sin costo'}</span>
-                                        </label>
-                                    ))}
-                                </div>
+                                <legend className="label-strong mb-4">Entrega</legend>
+                                {rules.shipping.map(s => <Option key={s.id} name="shipping" value={s.id} checked={shippingId === s.id} onChange={() => setShippingId(s.id)}
+                                    title={s.label} detail={s.detail} right={s.cost_mxn ? (s.free_from_mxn ? `${formatMXN(s.cost_mxn)} · gratis desde ${formatMXN(s.free_from_mxn)}` : formatMXN(s.cost_mxn)) : 'Gratis'} />)}
                             </fieldset>
 
-                            <fieldset className="space-y-3">
-                                <legend className="kicker text-acero-600 mb-4">Tus datos</legend>
-                                <div className="grid sm:grid-cols-2 gap-3">
-                                    <input className="field" placeholder="Nombre completo" required autoComplete="name" {...f('name')} />
-                                    <input className="field" placeholder="Empresa (opcional)" autoComplete="organization" {...f('company')} />
-                                    <input className="field" type="email" placeholder="Email" required autoComplete="email" {...f('email')} />
-                                    <input className="field" type="tel" placeholder="Teléfono / WhatsApp" required autoComplete="tel" {...f('phone')} />
-                                </div>
-                                {delivery && (
-                                    <div className="grid sm:grid-cols-2 gap-3 pt-2">
-                                        <input className="field sm:col-span-2" placeholder="Calle, número exterior e interior" required autoComplete="street-address" {...f('street')} />
-                                        <input className="field" placeholder="Colonia" required {...f('colonia')} />
-                                        <input className="field" placeholder="Código postal" required inputMode="numeric" pattern="[0-9]{5}" autoComplete="postal-code" {...f('zip')} />
-                                        <input className="field" placeholder="Alcaldía / municipio" required autoComplete="address-level2" {...f('city')} />
-                                        <select className="field" required {...f('state')}>{STATES.map(s => <option key={s}>{s}</option>)}</select>
-                                    </div>
-                                )}
-                                <label className="flex gap-3 text-sm pt-2">
-                                    <input type="checkbox" checked={form.invoice} onChange={e => setForm({ ...form, invoice: e.target.checked })} className="accent-[#1e3a6e]" />
-                                    Necesito factura (CFDI)
-                                </label>
-                                {form.invoice && <input className="field uppercase" placeholder="RFC" required pattern="[A-Za-zÑñ&]{3,4}[0-9]{6}[A-Za-z0-9]{3}" {...f('rfc')} />}
-                                <textarea className="field" rows="3" maxLength={600} placeholder="Notas: nombres para bordar, horario de entrega, colores institucionales…" {...f('notes')} />
+                            <fieldset id="pago">
+                                <legend className="label-strong mb-4">Forma de pago</legend>
+                                {rules.payments.map(p => <Option key={p.id} name="payment" value={p.id} checked={payment === p.id} onChange={() => setPaymentId(p.id)}
+                                    title={p.label} detail={p.detail} disabled={!allowed.includes(p.id)} />)}
+                            </fieldset>
+
+                            <fieldset className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+                                <legend className="label-strong mb-4">Datos</legend>
+                                <input className="field" placeholder="Nombre de mamá, papá o tutor" required autoComplete="name" {...f('parent')} />
+                                <input className="field" type="tel" placeholder="Teléfono / WhatsApp" required autoComplete="tel" {...f('phone')} />
+                                <input className="field sm:col-span-2" type="email" placeholder="Email" required autoComplete="email" {...f('email')} />
+                                <input className="field" placeholder="Nombre del alumno(a)" required {...f('student')} />
+                                <input className="field" placeholder="Grado y grupo (opcional)" {...f('grade')} />
+                                {delivery && <>
+                                    <input className="field sm:col-span-2" placeholder="Calle y número" required autoComplete="street-address" {...f('street')} />
+                                    <input className="field" placeholder="Colonia" required {...f('colonia')} />
+                                    <input className="field" placeholder="Código postal" required inputMode="numeric" pattern="[0-9]{5}" autoComplete="postal-code" {...f('zip')} />
+                                    <input className="field sm:col-span-2" placeholder="Alcaldía o municipio, estado" required autoComplete="address-level2" {...f('city')} />
+                                </>}
+                                <textarea className="field sm:col-span-2" rows="2" maxLength={400} placeholder="Notas (opcional)" {...f('notes')} />
                             </fieldset>
                         </div>
 
-                        <aside className="lg:col-span-2 lg:sticky lg:top-28 self-start rounded-3xl bg-hielo-50 border border-noche-line p-6 md:p-8">
-                            <p className="kicker text-acero-600 mb-5">Resumen</p>
-                            <dl className="space-y-2.5 text-sm">
+                        <aside className="lg:col-span-4 lg:col-start-9 lg:sticky lg:top-28 self-start border-t border-ink pt-6">
+                            <dl className="label space-y-3">
                                 <div className="flex justify-between"><dt>Prendas ({priced.pieces})</dt><dd>{formatMXN(priced.subtotal)}</dd></div>
-                                {priced.discount > 0 && <div className="flex justify-between text-zafiro font-medium"><dt>Descuento por volumen · {priced.tier.pct} %</dt><dd>−{formatMXN(priced.discount)}</dd></div>}
-                                {priced.embroidery > 0 && <div className="flex justify-between"><dt>Bordado ({priced.embPieces} pzs + digitalización)</dt><dd>{formatMXN(priced.embroidery)}</dd></div>}
-                                <div className="flex justify-between"><dt>{priced.method.label}</dt><dd>{priced.shipping ? formatMXN(priced.shipping) : 'Sin costo'}</dd></div>
-                                <div className="flex justify-between font-display text-3xl pt-4 mt-2 border-t border-noche-line"><dt>Total</dt><dd>{formatMXN(priced.total)}</dd></div>
+                                {priced.embroidery > 0 && <div className="flex justify-between"><dt>Bordado de nombre ({priced.embPieces})</dt><dd>{formatMXN(priced.embroidery)}</dd></div>}
+                                <div className="flex justify-between"><dt>{priced.method.label}</dt><dd>{priced.shipping ? formatMXN(priced.shipping) : 'Gratis'}</dd></div>
+                                <div className="flex justify-between label-strong text-base pt-4 border-t border-line"><dt>Total</dt><dd>{formatMXN(priced.total)}</dd></div>
                             </dl>
-                            <p className="text-xs text-acero-400 mt-1">IVA incluido.</p>
-                            {priced.next && <p className="text-xs bg-white rounded-lg p-3 mt-4">Con {priced.next.min_qty - priced.pieces} {priced.next.min_qty - priced.pieces === 1 ? 'pieza' : 'piezas'} más obtienes <strong>{priced.next.pct} %</strong> de descuento en todo.</p>}
-                            {priced.pieces >= catalog.rules.company_from_qty && <p className="text-xs bg-white rounded-lg p-3 mt-4">Más de {catalog.rules.company_from_qty} piezas: <a href="/pages/empresas/" className="underline">te conviene el programa para empresas</a> (precio especial y medición en sitio).</p>}
-                            <label className="flex gap-3 text-sm text-acero-600 mt-6">
-                                <input type="checkbox" required checked={form.consent} onChange={e => setForm({ ...form, consent: e.target.checked })} className="mt-1 accent-[#1e3a6e]" />
+                            <p className="label text-ink-400 mt-2">IVA incluido · Pago: {paymentLabel}</p>
+                            {delivery && priced.shipping > 0 && <p className="text-xs text-ink-500 mt-4">Te faltan {formatMXN(priced.method.free_from_mxn - priced.subtotal)} para el envío gratis.</p>}
+                            <label className="flex gap-3 text-xs text-ink-700 mt-8">
+                                <input type="checkbox" required checked={form.consent} onChange={e => setForm({ ...form, consent: e.target.checked })} className="mt-0.5 accent-black" />
                                 <span>Acepto los <a href="/pages/terminos/" className="underline">términos de venta</a> y el <a href="/pages/privacidad/" className="underline">aviso de privacidad</a>.</span>
                             </label>
-                            <button className="btn btn-blue w-full mt-5"><IconWhatsApp className="w-5 h-5" /> Confirmar pedido</button>
-                            <p className="text-xs text-acero-400 mt-3 text-center">Se abre WhatsApp con tu pedido. Confirmamos existencias y te enviamos la liga de pago (tarjeta, transferencia u OXXO).</p>
+                            <button className="btn btn-ink w-full mt-6">Confirmar pedido</button>
+                            <p className="text-xs text-ink-500 mt-3">Se abre WhatsApp con tu pedido; te respondemos con {payment === 'oxxo' ? 'tu ficha de OXXO' : payment === 'efectivo' ? 'la confirmación' : 'la liga de pago'}.</p>
                         </aside>
                     </form>
                 </>

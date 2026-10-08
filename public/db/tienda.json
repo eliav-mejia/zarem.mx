@@ -1,19 +1,15 @@
 {
-  "_schema": "volume_tiers[{ min_qty, pct }] · embroidery_mxn · shipping[{ id, label, detail, cost_mxn, free_from_mxn }] · company_from_qty",
-  "_note": "Reglas comerciales de ejemplo (Etapa 1): confirmar con el cliente. Precios con IVA incluido. En la Etapa 2 el servidor recalcula todo con estas mismas reglas.",
+  "_schema": "embroidery_mxn · shipping[{ id, label, detail, cost_mxn, free_from_mxn, payments[] }] · payments[{ id, label, detail }]",
+  "_note": "Reglas de ejemplo (Etapa 1), tomadas del sitio anterior de zarem.mx: confirmar con el cliente. Precios con IVA incluido.",
   "updated_at": "2026-10-08",
-  "volume_tiers": [
-    { "min_qty": 1, "pct": 0 },
-    { "min_qty": 10, "pct": 5 },
-    { "min_qty": 25, "pct": 10 },
-    { "min_qty": 50, "pct": 15 }
-  ],
-  "company_from_qty": 100,
-  "embroidery_mxn": 95,
-  "embroidery_setup_mxn": 450,
+  "embroidery_mxn": 60,
   "shipping": [
-    { "id": "taller", "label": "Recoger en el taller", "detail": "Roma Norte, CDMX · listo en 2 días hábiles (en existencia)", "cost_mxn": 0, "free_from_mxn": 0 },
-    { "id": "cdmx", "label": "Envío CDMX y zona metropolitana", "detail": "1 – 2 días hábiles", "cost_mxn": 149, "free_from_mxn": 2500 },
-    { "id": "nacional", "label": "Envío nacional", "detail": "2 – 5 días hábiles", "cost_mxn": 249, "free_from_mxn": 4500 }
+    { "id": "tienda", "label": "Recoger en tienda", "detail": "Te avisamos cuando esté listo: máximo 48 horas hábiles después de tu pago.", "cost_mxn": 0, "free_from_mxn": 0, "payments": ["tarjeta", "efectivo"] },
+    { "id": "domicilio", "label": "Envío a domicilio", "detail": "Sale en 48 horas hábiles desde que se confirma tu pago con tarjeta; con OXXO, de 3 a 5 días hábiles.", "cost_mxn": 149, "free_from_mxn": 2000, "payments": ["tarjeta", "oxxo"] }
+  ],
+  "payments": [
+    { "id": "tarjeta", "label": "Tarjeta de crédito o débito", "detail": "Te enviamos una liga de pago segura." },
+    { "id": "oxxo", "label": "Pago en OXXO", "detail": "Genera tu ficha y paga en cualquier OXXO. Solo con envío." },
+    { "id": "efectivo", "label": "Efectivo en tienda", "detail": "Pagas al recoger. Solo para recoger en tienda." }
   ]
 }

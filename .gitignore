@@ -12,3 +12,6 @@ _interno/
 # Futuro build (Variante E)
 node_modules/
 dist/
+
+# Fotos originales en PNG (pesadas). Se publican las versiones WebP de img/fotos/.
+img/*.png

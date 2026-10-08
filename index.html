@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarem · Uniformes de confección fina hechos en CDMX</title>
-    <meta name="description" content="Uniformes corporativos, de hospitalidad y clínicos con confección de sastrería, hechos en nuestro taller de la Ciudad de México. Compra en línea por pieza o por volumen.">
+    <title>Zarem · Uniformes del Colegio La Florida</title>
+    <meta name="description" content="Uniformes oficiales del Colegio La Florida: diario, deportes y paquetes completos. Elige prenda y talla desde tu celular y paga con tarjeta, OXXO o efectivo en tienda.">
     <link rel="canonical" href="https://zarem.mx/">
-    <meta property="og:title" content="Zarem · Uniformes de confección fina hechos en CDMX">
-    <meta property="og:description" content="Uniformes corporativos, de hospitalidad y clínicos con confección de sastrería, hechos en nuestro taller de la Ciudad de México. Compra en línea por pieza o por volumen.">
+    <meta property="og:title" content="Zarem · Uniformes del Colegio La Florida">
+    <meta property="og:description" content="Uniformes oficiales del Colegio La Florida: diario, deportes y paquetes completos. Elige prenda y talla desde tu celular y paga con tarjeta, OXXO o efectivo en tienda.">
     <meta property="og:url" content="https://zarem.mx/">
+    <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#0b1b34">
+    <meta name="theme-color" content="#ffffff">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -30,176 +31,106 @@
     <script type="text/babel" src="/js/layout.jsx"></script>
     <script type="text/babel" src="/js/tienda.jsx"></script>
     <script type="text/babel">
-        const PROMISES = [
-            { icon: IconNeedle, title: 'Hecho en CDMX', text: 'Patronaje, corte y confección en nuestro taller de la Roma Norte.' },
-            { icon: IconRuler, title: 'Ajuste sin costo', text: 'El primer ajuste de manga o dobladillo corre por nuestra cuenta.' },
-            { icon: IconBag, title: 'Precio por volumen', text: 'Desde 10 piezas combinadas, hasta 15 % de descuento automático.' },
-            { icon: IconTruck, title: 'Envío gratis en CDMX', text: `En pedidos desde ${formatMXN(2500)}. Envíos a todo México.` },
-        ];
-
-        const CRAFT = [
-            { n: '01', title: 'Patronaje', text: 'Patrones propios por talla, probados en cuerpos reales antes de cortar.' },
-            { n: '02', title: 'Corte', text: 'Cortamos cada pieza siguiendo el hilo de la tela para que la caída no se tuerza.' },
-            { n: '03', title: 'Confección', text: 'Costuras de 12 puntadas por pulgada, refuerzos en hombro, sisa y entrepierna.' },
-            { n: '04', title: 'Planchado y revisión', text: 'Cada prenda se plancha a vapor y se revisa en 18 puntos antes de salir.' },
-        ];
-
-        const Hero = () => {
-            const catalog = useCatalog();
-            const dama = catalog.bySlug['saco-roma'];
-            const caballero = catalog.bySlug['saco-polanco'];
-            return (
-                <section className="relative overflow-hidden bg-hielo-50">
-                    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-14 pb-20 md:py-24 grid md:grid-cols-2 gap-12 items-center">
-                        <div className="animate-rise-in">
-                            <p className="kicker text-acero mb-6">Confección fina · Ciudad de México</p>
-                            <h1 className="text-[2.6rem] sm:text-[3.4rem] md:text-[5.2rem] leading-[0.98]">El uniforme, <span className="accent">a la medida</span> de tu oficio.</h1>
-                            <hr className="stitch w-40 my-8" />
-                            <p className="text-lg text-acero-600 max-w-lg leading-relaxed">Sastrería contemporánea para equipos que atienden, curan y dirigen. Telas mexicanas, cortes limpios y una confección que se nota en cada costura.</p>
-                            <div className="flex flex-wrap gap-3 mt-9">
-                                <a href="/pages/tienda/" className="btn btn-dark">Comprar uniformes <IconArrow className="w-4 h-4" /></a>
-                                <a href="/pages/empresas/" className="btn btn-line">Programa para empresas</a>
-                            </div>
-                        </div>
-                        <div className="relative aspect-square max-w-lg mx-auto w-full">
-                            <div className="absolute inset-[5%] rounded-full bg-gradient-to-br from-hielo-200 to-hielo-300" />
-                            <div className="absolute inset-[11%] rounded-full border-2 border-dashed border-white/80" />
-                            {dama && <a href={`/pages/tienda/${dama.slug}/?color=acero`} className="absolute left-[3%] bottom-[7%] w-[50%] hover:-translate-y-1 transition-transform"><Garment product={dama} color={catalog.colors.acero} /></a>}
-                            {caballero && <a href={`/pages/tienda/${caballero.slug}/?color=medianoche`} className="absolute right-[3%] bottom-[3%] w-[54%] hover:-translate-y-1 transition-transform"><Garment product={caballero} color={catalog.colors.medianoche} /></a>}
-                            <p className="absolute top-[6%] right-[2%] bg-white rounded-full px-4 py-2 text-xs shadow-sm">Saco Roma · Saco Polanco</p>
-                        </div>
+        // Home: full-screen photos with slow parallax (useParallax in layout.jsx), Zara-style. Header floats over the hero.
+        const Hero = () => (
+            <section className="parallax h-[100svh] min-h-[560px] bg-florida-marino" data-speed="0.25">
+                <img src="/img/fotos/patio-grupo.webp" alt={`Alumnos del ${BRAND.school} con uniforme diario y deportivo en el patio`} fetchpriority="high" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/45" />
+                <div className="absolute inset-x-0 bottom-0 max-w-[1600px] mx-auto px-4 md:px-10 pb-14 md:pb-20 text-white">
+                    <p className="label mb-5">Ciclo escolar 2026 – 2027</p>
+                    <h1 className="text-[13vw] md:text-[8.5vw] leading-[0.88] uppercase font-light tracking-[-0.04em]">Uniformes<br />La Florida</h1>
+                    <div className="flex flex-wrap gap-2 mt-10">
+                        <a href="/pages/tienda/" className="btn btn-light">Comprar ahora</a>
+                        <a href="/pages/tienda/?linea=paquetes" className="btn btn-light">Paquetes completos</a>
                     </div>
-                </section>
-            );
-        };
-
-        const Promises = () => (
-            <section className="border-b border-noche-line">
-                <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {PROMISES.map(p => (
-                        <div key={p.title} className="reveal flex gap-4">
-                            <span className="w-11 h-11 rounded-full bg-hielo-100 text-zafiro flex items-center justify-center shrink-0"><p.icon className="w-5 h-5" /></span>
-                            <div><p className="font-semibold">{p.title}</p><p className="text-sm text-acero-600 mt-1">{p.text}</p></div>
-                        </div>
-                    ))}
                 </div>
             </section>
         );
 
-        const LINE_COLOR = { corporativo: 'marino', hospitalidad: 'medianoche', salud: 'rey' };
-
-        const Lines = () => {
-            const catalog = useCatalog();
-            return (
-                <section className="twill text-white py-20 md:py-28">
-                    <div className="max-w-7xl mx-auto px-4 md:px-8">
-                        <SectionTitle kicker="Tres líneas, un mismo oficio" accent="para cada equipo" light>Uniformes</SectionTitle>
-                        <div className="grid md:grid-cols-3 gap-5">
-                            {catalog.lines.map(l => {
-                                const lead = catalog.products.find(p => p.line_id === l.id && p.featured);
-                                return (
-                                    <a key={l.id} href={`/pages/tienda/?linea=${l.id}`} className="reveal group relative rounded-3xl bg-white/[.04] border border-white/10 p-8 overflow-hidden min-h-[26rem] flex flex-col justify-end hover:bg-white/[.08] transition-colors">
-                                        {lead && <div className="absolute right-[-6%] top-[-6%] w-[52%] opacity-90 group-hover:-translate-y-1 transition-transform"><Garment product={lead} color={catalog.colors[LINE_COLOR[l.id]]} /></div>}
-                                        <div className="relative">
-                                        <p className="kicker text-acero-300">{l.sectors.slice(0, 3).join(' · ')}</p>
-                                        <h3 className="text-5xl mt-3">{l.label}</h3>
-                                        <p className="text-white/70 mt-3 text-sm leading-relaxed">{l.description}</p>
-                                        <p className="mt-6 text-sm font-semibold flex items-center gap-2">Ver la línea <IconArrow className="w-4 h-4" /></p>
-                                        </div>
-                                    </a>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </section>
-            );
-        };
+        // Two tall panels: girls / boys, each a parallax photo with a single label.
+        const Split = () => (
+            <section className="grid md:grid-cols-2 gap-1 mt-1">
+                {[
+                    { href: '/pages/tienda/?corte=nina', label: 'Niña', img: '/img/fotos/diario-nina.webp', alt: 'Uniforme diario de niña: cárdigan café, jumper gris y mallas blancas' },
+                    { href: '/pages/tienda/?corte=nino', label: 'Niño', img: '/img/fotos/diario-nino.webp', alt: 'Uniforme diario de niño: polo blanca y pantalón café' },
+                ].map(p => (
+                    <a key={p.label} href={p.href} className="parallax group block h-[85vh] md:h-[110vh] bg-paper-50" data-speed="0.15">
+                        <img src={p.img} alt={p.alt} loading="lazy" />
+                        <span className="absolute left-4 md:left-10 bottom-8 md:bottom-12 text-5xl md:text-7xl font-light uppercase tracking-tight">{p.label}</span>
+                        <span className="absolute right-4 md:right-10 bottom-10 md:bottom-14 label link">Ver todo</span>
+                    </a>
+                ))}
+            </section>
+        );
 
         const Featured = () => {
             const catalog = useCatalog();
+            const items = catalog.products.filter(p => p.featured).slice(0, 4);
             return (
-                <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 md:py-28">
-                    <div className="flex flex-wrap justify-between items-end gap-4">
-                        <SectionTitle kicker="Los más pedidos" accent="de la casa">Esenciales</SectionTitle>
-                        <a href="/pages/tienda/" className="btn btn-line mb-12">Toda la tienda</a>
+                <section className="max-w-[1600px] mx-auto px-4 md:px-10 pt-24 md:pt-32">
+                    <div className="flex justify-between items-end mb-8">
+                        <h2 className="text-4xl md:text-6xl uppercase">Esenciales</h2>
+                        <a href="/pages/tienda/" className="label link">Ver todo</a>
                     </div>
-                    {catalog.status === 'loading' && <GridSkeleton />}
-                    {catalog.status === 'error' && <LoadError />}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-                        {catalog.products.filter(p => p.featured).slice(0, 4).map(p => <ProductCard key={p.id} product={p} catalog={catalog} />)}
-                    </div>
+                    {catalog.status === 'loading' && <GridSkeleton n={4} />}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-x-1">{items.map(p => <ProductCard key={p.id} product={p} catalog={catalog} />)}</div>
                 </section>
             );
         };
 
-        const Craft = () => (
-            <section className="bg-hielo-50 py-20 md:py-28">
-                <div className="max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-5 gap-12">
-                    <div className="lg:col-span-2 reveal">
-                        <p className="kicker text-acero mb-3">El taller</p>
-                        <h2 className="text-4xl md:text-5xl leading-tight">La calidad está en lo que <span className="accent">no se ve.</span></h2>
-                        <p className="text-acero-600 mt-6 leading-relaxed">Un uniforme se usa ocho horas al día, cinco días a la semana. Por eso lo confeccionamos como un traje: entretelas que no se despegan, costuras que no ceden y acabados que aguantan cientos de lavadas.</p>
-                        <a href="/pages/confeccion/" className="btn btn-dark mt-8">Conoce el taller</a>
+        // Sports: wide band with both photos moving at different speeds.
+        const Sports = () => (
+            <section className="mt-24 md:mt-32">
+                <div className="grid grid-cols-2 gap-1">
+                    <a href="/pages/tienda/chamarra-deportiva-nina/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50" data-speed="0.1"><img src="/img/fotos/deportes-nina.webp" alt="Uniforme deportivo de niña, azul marino con franjas naranja y blanca" loading="lazy" /></a>
+                    <a href="/pages/tienda/chamarra-deportiva-nino/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50 md:mt-40" data-speed="0.22"><img src="/img/fotos/deportes-nino.webp" alt="Uniforme deportivo de niño, azul marino con cuello naranja" loading="lazy" /></a>
+                </div>
+                <div className="max-w-[1600px] mx-auto px-4 md:px-10 mt-10 flex flex-col md:flex-row justify-between gap-6 md:items-end">
+                    <h2 className="text-5xl md:text-8xl uppercase leading-[0.9]">Deportes</h2>
+                    <div className="max-w-sm">
+                        <p className="text-ink-700">Chamarra y pants azul marino con franjas naranja y blanca cosidas, no termofijadas: aguantan el lavado y el recreo.</p>
+                        <a href="/pages/tienda/?linea=deportes" className="btn btn-line mt-6">Comprar deportes</a>
                     </div>
-                    <ol className="lg:col-span-3 grid sm:grid-cols-2 gap-5">
-                        {CRAFT.map(s => (
-                            <li key={s.n} className="reveal rounded-2xl bg-white border border-noche-line p-7">
-                                <p className="font-display text-4xl text-acero-300">{s.n}</p>
-                                <h3 className="text-2xl mt-3">{s.title}</h3>
-                                <p className="text-sm text-acero-600 mt-2 leading-relaxed">{s.text}</p>
-                            </li>
-                        ))}
+                </div>
+            </section>
+        );
+
+        // Detail: the embroidered crest, close-up, with the text column scrolling past it.
+        const Crest = () => (
+            <section className="max-w-[1600px] mx-auto px-4 md:px-10 mt-24 md:mt-40 grid md:grid-cols-12 gap-8 items-center">
+                <div className="md:col-span-7 parallax aspect-[4/5] bg-paper-50" data-speed="0.12">
+                    <img src="/img/fotos/polo-escudo.webp" alt="Polo blanca con vivos y escudo del colegio bordado" loading="lazy" />
+                </div>
+                <div className="md:col-span-4 md:col-start-9 reveal">
+                    <p className="label text-ink-500 mb-6">El detalle</p>
+                    <h2 className="text-4xl md:text-6xl uppercase">El escudo, bordado.</h2>
+                    <p className="text-ink-700 mt-6 leading-relaxed">Piqué de algodón peinado, cuello con vivos tejidos que no se enrosca y el escudo bordado punto por punto. Puedes añadir el nombre del alumno al comprar.</p>
+                    <a href="/pages/tienda/polo-escudo/" className="btn btn-ink mt-8">Polo con escudo</a>
+                </div>
+            </section>
+        );
+
+        const STEPS = [
+            ['01', 'Elige', 'Prenda o paquete, y la talla de tu hijo o hija.'],
+            ['02', 'Paga', 'Con tarjeta, en OXXO o en efectivo al recoger.'],
+            ['03', 'Recibe', 'Recoge en tienda en 48 h hábiles o recíbelo en casa.'],
+        ];
+
+        const NoLines = () => (
+            <section className="parallax mt-24 md:mt-40 h-[100svh] min-h-[600px] bg-florida-marino" data-speed="0.2">
+                <img src="/img/fotos/patio-abrazo.webp" alt={`Alumnos del ${BRAND.school} abrazados en el patio`} loading="lazy" />
+                <div className="absolute inset-0 bg-black/35" />
+                <div className="absolute inset-0 max-w-[1600px] mx-auto px-4 md:px-10 flex flex-col justify-end pb-14 md:pb-20 text-white">
+                    <h2 className="text-5xl md:text-8xl uppercase leading-[0.9] max-w-4xl">Sin filas.</h2>
+                    <ol className="grid md:grid-cols-3 gap-6 md:gap-10 mt-10 max-w-5xl">
+                        {STEPS.map(([n, t, d]) => <li key={n} className="border-t border-white/60 pt-4"><p className="label">{n} · {t}</p><p className="text-sm text-white/85 mt-2">{d}</p></li>)}
                     </ol>
+                    <a href="/pages/como-comprar/" className="btn btn-light self-start mt-10">Cómo comprar</a>
                 </div>
             </section>
         );
 
-        const Companies = () => {
-            const catalog = useCatalog();
-            return (
-                <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 md:py-28">
-                    <div className="reveal rounded-[2rem] bg-zafiro text-white p-8 md:p-14 grid lg:grid-cols-2 gap-10 items-center relative overflow-hidden">
-                        <div className="absolute -right-24 -bottom-24 w-80 h-80 rounded-full border-2 border-dashed border-white/20" />
-                        <div>
-                            <p className="kicker text-acero-300 mb-3">Para empresas</p>
-                            <h2 className="text-4xl md:text-5xl leading-tight">Viste a todo tu equipo con <span className="italic text-acero-300">una sola imagen.</span></h2>
-                            <p className="text-white/75 mt-5 leading-relaxed">Colores institucionales, bordado de logotipo, medición en tus oficinas de la zona metropolitana y entregas etiquetadas por colaborador. Factura CFDI en cada pedido.</p>
-                            <div className="flex flex-wrap gap-3 mt-8">
-                                <a href="/pages/empresas/" className="btn bg-white text-noche hover:bg-hielo-100">Solicitar programa</a>
-                                <a href="/pages/tienda/" className="btn btn-ghost-light">Comprar por volumen</a>
-                            </div>
-                        </div>
-                        <div className="relative rounded-2xl bg-white text-noche p-6">
-                            <p className="kicker text-acero-600 mb-3">Descuento automático en tu bolsa</p>
-                            {catalog.rules ? <VolumeTable price={null} rules={catalog.rules} /> : <div className="h-32 bg-hielo-50 rounded-xl animate-pulse" />}
-                            <p className="text-xs text-acero-400 mt-3">Se suman todas las prendas, tallas y colores de tu bolsa.</p>
-                        </div>
-                    </div>
-                </section>
-            );
-        };
-
-        const Showroom = () => (
-            <section className="max-w-7xl mx-auto px-4 md:px-8">
-                <div className="reveal grid md:grid-cols-2 gap-10 items-center border-t border-noche-line pt-16">
-                    <div>
-                        <p className="kicker text-acero mb-3">Showroom y taller</p>
-                        <h2 className="text-4xl md:text-5xl">Pruébatelo en la <span className="accent">Roma Norte.</span></h2>
-                        <p className="text-acero-600 mt-5 leading-relaxed">Ven a ver las telas, probarte las tallas y tomarte medidas con nuestras sastres. Si compras en línea, puedes recoger tu pedido aquí sin costo.</p>
-                    </div>
-                    <div className="rounded-2xl bg-hielo-50 p-7 space-y-3 text-sm">
-                        <p className="flex gap-3"><IconPin className="w-5 h-5 text-zafiro shrink-0" />{BRAND.address}</p>
-                        <p className="pl-8 text-acero-600">{BRAND.hours}</p>
-                        <div className="pl-8 flex flex-wrap gap-3 pt-2">
-                            <a href="/pages/contacto/" className="btn btn-dark !py-2.5">Agendar visita</a>
-                            <a href={waLink('Hola, quiero visitar el showroom de Zarem.')} target="_blank" rel="noopener noreferrer" className="btn btn-line !py-2.5">WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        );
-
-        renderPage(() => <><Hero /><Promises /><Lines /><Featured /><Craft /><Companies /><Showroom /></>);
+        renderPage(() => <><Hero /><Split /><Featured /><Sports /><Crest /><NoLines /></>, { overlay: true });
     </script>
 </body>
 </html>

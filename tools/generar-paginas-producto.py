@@ -18,7 +18,7 @@ SITE = 'https://zarem.mx'
 OUT = ROOT / 'pages' / 'tienda'
 
 # Static pages for sitemap.xml (bolsa is excluded: no value for search engines).
-STATIC_PAGES = ['/', '/pages/tienda/', '/pages/empresas/', '/pages/confeccion/', '/pages/contacto/', '/pages/terminos/', '/pages/privacidad/']
+STATIC_PAGES = ['/', '/pages/tienda/', '/pages/como-comprar/', '/pages/contacto/', '/pages/terminos/', '/pages/privacidad/']
 
 TEMPLATE = """<!DOCTYPE html>
 <html lang="es-MX">
@@ -32,15 +32,16 @@ TEMPLATE = """<!DOCTYPE html>
     <meta property="og:description" content="{description}">
     <meta property="og:url" content="{url}">
     <meta property="og:type" content="product">
+    <meta property="og:image" content="{image}">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#0b1b34">
+    <meta name="theme-color" content="#ffffff">
     <script type="application/ld+json">{jsonld}</script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -61,7 +62,7 @@ TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-FIT = {'dama': 'dama', 'caballero': 'caballero', 'unisex': 'unisex'}
+FIT = {'nina': 'niña', 'nino': 'niño', 'unisex': 'niña y niño'}
 
 
 def main():
@@ -70,11 +71,12 @@ def main():
 
     for p in active:
         url = f"{SITE}/pages/tienda/{p['slug']}/"
-        title = f"{p['name']} · Uniforme {FIT.get(p['fit'], '')} · Zarem".replace('  ', ' ')
+        title = f"{p['name']} · Uniforme Colegio La Florida · Zarem"
         jsonld = {
             '@context': 'https://schema.org', '@type': 'Product',
             'name': p['name'], 'sku': p['sku'], 'description': p['description'],
-            'brand': {'@type': 'Brand', 'name': 'Zarem'},
+            'brand': {'@type': 'Brand', 'name': 'Zarem'}, 'image': SITE + p['image'],
+            'audience': {'@type': 'PeopleAudience', 'suggestedGender': {'nina': 'female', 'nino': 'male'}.get(p['fit'], 'unisex')},
             'offers': {
                 '@type': 'Offer', 'url': url, 'priceCurrency': 'MXN', 'price': p['price_mxn'],
                 'availability': 'https://schema.org/InStock' if p['availability'] == 'existencia' else 'https://schema.org/PreOrder',
@@ -84,7 +86,7 @@ def main():
         out = OUT / p['slug'] / 'index.html'
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(TEMPLATE.format(
-            title=html.escape(title), description=html.escape(f"{p['short']} {p['description']}"), url=url,
+            title=html.escape(title), description=html.escape(f"{p['short']} {p['description']}"), url=url, image=SITE + p['image'],
             jsonld=json.dumps(jsonld, ensure_ascii=False).replace('</', '<\\/'),
         ), encoding='utf-8', newline='\n')
         print(f"ok   pages/tienda/{p['slug']}/")

@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Términos de venta · Zarem</title>
-    <meta name="description" content="Términos de venta en línea de Zarem: precios, pagos, envíos, cambios, ajustes, bordados y pedidos de empresa.">
+    <meta name="description" content="Términos de venta en línea de los uniformes del Colegio La Florida: precios, pagos, entregas, cambios y bordados.">
     <link rel="canonical" href="https://zarem.mx/pages/terminos/">
     <meta property="og:title" content="Términos de venta · Zarem">
-    <meta property="og:description" content="Términos de venta en línea de Zarem: precios, pagos, envíos, cambios, ajustes, bordados y pedidos de empresa.">
+    <meta property="og:description" content="Términos de venta en línea de los uniformes del Colegio La Florida: precios, pagos, entregas, cambios y bordados.">
     <meta property="og:url" content="https://zarem.mx/pages/terminos/">
+    <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#0b1b34">
+    <meta name="theme-color" content="#ffffff">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -30,30 +31,24 @@
     <script type="text/babel" src="/js/layout.jsx"></script>
     <script type="text/babel">
         // Values in [corchetes] are placeholders, highlighted until filled in. Pending legal review (LFPC, NOM-247-SE-2021).
-        // Keep these ids: the shop links to #envios and #cambios.
+        // Keep these ids: other pages link to #entregas and #cambios.
         const SECTIONS = [
-            { id: 'empresa', title: 'Quiénes somos', body: [`${BRAND.name} es una marca de [Razón social], RFC [RFC], con domicilio en ${BRAND.address}. Contacto: ${BRAND.email}, ${BRAND.phone}.`] },
-            { id: 'precios', title: 'Precios y descuentos', body: [
-                'Los precios están en pesos mexicanos e incluyen IVA. El costo de envío se muestra antes de confirmar el pedido.',
-                'El descuento por volumen se calcula sobre el total de piezas del pedido (5 % desde 10, 10 % desde 25 y 15 % desde 50 piezas) y no aplica al bordado ni al envío.',
-                'El bordado tiene un costo por pieza y un cargo único por pedido para digitalizar el logotipo.' ] },
-            { id: 'pedidos', title: 'Pedidos y pago', body: [
-                'Al confirmar en el sitio recibimos tu pedido por WhatsApp. Confirmamos existencias y te enviamos una liga de pago (tarjeta, transferencia u OXXO) con vigencia de [48] horas. El pedido se procesa al acreditarse el pago.',
+            { id: 'empresa', title: 'Quiénes somos', body: [`${BRAND.name} es una marca de [Razón social], RFC [RFC], proveedor de uniformes del ${BRAND.school}, con tienda en ${BRAND.store}. Contacto: ${BRAND.email}, ${BRAND.phone}.`] },
+            { id: 'precios', title: 'Precios', body: ['Los precios están en pesos mexicanos e incluyen IVA. El costo de envío y del bordado se muestran antes de confirmar el pedido. Los paquetes tienen precio especial y se venden completos.'] },
+            { id: 'pagos', title: 'Pedidos y pago', body: [
+                'Al confirmar en el sitio recibimos tu pedido por WhatsApp y te enviamos la liga de pago con tarjeta o la ficha de OXXO, con vigencia de [48] horas. El pago en efectivo solo aplica al recoger en tienda.',
                 'Si algún precio del sitio fuera erróneo, te lo informaremos antes de cobrar y podrás cancelar sin costo.' ] },
-            { id: 'envios', title: 'Envíos y entregas', body: [
-                'Prendas en existencia: salen en 2 días hábiles. Prendas sobre pedido o con bordado: el plazo indicado en cada ficha, más 3 días hábiles por bordado.',
-                'Envío en CDMX y zona metropolitana: 1 – 2 días hábiles. Envío nacional: 2 – 5 días hábiles. También puedes recoger sin costo en nuestro taller.' ] },
-            { id: 'cambios', title: 'Cambios, ajustes y devoluciones', body: [
-                'Cambio de talla o color sin costo dentro de los [30] días naturales siguientes a la entrega, con la prenda sin uso, sin lavar y con etiquetas. Los envíos del cambio corren por nuestra cuenta una vez por pedido.',
-                'El primer ajuste de largo de manga o dobladillo es gratis en el taller.',
-                'Las prendas bordadas o hechas sobre pedido no admiten cambio ni devolución, salvo defecto de confección.',
+            { id: 'entregas', title: 'Entregas', body: [
+                'Recoger en tienda: te avisamos cuando esté listo, máximo 48 horas hábiles después de tu pago.',
+                'Envío a domicilio: sale en 48 horas hábiles desde que se confirma el pago con tarjeta; con OXXO, de 3 a 5 días hábiles después de confirmado el pago.',
+                'Las prendas con bordado de nombre agregan 2 días hábiles.' ] },
+            { id: 'cambios', title: 'Cambios y devoluciones', body: [
+                'Cambio de talla sin costo en tienda dentro de los [30] días naturales siguientes a la entrega, con la prenda sin uso, sin lavar y con etiqueta.',
+                'Las prendas con bordado de nombre no tienen cambio ni devolución, salvo defecto de confección.',
                 'Puedes revocar tu compra en línea dentro de los 5 días hábiles siguientes a la entrega (artículo 56 de la LFPC), devolviendo la prenda sin uso.' ] },
-            { id: 'garantia', title: 'Garantía de confección', body: [
-                'Garantizamos costuras, cierres, botones y entretelas por [6] meses de uso normal siguiendo las indicaciones de cuidado. Reparamos o reponemos la pieza.',
-                'No cubre desgaste normal, daños accidentales ni cambios de talla de la persona.' ] },
-            { id: 'empresas', title: 'Pedidos de empresa', body: ['Los pedidos del programa para empresas se rigen por la propuesta firmada (precio, anticipo de [50] %, tiempos y medición), que prevalece sobre estos términos.'] },
+            { id: 'garantia', title: 'Garantía', body: ['Garantizamos costuras, cierres, botones y bordados por [6] meses de uso escolar normal siguiendo las indicaciones de cuidado. Reparamos o reponemos la prenda.'] },
         ];
-        renderPage(() => <LegalPage kicker="Legal · México" title="Términos de" accent="venta" updated="8 de octubre de 2026" sections={SECTIONS} />);
+        renderPage(() => <LegalPage kicker="Legal · México" title="Términos de venta" updated="8 de octubre de 2026" sections={SECTIONS} />);
     </script>
 </body>
 </html>

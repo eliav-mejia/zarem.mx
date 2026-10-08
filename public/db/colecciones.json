@@ -1,21 +1,20 @@
 {
-  "_schema": "lines: id, label, description, sectors · types: id, label, sort_order",
+  "_schema": "lines: id, label, description, image · types: id, label, sort_order",
   "_note": "Base de datos simulada (Etapa 1). Ver public/db/README.md. Pública: sin datos privados.",
   "updated_at": "2026-10-08",
   "lines": [
-    { "id": "corporativo", "label": "Corporativo", "description": "Sacos, pantalones, faldas, camisas y blusas de sastrería para oficinas, banca y despachos.", "sectors": ["Banca", "Despachos", "Corporativos", "Gobierno"] },
-    { "id": "hospitalidad", "label": "Hospitalidad", "description": "Chalecos, filipinas y mandiles para hoteles, restaurantes y eventos: elegantes en sala, resistentes en cocina.", "sectors": ["Hoteles", "Restaurantes", "Banquetes", "Recepción"] },
-    { "id": "salud", "label": "Salud", "description": "Conjuntos clínicos en tela antifluido, cómodos para turnos largos y fáciles de lavar.", "sectors": ["Hospitales", "Consultorios", "Clínicas dentales", "Laboratorios"] }
+    { "id": "diario", "label": "Diario", "description": "El uniforme de todos los días: polo con escudo bordado, suéter café, pantalón café y jumper gris de tablones.", "image": "/img/fotos/diario-nina.webp" },
+    { "id": "deportes", "label": "Deportes", "description": "Chamarra y pants azul marino con franjas naranja y blanca, para educación física y torneos.", "image": "/img/fotos/deportes-nino.webp" },
+    { "id": "paquetes", "label": "Paquetes", "description": "El uniforme completo en una sola compra, con mejor precio que por pieza.", "image": "/img/fotos/patio-abrazo.webp" }
   ],
   "types": [
-    { "id": "sacos", "label": "Sacos", "sort_order": 1 },
-    { "id": "pantalones", "label": "Pantalones", "sort_order": 2 },
-    { "id": "faldas", "label": "Faldas", "sort_order": 3 },
-    { "id": "camisas", "label": "Camisas", "sort_order": 4 },
-    { "id": "blusas", "label": "Blusas", "sort_order": 5 },
-    { "id": "chalecos", "label": "Chalecos", "sort_order": 6 },
-    { "id": "filipinas", "label": "Filipinas", "sort_order": 7 },
-    { "id": "mandiles", "label": "Mandiles", "sort_order": 8 },
-    { "id": "clinicos", "label": "Clínicos", "sort_order": 9 }
+    { "id": "paquetes", "label": "Paquetes", "sort_order": 0 },
+    { "id": "playeras", "label": "Playeras y blusas", "sort_order": 1 },
+    { "id": "sueteres", "label": "Suéteres", "sort_order": 2 },
+    { "id": "pantalones", "label": "Pantalones", "sort_order": 3 },
+    { "id": "jumpers", "label": "Jumpers", "sort_order": 4 },
+    { "id": "chamarras", "label": "Chamarras", "sort_order": 5 },
+    { "id": "pants", "label": "Pants", "sort_order": 6 },
+    { "id": "accesorios", "label": "Accesorios", "sort_order": 7 }
   ]
 }

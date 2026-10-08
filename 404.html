@@ -9,14 +9,15 @@
     <meta property="og:title" content="Página no encontrada · Zarem">
     <meta property="og:description" content="Página no encontrada.">
     <meta property="og:url" content="https://zarem.mx/404.html">
+    <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#0b1b34">
+    <meta name="theme-color" content="#ffffff">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -30,16 +31,16 @@
     <script type="text/babel" src="/js/layout.jsx"></script>
     <script type="text/babel">
         // Old URL → new URL. Add one entry per moved or deleted page (e.g. a product removed from the catalogue).
+        // The previous one-page site used #anchors on "/", which keep working.
         const MOVED = {};
         const target = MOVED[location.pathname];
         if (target) location.replace(target + location.search + location.hash);
 
         renderPage(() => (
-            <PageHero kicker="404" title="Esta página" accent="no existe." intro="Puede que el enlace haya cambiado o que la prenda ya no esté en catálogo.">
-                <div className="flex flex-wrap gap-3 mt-8">
-                    <a href="/" className="btn btn-dark">Inicio</a>
+            <PageHero kicker="404" title="Esta página no existe." intro="Puede que el enlace haya cambiado o que la prenda ya no esté disponible.">
+                <div className="flex flex-wrap gap-2 mt-10">
+                    <a href="/" className="btn btn-ink">Inicio</a>
                     <a href="/pages/tienda/" className="btn btn-line">Tienda</a>
-                    <a href="/pages/contacto/" className="btn btn-line">Contacto</a>
                 </div>
             </PageHero>
         ));

@@ -1,96 +1,98 @@
 /* Styles for every page. Everything else is Tailwind classes in the markup (theme in /js/tailwind.config.js). */
 
-/* Palette (light theme, blue tones):
-   1 white     #ffffff  page background, cards
-   2 noche     #0b1b34  headings, text, dark sections (midnight blue)
-   3 zafiro    #1e3a6e  primary buttons, active states
-   4 acero     #4a6fa5  accents: italic words, stitch line, links on hover
-   5 hielo     #ebf1f9  soft sections, product backgrounds
-   6 slate     #5a6b85  secondary text
-   Fonts: Bodoni Moda (headings, the tailor's label) · Manrope (text) */
+/* Minimal fashion look (Zara-like):
+   - white page, near-black ink, photos edge to edge, no rounded corners, no shadows
+   - tiny uppercase labels with open tracking; large thin headings; Didone logotype
+   - motion = slow parallax on photos only; nothing moves with prefers-reduced-motion
+   Palette: paper #ffffff · ink #111111 · grey #6b6b6b · line #e6e6e6 · soft #f7f7f5
+   Accents (school colours, used sparingly): marino #1b2a4a · naranja #e8742a
+   Fonts: Bodoni Moda (logotype only) · Inter 300/400/500 (everything else) */
 :root {
-    --white: #ffffff;
-    --noche: #0b1b34;
-    --noche-800: #10264a;
-    --zafiro: #1e3a6e;
-    --zafiro-600: #264985;
-    --acero: #4a6fa5;
-    --acero-300: #8fb0dc;
-    --hielo: #ebf1f9;
-    --hielo-50: #f6f9fd;
-    --slate: #5a6b85;
-    --line: #dbe3ee;
+    --paper: #ffffff;
+    --soft: #f7f7f5;
+    --ink: #111111;
+    --grey: #6b6b6b;
+    --line: #e6e6e6;
+    --naranja: #e8742a;
+    --header-h: 64px;
     color-scheme: light;
 }
 
-html { background-color: var(--white); scroll-behavior: smooth; }
+html { background: var(--paper); scroll-behavior: smooth; }
 
 body {
-    font-family: 'Manrope', system-ui, sans-serif;
-    background-color: var(--white);
-    color: var(--noche);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400; font-size: 14px; line-height: 1.55;
+    background: var(--paper); color: var(--ink);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .font-display { font-family: 'Bodoni Moda', Didot, Georgia, serif; font-weight: 400; letter-spacing: -0.015em; }
+h1, h2, h3 { font-weight: 300; letter-spacing: -0.02em; line-height: 1.02; }
 
-::selection { background: var(--hielo); color: var(--zafiro); }
-:focus-visible { outline: 2px solid var(--zafiro); outline-offset: 3px; }
+::selection { background: var(--ink); color: var(--paper); }
+:focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
 
-.kicker { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+/* Tiny uppercase label: nav, captions, prices, buttons */
+.label { font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+.label-strong { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
 
-/* Italic accent word inside a heading */
-.accent { font-style: italic; color: var(--acero); }
-
-/* Basting stitch (hilván): the tailor's temporary seam, used as a divider and underline */
-.stitch { border: 0; height: 2px; background: repeating-linear-gradient(90deg, var(--acero-300) 0 10px, transparent 10px 18px); }
-.stitch-under { background-image: repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 10px); background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 100%; padding-bottom: 3px; }
+/* Underline that grows on hover (nav links, text links) */
+.link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s ease; padding-bottom: 1px; }
+.link:hover, .link[aria-current="page"] { background-size: 100% 1px; }
 
 .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
-    padding: .95rem 1.7rem; border-radius: 999px;
-    font-size: .85rem; font-weight: 600; letter-spacing: .02em;
-    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s;
+    display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+    min-height: 44px; padding: 0 1.75rem; border-radius: 0;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: background-color .2s, color .2s, border-color .2s;
     cursor: pointer;
 }
-.btn:disabled { opacity: .45; cursor: not-allowed; }
-.btn-dark { background: var(--noche); color: var(--white); border: 1px solid var(--noche); }
-.btn-dark:hover:not(:disabled) { background: var(--zafiro); border-color: var(--zafiro); }
-.btn-blue { background: var(--zafiro); color: var(--white); border: 1px solid var(--zafiro); }
-.btn-blue:hover:not(:disabled) { background: var(--zafiro-600); box-shadow: 0 10px 24px -12px rgba(30, 58, 110, .8); }
-.btn-ice { background: var(--hielo); color: var(--noche); border: 1px solid var(--hielo); }
-.btn-ice:hover:not(:disabled) { background: #dfe8f5; }
-.btn-line { background: transparent; color: var(--noche); border: 1px solid var(--noche); }
-.btn-line:hover:not(:disabled) { background: var(--noche); color: var(--white); }
-.btn-ghost-light { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,.45); }
-.btn-ghost-light:hover:not(:disabled) { background: var(--white); color: var(--noche); }
+.btn:disabled { opacity: .35; cursor: not-allowed; }
+.btn-ink { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+.btn-ink:hover:not(:disabled) { background: #2b2b2b; }
+.btn-line { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+.btn-line:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+.btn-light { background: transparent; color: var(--paper); border: 1px solid rgba(255,255,255,.85); }
+.btn-light:hover:not(:disabled) { background: var(--paper); color: var(--ink); }
 
+/* Fields: a single bottom line, like a fashion checkout */
 .field {
-    width: 100%; background: var(--white);
-    border: 1px solid var(--line); border-radius: .6rem;
-    padding: .75rem .95rem; font-size: .95rem; color: var(--noche);
+    width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0;
+    padding: .7rem 0; font-size: 14px; color: var(--ink);
 }
-.field:focus { outline: none; border-color: var(--zafiro); box-shadow: 0 0 0 3px rgba(143, 176, 220, .45); }
+.field::placeholder { color: var(--grey); text-transform: uppercase; font-size: 11px; letter-spacing: .08em; }
+.field:focus { outline: none; border-bottom-width: 2px; padding-bottom: calc(.7rem - 1px); }
+select.field { appearance: none; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='none' stroke='%23111'/%3E%3C/svg%3E") right 2px center no-repeat; padding-right: 1.25rem; }
 
-/* Fine twill (sarga) weave for dark sections: the diagonal of a suiting fabric */
-.twill {
-    background-color: var(--noche);
-    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.035) 0 1px, transparent 1px 9px);
-}
+/* Size chips: square, thin border */
+.chip { min-width: 44px; height: 40px; padding: 0 .75rem; border: 1px solid var(--line); font-size: 12px; transition: border-color .15s, background-color .15s, color .15s; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-checked="true"], .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
-/* Soft blue gradient used behind product illustrations */
-.ice-wash { background: radial-gradient(120% 90% at 30% 10%, #ffffff 0%, var(--hielo) 55%, #dde7f4 100%); }
+/* --- PHOTOS --- */
+/* Product crop: several garments share one photo; --focus and --zoom frame the right one (set inline from the data). */
+.crop { position: relative; overflow: hidden; background: var(--soft); }
+.crop > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+              object-position: var(--focus, 50% 50%); transform: scale(var(--zoom, 1)); transform-origin: var(--focus, 50% 50%);
+              transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+.group:hover .crop > img { transform: scale(calc(var(--zoom, 1) * 1.04)); }
 
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+/* Parallax: the image is taller than its frame and js/layout.jsx (useParallax) moves it with --py. */
+.parallax { position: relative; overflow: hidden; }
+.parallax > img, .parallax > .parallax-layer { position: absolute; left: 0; width: 100%; height: 130%; top: -15%; object-fit: cover;
+                                               transform: translate3d(0, var(--py, 0px), 0); will-change: transform; }
+
+/* Reveal on scroll: slow fade, almost no movement */
+.reveal { opacity: 0; transform: translateY(10px); transition: opacity 1s ease, transform 1s ease; }
 .reveal.is-in { opacity: 1; transform: none; }
 
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes slide-in { from { transform: translateX(100%); } to { transform: none; } }
-.animate-fade-in { animation: fade-in .3s ease both; }
-.animate-rise-in { animation: rise-in .5s ease both; }
-.animate-slide-in { animation: slide-in .35s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes slide-left { from { transform: translateX(-100%); } to { transform: none; } }
+.animate-fade-in { animation: fade-in .4s ease both; }
+.animate-slide-in { animation: slide-in .4s cubic-bezier(.2,.8,.2,1) both; }
+.animate-slide-left { animation: slide-left .4s cubic-bezier(.2,.8,.2,1) both; }
 
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -98,4 +100,5 @@ h1, h2, h3, .font-display { font-family: 'Bodoni Moda', Didot, Georgia, serif; f
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     .reveal { opacity: 1; transform: none; }
+    .parallax > img, .parallax > .parallax-layer { transform: none !important; height: 100%; top: 0; }
 }

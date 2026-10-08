@@ -26,6 +26,5 @@ Solo cambia `db` en `js/tienda.jsx`:
 |---|---|
 | `db.catalog()` → 4 JSON | `select` de `lines`, `product_types`, `products`, `fabrics` + `colors`, `shop_rules` (misma forma) |
 | `db.createOrder()` → `za-pedidos` + WhatsApp | `fetch('/functions/v1/checkout')` → redirección a la pasarela |
-| `db.submitCompanyRequest()` → `za-solicitudes` | Worker / Edge Function → `company_requests` (+ aviso n8n en Etapa 5) |
 
 Claves: ver `.env.example`. `SUPABASE_SERVICE_ROLE_KEY` y las de pasarela **solo** en servidor.

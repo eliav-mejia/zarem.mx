@@ -9,14 +9,15 @@
     <meta property="og:title" content="Aviso de privacidad · Zarem">
     <meta property="og:description" content="Aviso de privacidad de Zarem conforme a la LFPDPPP.">
     <meta property="og:url" content="https://zarem.mx/pages/privacidad/">
+    <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#0b1b34">
+    <meta name="theme-color" content="#ffffff">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -31,19 +32,18 @@
     <script type="text/babel">
         // Values in [corchetes] are placeholders, highlighted until filled in. Pending legal review.
         const SECTIONS = [
-            { id: 'responsable', title: 'Responsable', body: [`[Razón social] («${BRAND.name}»), con domicilio en ${BRAND.address}, es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).`] },
+            { id: 'responsable', title: 'Responsable', body: [`[Razón social] («${BRAND.name}»), con domicilio en ${BRAND.store}, es responsable del tratamiento de tus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).`] },
             { id: 'datos', title: 'Datos que recabamos', body: [
-                'Para compras: nombre, email, teléfono, dirección de entrega y, si pides factura, RFC y datos fiscales.',
-                'Para empresas: nombre, puesto y datos de contacto de la persona que solicita, y nombre de la empresa.',
-                'Para confección a la medida, solo si nos las entregas: nombre y medidas corporales de cada colaborador. Las usamos únicamente para fabricar y etiquetar sus prendas.' ] },
+                'De la madre, padre o tutor: nombre, email, teléfono y, si eliges envío, dirección de entrega.',
+                'Del alumno o alumna: nombre, grado y grupo, y el nombre a bordar si lo pides. Son datos de una persona menor de edad: solo los usamos para preparar, etiquetar y entregar su uniforme, y los recabamos de su madre, padre o tutor.' ] },
             { id: 'finalidades', title: 'Finalidades', body: [
-                'Primarias: procesar y entregar pedidos, facturar, atender cambios y garantías, y preparar propuestas para empresas.',
-                `Secundarias (puedes oponerte): enviarte novedades y promociones. Escríbenos a ${BRAND.email} si no deseas recibirlas.` ] },
-            { id: 'encargados', title: 'Encargados y transferencias', body: ['Compartimos los datos necesarios con la paquetería, el procesador de pagos y nuestro proveedor de facturación. No vendemos tus datos. [Lista de encargados por confirmar.]'] },
+                'Primarias: procesar, cobrar y entregar pedidos, y atender cambios y garantías.',
+                `Secundarias (puedes oponerte): avisarte de la venta de uniformes del siguiente ciclo escolar. Escríbenos a ${BRAND.email} si no deseas recibirlos.` ] },
+            { id: 'encargados', title: 'Encargados y transferencias', body: [`Compartimos los datos necesarios con la paquetería y el procesador de pagos. No vendemos tus datos ni los compartimos con el ${BRAND.school} salvo que nos lo pidas. [Lista de encargados por confirmar.]`] },
             { id: 'arco', title: 'Derechos ARCO', body: [`Puedes acceder, rectificar, cancelar u oponerte al tratamiento de tus datos escribiendo a ${BRAND.email}. Respondemos en un máximo de 20 días hábiles.`] },
-            { id: 'almacenamiento', title: 'Almacenamiento local y cookies', body: ['El sitio guarda en tu navegador tu bolsa, tus pedidos enviados desde este equipo y tu elección de cookies. Las cookies de medición solo se activan si eliges «Aceptar».'] },
+            { id: 'almacenamiento', title: 'Almacenamiento local y cookies', body: ['El sitio guarda en tu navegador tu bolsa, los pedidos enviados desde este equipo y tu elección de cookies. Las cookies de medición solo se activan si eliges «Aceptar».'] },
         ];
-        renderPage(() => <LegalPage kicker="Legal · México" title="Aviso de" accent="privacidad" updated="8 de octubre de 2026" sections={SECTIONS} />);
+        renderPage(() => <LegalPage kicker="Legal · México" title="Aviso de privacidad" updated="8 de octubre de 2026" sections={SECTIONS} />);
     </script>
 </body>
 </html>

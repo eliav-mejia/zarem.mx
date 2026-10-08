@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto y showroom · Zarem</title>
-    <meta name="description" content="Visita nuestro showroom y taller en la Roma Norte, Ciudad de México, o escríbenos por WhatsApp o email.">
+    <title>Tienda y contacto · Zarem</title>
+    <meta name="description" content="Tienda de uniformes del Colegio La Florida: dirección, horario, WhatsApp y email.">
     <link rel="canonical" href="https://zarem.mx/pages/contacto/">
-    <meta property="og:title" content="Contacto y showroom · Zarem">
-    <meta property="og:description" content="Visita nuestro showroom y taller en la Roma Norte, Ciudad de México, o escríbenos por WhatsApp o email.">
+    <meta property="og:title" content="Tienda y contacto · Zarem">
+    <meta property="og:description" content="Tienda de uniformes del Colegio La Florida: dirección, horario, WhatsApp y email.">
     <meta property="og:url" content="https://zarem.mx/pages/contacto/">
+    <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-    <meta name="theme-color" content="#0b1b34">
+    <meta name="theme-color" content="#ffffff">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/tailwind.config.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/site.css">
 
     <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
@@ -29,61 +30,33 @@
 
     <script type="text/babel" src="/js/layout.jsx"></script>
     <script type="text/babel">
-        const SUBJECTS = { pedido: 'Un pedido en línea', medidas: 'Agendar toma de medidas', empresa: 'Uniformes para mi empresa', ajuste: 'Ajuste o cambio', otro: 'Otro tema' };
-
         const ContactPage = () => {
-            const initial = new URLSearchParams(window.location.search).get('asunto');
-            const [form, setForm] = useState({ name: '', email: '', phone: '', subject: SUBJECTS[initial] ? initial : 'pedido', message: '', consent: false });
+            const [form, setForm] = useState({ name: '', email: '', message: '', consent: false });
             const [sent, setSent] = useState(false);
             const f = (key) => ({ value: form[key], onChange: (e) => setForm({ ...form, [key]: e.target.value }) });
-
             const submit = (e) => {
                 e.preventDefault();
-                const text = `Hola Zarem, soy ${form.name} (${form.email}${form.phone ? ` · ${form.phone}` : ''}).\nTema: ${SUBJECTS[form.subject]}\n\n${form.message}`;
-                window.open(waLink(text), '_blank', 'noopener,noreferrer');
+                window.open(waLink(`Hola Zarem, soy ${form.name} (${form.email}).\n\n${form.message}`), '_blank', 'noopener,noreferrer');
                 setSent(true);
             };
-
             return (
                 <>
-                    <PageHero kicker="Contacto" title="Hablemos de tu" accent="uniforme." intro="Te respondemos en horario de atención. Para visitas al showroom o toma de medidas, agenda antes para tener a una sastre disponible." />
-                    <section className="max-w-7xl mx-auto px-4 md:px-8 py-14 grid lg:grid-cols-5 gap-12">
-                        <div className="lg:col-span-2 space-y-8">
-                            <div>
-                                <p className="kicker text-acero mb-3">Showroom y taller</p>
-                                <p className="flex gap-3"><IconPin className="w-5 h-5 text-zafiro shrink-0 mt-0.5" />{BRAND.address}</p>
-                                <p className="text-sm text-acero-600 mt-2 pl-8">{BRAND.hours}</p>
-                                <a className="text-sm underline pl-8 mt-2 inline-block" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BRAND.address)}`} target="_blank" rel="noopener noreferrer">Ver en el mapa</a>
-                            </div>
-                            <div>
-                                <p className="kicker text-acero mb-3">Escríbenos</p>
-                                <ul className="space-y-2 text-sm">
-                                    <li>Tienda y pedidos: <a className="underline" href={`mailto:${BRAND.email}`}>{BRAND.email}</a></li>
-                                    <li>Empresas: <a className="underline" href={`mailto:${BRAND.sales}`}>{BRAND.sales}</a></li>
-                                    <li>Teléfono: {BRAND.phone}</li>
-                                    <li>Instagram: <a className="underline" href={BRAND.instagram} target="_blank" rel="noopener noreferrer">@zarem.mx</a></li>
-                                </ul>
-                            </div>
-                            <a href={waLink('Hola Zarem, tengo una pregunta.')} target="_blank" rel="noopener noreferrer" className="btn btn-dark"><IconWhatsApp className="w-5 h-5" /> WhatsApp directo</a>
+                    <PageHero kicker="Contacto" title="Tienda y contacto" />
+                    <section className="max-w-[1600px] mx-auto px-4 md:px-10 grid md:grid-cols-12 gap-12 py-10">
+                        <div className="md:col-span-4 space-y-8">
+                            <div className="border-t border-ink pt-4"><p className="label-strong mb-2">Tienda</p><p className="text-sm text-ink-700">{BRAND.store}</p><p className="text-sm text-ink-700">{BRAND.hours}</p>
+                                <a className="label link mt-3 inline-block" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BRAND.store)}`} target="_blank" rel="noopener noreferrer">Ver en el mapa</a></div>
+                            <div className="border-t border-ink pt-4"><p className="label-strong mb-2">Escríbenos</p><p className="text-sm text-ink-700">{BRAND.email}</p><p className="text-sm text-ink-700">{BRAND.phone}</p>
+                                <a className="btn btn-ink mt-5" href={waLink('Hola Zarem, tengo una pregunta.')} target="_blank" rel="noopener noreferrer">WhatsApp</a></div>
                         </div>
-                        <div className="lg:col-span-3">
-                            {sent ? (
-                                <div className="rounded-3xl bg-hielo-50 p-10 text-center animate-rise-in">
-                                    <h2 className="text-4xl">Gracias, <span className="accent">{form.name.split(' ')[0]}.</span></h2>
-                                    <p className="text-acero-600 mt-3">Abrimos WhatsApp con tu mensaje. Si no se abrió, escríbenos a {BRAND.email}.</p>
-                                </div>
-                            ) : (
-                                <form onSubmit={submit} className="grid sm:grid-cols-2 gap-3 rounded-3xl border border-noche-line p-6 md:p-8">
+                        <div className="md:col-span-6 md:col-start-7">
+                            {sent ? <p className="text-2xl font-light">Gracias. Abrimos WhatsApp con tu mensaje.</p> : (
+                                <form onSubmit={submit} className="grid gap-6">
                                     <input className="field" placeholder="Nombre" required autoComplete="name" {...f('name')} />
                                     <input className="field" type="email" placeholder="Email" required autoComplete="email" {...f('email')} />
-                                    <input className="field" type="tel" placeholder="Teléfono (opcional)" autoComplete="tel" {...f('phone')} />
-                                    <select className="field" {...f('subject')} aria-label="Tema">{Object.entries(SUBJECTS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select>
-                                    <textarea className="field sm:col-span-2" rows="6" required maxLength={1200} placeholder="¿En qué te ayudamos?" {...f('message')} />
-                                    <label className="flex gap-3 text-sm text-acero-600 sm:col-span-2">
-                                        <input type="checkbox" required checked={form.consent} onChange={e => setForm({ ...form, consent: e.target.checked })} className="mt-1 accent-[#1e3a6e]" />
-                                        <span>Acepto el <a href="/pages/privacidad/" className="underline">aviso de privacidad</a>.</span>
-                                    </label>
-                                    <button className="btn btn-blue sm:col-span-2"><IconWhatsApp className="w-5 h-5" /> Enviar por WhatsApp</button>
+                                    <textarea className="field" rows="5" required maxLength={1000} placeholder="Mensaje" {...f('message')} />
+                                    <label className="flex gap-3 text-xs text-ink-700"><input type="checkbox" required checked={form.consent} onChange={e => setForm({ ...form, consent: e.target.checked })} className="accent-black" /> <span>Acepto el <a href="/pages/privacidad/" className="underline">aviso de privacidad</a>.</span></label>
+                                    <button className="btn btn-ink self-start">Enviar</button>
                                 </form>
                             )}
                         </div>
