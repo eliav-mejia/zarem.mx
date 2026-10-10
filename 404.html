@@ -32,15 +32,17 @@
     <script type="text/babel">
         // Old URL → new URL. Add one entry per moved or deleted page (e.g. a product removed from the catalogue).
         // The previous one-page site used #anchors on "/", which keep working.
+        // 1.2.0: the Florida store moved from /pages/* (and /public/db) to /colegio_la_florida/*.
         const MOVED = {};
-        const target = MOVED[location.pathname];
+        const target = MOVED[location.pathname]
+            || (location.pathname.startsWith('/pages/') ? location.pathname.replace(/^\/pages\//, '/colegio_la_florida/') : null);
         if (target) location.replace(target + location.search + location.hash);
 
         renderPage(() => (
             <PageHero kicker="404" title="Esta página no existe." intro="Puede que el enlace haya cambiado o que la prenda ya no esté disponible.">
                 <div className="flex flex-wrap gap-2 mt-10">
-                    <a href="/" className="btn btn-ink">Inicio</a>
-                    <a href="/pages/tienda/" className="btn btn-line">Tienda</a>
+                    <a href="/" className="btn btn-ink">Elegir colegio</a>
+                    <a href="/colegio_la_florida/tienda/" className="btn btn-line">Tienda Colegio La Florida</a>
                 </div>
             </PageHero>
         ));

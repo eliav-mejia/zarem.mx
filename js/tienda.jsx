@@ -1,11 +1,11 @@
-// Shop only (index, /pages/tienda/, product pages, /pages/bolsa/, /pages/como-comprar/).
+// Shop only, inside a school folder (<school>/, tienda/, product pages, bolsa/, como-comprar/). Paths use CLIENT.base.
 // Data layer (db), catalogue hook, pricing, photo crop, product card, product page, bag drawer and orders.
 
 // --- DATA LAYER ---
-// The ONLY place that knows where data comes from. Today: static JSON in /public/db (Etapa 1).
+// The ONLY place that knows where data comes from. Today: static JSON in <school>/db (Etapa 1).
 // Etapa 2: replace the bodies of db.* with Supabase queries / Edge Functions and keep the same return shapes;
 // nothing else changes (supabase/README.md).
-const DB_BASE = '/public/db';
+const DB_BASE = `${CLIENT.base}/db`;   // each school keeps its catalogue in <school>/db
 const jsonCache = {};
 const loadJson = (name) => jsonCache[name] || (jsonCache[name] =
     fetch(`${DB_BASE}/${name}.json`, { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`${name}: ${r.status}`); return r.json(); }));
@@ -78,6 +78,14 @@ const useBagLines = (catalog) => useBag()
 
 const FIT_LABEL = { nina: 'Niña', nino: 'Niño', unisex: 'Niña y niño' };
 
+// Short size range for cards: ['4'…'16','CH','M','G'] → "Tallas 4–16 · CH, M, G"; ['4-6'…'13-16'] → "Tallas 4–16".
+const sizeRange = (sizes = []) => {
+    const nums = sizes.filter(x => /^\d+(-\d+)?$/.test(x));
+    const rest = sizes.filter(x => !nums.includes(x));
+    const range = nums.length ? `${nums[0].split('-')[0]}–${nums[nums.length - 1].split('-').pop()}` : '';
+    return 'Tallas ' + [range, rest.join(', ')].filter(Boolean).join(' · ');
+};
+
 // --- PHOTO ---
 // Several garments share one photo: `focus` (object-position) and `zoom` in productos.json frame the right one.
 // full = show the whole photo (used as the second image of a product page).
@@ -89,7 +97,7 @@ const Photo = ({ product, full = false, className = '', eager = false }) => (
 
 // --- CARD ---
 const ProductCard = ({ product, catalog }) => {
-    const href = `/pages/tienda/${product.slug}/`;
+    const href = `${CLIENT.base}/tienda/${product.slug}/`;
     return (
         <article className="reveal group">
             <a href={href} className="block">
@@ -98,6 +106,7 @@ const ProductCard = ({ product, catalog }) => {
                     <div>
                         <h3 className="label">{product.name}</h3>
                         <p className="label text-ink-400 mt-0.5">{FIT_LABEL[product.fit]}{product.includes ? ` · ${product.includes.length} prendas` : ''}</p>
+                        {product.sizes && product.sizes.length > 0 && <p className="label text-ink-400 mt-0.5">{sizeRange(product.sizes)}</p>}
                     </div>
                     <p className="label whitespace-nowrap">{formatMXN(product.price_mxn)}</p>
                 </div>
@@ -123,7 +132,7 @@ const Disclosure = ({ title, children, open = false }) => (
 );
 
 // --- PRODUCT PAGE ---
-// Each /pages/tienda/<slug>/index.html calls renderProduct(); the slug comes from the URL.
+// Each <school>/tienda/<slug>/index.html calls renderProduct(); the slug comes from the URL.
 const ProductPage = () => {
     const catalog = useCatalog();
     const slug = window.location.pathname.split('/').filter(Boolean).pop();
@@ -140,7 +149,7 @@ const ProductPage = () => {
     if (catalog.status === 'error') return <LoadError />;
     if (!product) return (
         <PageHero kicker="Tienda" title="Esta prenda ya no está disponible.">
-            <a href="/pages/tienda/" className="btn btn-ink mt-10">Ver la tienda</a>
+            <a href={`${CLIENT.base}/tienda/`} className="btn btn-ink mt-10">Ver la tienda</a>
         </PageHero>
     );
 
@@ -167,7 +176,7 @@ const ProductPage = () => {
                 </div>
                 <div className="md:col-span-5 md:sticky md:top-28 px-4 md:px-0 pb-10 animate-fade-in">
                     <nav className="label text-ink-400 mb-8" aria-label="Ruta">
-                        <a href="/pages/tienda/" className="link">Tienda</a> / <a href={`/pages/tienda/?linea=${product.line_id}`} className="link">{catalog.line[product.line_id].label}</a>
+                        <a href={`${CLIENT.base}/tienda/`} className="link">Tienda</a> / <a href={`${CLIENT.base}/tienda/?linea=${product.line_id}`} className="link">{catalog.line[product.line_id].label}</a>
                     </nav>
                     <h1 className="text-3xl md:text-4xl uppercase tracking-tight">{product.name}</h1>
                     <p className="label text-ink-500 mt-2">{FIT_LABEL[product.fit]} · {product.sku}</p>
@@ -176,14 +185,14 @@ const ProductPage = () => {
 
                     {included.length > 0 && (
                         <ul className="mt-6 space-y-1">
-                            {included.map(p => <li key={p.id} className="label flex justify-between max-w-md"><a href={`/pages/tienda/${p.slug}/`} className="link">{p.name}</a><span className="text-ink-400 line-through">{formatMXN(p.price_mxn)}</span></li>)}
+                            {included.map(p => <li key={p.id} className="label flex justify-between max-w-md"><a href={`${CLIENT.base}/tienda/${p.slug}/`} className="link">{p.name}</a><span className="text-ink-400 line-through">{formatMXN(p.price_mxn)}</span></li>)}
                         </ul>
                     )}
 
                     <div className="mt-10">
                         <div className="flex justify-between items-baseline mb-3 max-w-md">
                             <p className={`label ${needSize && !size ? 'text-florida-naranja' : ''}`}>{needSize && !size ? 'Elige una talla' : 'Talla'}</p>
-                            <a href="/pages/como-comprar/#tallas" className="label link text-ink-500">Guía de tallas</a>
+                            <a href={`${CLIENT.base}/como-comprar/#tallas`} className="label link text-ink-500">Guía de tallas</a>
                         </div>
                         <div className="flex flex-wrap gap-1 max-w-md" role="radiogroup" aria-label="Talla">
                             {product.sizes.map(s => <button key={s} type="button" role="radio" aria-checked={size === s} className="chip" onClick={() => { setSize(s); setNeedSize(false); }}>{s}</button>)}
@@ -215,7 +224,7 @@ const ProductPage = () => {
                         <Disclosure title="Composición y cuidados"><p>{product.fabric}.</p><p className="mt-2">{product.care}</p></Disclosure>
                         <Disclosure title="Entrega y pago">
                             {rules.shipping.map(s => <p key={s.id} className="mb-2"><strong className="font-medium text-ink">{s.label}.</strong> {s.detail}</p>)}
-                            <p>Tarjeta, OXXO o efectivo en tienda. <a href="/pages/como-comprar/" className="underline">Cómo comprar</a></p>
+                            <p>Tarjeta, OXXO o efectivo en tienda. <a href={`${CLIENT.base}/como-comprar/`} className="underline">Cómo comprar</a></p>
                         </Disclosure>
                     </div>
                 </div>
@@ -270,7 +279,7 @@ const BagDrawer = () => {
                 )}
                 <div className="mt-auto p-6 border-t border-line grid gap-2">
                     <p className="label flex justify-between mb-3"><span>{priced.pieces} {priced.pieces === 1 ? 'prenda' : 'prendas'}</span><span>{formatMXN(priced.subtotal + priced.embroidery)}</span></p>
-                    <a href="/pages/bolsa/" className="btn btn-ink">Ver bolsa</a>
+                    <a href={`${CLIENT.base}/bolsa/`} className="btn btn-ink">Ver bolsa</a>
                     <button className="btn btn-line" onClick={() => setOpenKey(null)}>Seguir comprando</button>
                 </div>
             </aside>

@@ -15,3 +15,5 @@ dist/
 
 # Fotos originales en PNG (pesadas). Se publican las versiones WebP de img/fotos/.
 img/*.png
+# Originales en JPG descargados (se publica la versión WebP: florida-edificio.webp)
+img/fotos/*.jpg

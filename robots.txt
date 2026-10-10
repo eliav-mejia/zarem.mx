@@ -16,7 +16,7 @@ User-agent: img2dataset
 Disallow: /
 
 User-agent: *
-Disallow: /pages/bolsa/
+Disallow: /colegio_la_florida/bolsa/
 Allow: /
 
 Sitemap: https://zarem.mx/sitemap.xml

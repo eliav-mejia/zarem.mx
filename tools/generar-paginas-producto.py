@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create / update pages/tienda/<slug>/index.html for every active product in public/db/productos.json,
+"""Create / update colegio_la_florida/tienda/<slug>/index.html for every active product in colegio_la_florida/db/productos.json,
 and rewrite sitemap.xml.
 
     python tools/generar-paginas-producto.py
@@ -15,10 +15,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = 'https://zarem.mx'
-OUT = ROOT / 'pages' / 'tienda'
+OUT = ROOT / 'colegio_la_florida' / 'tienda'
 
 # Static pages for sitemap.xml (bolsa is excluded: no value for search engines).
-STATIC_PAGES = ['/', '/pages/tienda/', '/pages/como-comprar/', '/pages/contacto/', '/pages/terminos/', '/pages/privacidad/']
+STATIC_PAGES = ['/', '/colegio_la_florida/', '/colegio_la_florida/tienda/', '/colegio_la_florida/como-comprar/', '/colegio_la_florida/contacto/', '/colegio_la_florida/terminos/', '/colegio_la_florida/privacidad/']
 
 TEMPLATE = """<!DOCTYPE html>
 <html lang="es-MX">
@@ -66,11 +66,11 @@ FIT = {'nina': 'niña', 'nino': 'niño', 'unisex': 'niña y niño'}
 
 
 def main():
-    products = json.loads((ROOT / 'public' / 'db' / 'productos.json').read_text(encoding='utf-8'))['products']
+    products = json.loads((ROOT / 'colegio_la_florida' / 'db' / 'productos.json').read_text(encoding='utf-8'))['products']
     active = [p for p in products if p.get('active', True)]
 
     for p in active:
-        url = f"{SITE}/pages/tienda/{p['slug']}/"
+        url = f"{SITE}/colegio_la_florida/tienda/{p['slug']}/"
         title = f"{p['name']} · Uniforme Colegio La Florida · Zarem"
         jsonld = {
             '@context': 'https://schema.org', '@type': 'Product',
@@ -89,14 +89,14 @@ def main():
             title=html.escape(title), description=html.escape(f"{p['short']} {p['description']}"), url=url, image=SITE + p['image'],
             jsonld=json.dumps(jsonld, ensure_ascii=False).replace('</', '<\\/'),
         ), encoding='utf-8', newline='\n')
-        print(f"ok   pages/tienda/{p['slug']}/")
+        print(f"ok   colegio_la_florida/tienda/{p['slug']}/")
 
     slugs = {p['slug'] for p in active}
     for d in OUT.iterdir():
         if d.is_dir() and d.name not in slugs:
-            print(f"OJO  pages/tienda/{d.name}/ ya no está en la base de datos: bórrala y añade la ruta a MOVED en 404.html")
+            print(f"OJO  colegio_la_florida/tienda/{d.name}/ ya no está en la base de datos: bórrala y añade la ruta a MOVED en 404.html")
 
-    urls = STATIC_PAGES + [f"/pages/tienda/{p['slug']}/" for p in active]
+    urls = STATIC_PAGES + [f"/colegio_la_florida/tienda/{p['slug']}/" for p in active]
     (ROOT / 'sitemap.xml').write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{SITE}{u}</loc></url>\n' for u in urls) + '</urlset>\n', encoding='utf-8', newline='\n')

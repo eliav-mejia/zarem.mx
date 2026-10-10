@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uniformes CUM · Zarem</title>
+    <meta name="description" content="Uniformes del CUM: tienda en línea próximamente en Zarem.">
+    <link rel="canonical" href="https://zarem.mx/cum/">
+    <meta property="og:title" content="Uniformes CUM · Zarem">
+    <meta property="og:description" content="Uniformes del CUM: tienda en línea próximamente en Zarem.">
+    <meta property="og:url" content="https://zarem.mx/cum/">
+    <meta property="og:image" content="https://zarem.mx/img/fotos/florida-edificio.webp">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel">
+        // CUM: store not open yet. The logo and menu already show the school (CLIENTS in layout.jsx).
+        renderPage(() => (
+            <PageHero kicker="Próximamente" title={`Uniformes ${CLIENT.name}`} intro="Estamos preparando la tienda en línea de este colegio. Mientras tanto, escríbenos por WhatsApp y te ayudamos con tu pedido.">
+                <div className="flex flex-wrap gap-2 mt-10">
+                    <a href={waLink(`Hola, me interesan los uniformes del ${CLIENT.name}.`)} target="_blank" rel="noopener noreferrer" className="btn btn-ink">Escríbenos</a>
+                    <a href="/" className="btn btn-line">Elegir otro colegio</a>
+                </div>
+            </PageHero>
+        ));
+    </script>
+</body>
+</html>

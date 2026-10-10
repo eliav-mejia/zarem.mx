@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolsa · Zarem</title>
+    <meta name="description" content="Revisa tus prendas, elige entrega y forma de pago, y confirma tu pedido de uniformes.">
+    <link rel="canonical" href="https://zarem.mx/colegio_la_florida/bolsa/">
+    <meta property="og:title" content="Bolsa · Zarem">
+    <meta property="og:description" content="Revisa tus prendas, elige entrega y forma de pago, y confirma tu pedido de uniformes.">
+    <meta property="og:url" content="https://zarem.mx/colegio_la_florida/bolsa/">
+    <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel">
+        // Etapa 1 checkout: the order is saved in this browser (db.createOrder) and sent by WhatsApp; we reply with the card
+        // payment link or the OXXO slip. Etapa 2: db.createOrder → Edge Function (re-prices) → Stripe / Mercado Pago.
+        // Payment depends on delivery (tienda.json): pickup → card or cash; home delivery → card or OXXO.
+        const EMPTY = { parent: '', email: '', phone: '', student: '', grade: '', street: '', colonia: '', zip: '', city: '', notes: '', consent: false };
+
+        const BagPage = () => {
+            const catalog = useCatalog();
+            const lines = useBagLines(catalog);
+            const [shippingId, setShippingId] = useState('tienda');
+            const [paymentId, setPaymentId] = useState('tarjeta');
+            const [form, setForm] = useState(EMPTY);
+            const [sent, setSent] = useState(null);
+            const f = (key) => ({ value: form[key], onChange: (e) => setForm({ ...form, [key]: e.target.value }) });
+
+            if (sent) return (
+                <PageHero kicker={`Pedido ${sent.id}`} title="Gracias. Recibimos tu pedido."
+                    intro={`Abrimos WhatsApp con el detalle. Te enviamos ${sent.payment_id === 'oxxo' ? 'tu ficha de OXXO' : sent.payment_id === 'efectivo' ? 'la confirmación para pagar al recoger' : 'la liga de pago con tarjeta'} en horario de atención. Si no se abrió, escríbenos a ${BRAND.email} con la referencia ${sent.id}.`}>
+                    <div className="flex flex-wrap gap-2 mt-10"><a href="/colegio_la_florida/tienda/" className="btn btn-ink">Seguir comprando</a><a href="/colegio_la_florida/" className="btn btn-line">Inicio</a></div>
+                </PageHero>
+            );
+            if (catalog.status !== 'ready') return <PageHero kicker="Bolsa" title="Bolsa">{catalog.status === 'error' && <LoadError />}</PageHero>;
+            if (lines.length === 0) return (
+                <PageHero kicker="Bolsa" title="Tu bolsa está vacía.">
+                    <a href="/colegio_la_florida/tienda/" className="btn btn-ink mt-10">Ir a la tienda</a>
+                </PageHero>
+            );
+
+            const rules = catalog.rules;
+            const priced = priceBag(lines, rules, shippingId);
+            const allowed = priced.method.payments;
+            const payment = allowed.includes(paymentId) ? paymentId : allowed[0];
+            const delivery = shippingId !== 'tienda';
+            const paymentLabel = rules.payments.find(p => p.id === payment).label;
+
+            const submit = async (e) => {
+                e.preventDefault();
+                const order = await db.createOrder({ customer: form, shippingId, paymentId: payment, priced });
+                const text = [
+                    `Hola Zarem, quiero confirmar mi pedido ${order.id} de uniformes ${BRAND.school}:`,
+                    '',
+                    ...priced.lines.map(l => `• ${l.qty} × ${l.product.name} (${l.product.sku}) talla ${l.size}${l.name ? `, bordado «${l.name}»` : ''} — ${formatMXN(l.qty * l.product.price_mxn)}`),
+                    '',
+                    priced.embroidery > 0 && `Bordado de nombre (${priced.embPieces}): ${formatMXN(priced.embroidery)}`,
+                    `${priced.method.label}: ${priced.shipping ? formatMXN(priced.shipping) : 'sin costo'}`,
+                    `Total (IVA incluido): ${formatMXN(priced.total)}`,
+                    `Pago: ${paymentLabel}`,
+                    '',
+                    `Alumno(a): ${form.student}${form.grade ? `, ${form.grade}` : ''}`,
+                    `${form.parent} · ${form.email} · ${form.phone}`,
+                    delivery && `Entrega: ${form.street}, ${form.colonia}, ${form.zip}, ${form.city}`,
+                    form.notes && `Notas: ${form.notes}`,
+                ].filter(x => x !== false && x !== '' && x != null).join('\n');
+                window.open(waLink(text), '_blank', 'noopener,noreferrer');
+                bag.clear();
+                setSent(order);
+            };
+
+            const Option = ({ name, value, checked, onChange, title, detail, right, disabled }) => (
+                <label className={`flex gap-4 items-start border-t border-line py-4 ${disabled ? 'opacity-40' : 'cursor-pointer'}`}>
+                    <input type="radio" name={name} value={value} checked={checked} onChange={onChange} disabled={disabled} className="mt-0.5 accent-black" />
+                    <span className="flex-1"><span className="label-strong block">{title}</span><span className="text-xs text-ink-500">{detail}</span></span>
+                    {right && <span className="label">{right}</span>}
+                </label>
+            );
+
+            return (
+                <>
+                    <section className="max-w-[1600px] mx-auto px-4 md:px-10 pt-14 md:pt-20 pb-6">
+                        <h1 className="text-5xl md:text-7xl uppercase">Bolsa <span className="text-ink-300">({priced.pieces})</span></h1>
+                    </section>
+                    <form onSubmit={submit} className="max-w-[1600px] mx-auto px-4 md:px-10 grid lg:grid-cols-12 gap-12">
+                        <div className="lg:col-span-7 space-y-14">
+                            <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-1 gap-y-8">
+                                {lines.map(l => (
+                                    <li key={l.key}>
+                                        <a href={`/colegio_la_florida/tienda/${l.product.slug}/`}><Photo product={l.product} className="aspect-[3/4]" /></a>
+                                        <div className="pt-3 label space-y-1">
+                                            <p className="flex justify-between gap-2"><span>{l.product.name}</span><span>{formatMXN(l.qty * l.product.price_mxn)}</span></p>
+                                            <p className="text-ink-500">Talla {l.size}{l.name ? ` · ${l.name}` : ''}</p>
+                                            <div className="flex items-center gap-4 pt-1">
+                                                <div className="flex items-center border border-line">
+                                                    <button type="button" className="w-8 h-8" onClick={() => bag.set(l.key, l.qty - 1)} aria-label={`Una pieza menos de ${l.product.name}`}>−</button>
+                                                    <span className="w-5 text-center">{l.qty}</span>
+                                                    <button type="button" className="w-8 h-8" onClick={() => bag.set(l.key, l.qty + 1)} aria-label={`Una pieza más de ${l.product.name}`}>+</button>
+                                                </div>
+                                                <button type="button" className="link text-ink-500" onClick={() => bag.set(l.key, 0)}>Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <fieldset>
+                                <legend className="label-strong mb-4">Entrega</legend>
+                                {rules.shipping.map(s => <Option key={s.id} name="shipping" value={s.id} checked={shippingId === s.id} onChange={() => setShippingId(s.id)}
+                                    title={s.label} detail={s.detail} right={s.cost_mxn ? (s.free_from_mxn ? `${formatMXN(s.cost_mxn)} · gratis desde ${formatMXN(s.free_from_mxn)}` : formatMXN(s.cost_mxn)) : 'Gratis'} />)}
+                            </fieldset>
+
+                            <fieldset id="pago">
+                                <legend className="label-strong mb-4">Forma de pago</legend>
+                                {rules.payments.map(p => <Option key={p.id} name="payment" value={p.id} checked={payment === p.id} onChange={() => setPaymentId(p.id)}
+                                    title={p.label} detail={p.detail} disabled={!allowed.includes(p.id)} />)}
+                            </fieldset>
+
+                            <fieldset className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+                                <legend className="label-strong mb-4">Datos</legend>
+                                <input className="field" placeholder="Nombre de mamá, papá o tutor" required autoComplete="name" {...f('parent')} />
+                                <input className="field" type="tel" placeholder="Teléfono / WhatsApp" required autoComplete="tel" {...f('phone')} />
+                                <input className="field sm:col-span-2" type="email" placeholder="Email" required autoComplete="email" {...f('email')} />
+                                <input className="field" placeholder="Nombre del alumno(a)" required {...f('student')} />
+                                <input className="field" placeholder="Grado y grupo (opcional)" {...f('grade')} />
+                                {delivery && <>
+                                    <input className="field sm:col-span-2" placeholder="Calle y número" required autoComplete="street-address" {...f('street')} />
+                                    <input className="field" placeholder="Colonia" required {...f('colonia')} />
+                                    <input className="field" placeholder="Código postal" required inputMode="numeric" pattern="[0-9]{5}" autoComplete="postal-code" {...f('zip')} />
+                                    <input className="field sm:col-span-2" placeholder="Alcaldía o municipio, estado" required autoComplete="address-level2" {...f('city')} />
+                                </>}
+                                <textarea className="field sm:col-span-2" rows="2" maxLength={400} placeholder="Notas (opcional)" {...f('notes')} />
+                            </fieldset>
+                        </div>
+
+                        <aside className="lg:col-span-4 lg:col-start-9 lg:sticky lg:top-28 self-start border-t border-ink pt-6">
+                            <dl className="label space-y-3">
+                                <div className="flex justify-between"><dt>Prendas ({priced.pieces})</dt><dd>{formatMXN(priced.subtotal)}</dd></div>
+                                {priced.embroidery > 0 && <div className="flex justify-between"><dt>Bordado de nombre ({priced.embPieces})</dt><dd>{formatMXN(priced.embroidery)}</dd></div>}
+                                <div className="flex justify-between"><dt>{priced.method.label}</dt><dd>{priced.shipping ? formatMXN(priced.shipping) : 'Gratis'}</dd></div>
+                                <div className="flex justify-between label-strong text-base pt-4 border-t border-line"><dt>Total</dt><dd>{formatMXN(priced.total)}</dd></div>
+                            </dl>
+                            <p className="label text-ink-400 mt-2">IVA incluido · Pago: {paymentLabel}</p>
+                            {delivery && priced.shipping > 0 && <p className="text-xs text-ink-500 mt-4">Te faltan {formatMXN(priced.method.free_from_mxn - priced.subtotal)} para el envío gratis.</p>}
+                            <label className="flex gap-3 text-xs text-ink-700 mt-8">
+                                <input type="checkbox" required checked={form.consent} onChange={e => setForm({ ...form, consent: e.target.checked })} className="mt-0.5 accent-black" />
+                                <span>Acepto los <a href="/colegio_la_florida/terminos/" className="underline">términos de venta</a> y el <a href="/colegio_la_florida/privacidad/" className="underline">aviso de privacidad</a>.</span>
+                            </label>
+                            <button className="btn btn-ink w-full mt-6">Confirmar pedido</button>
+                            <p className="text-xs text-ink-500 mt-3">Se abre WhatsApp con tu pedido; te respondemos con {payment === 'oxxo' ? 'tu ficha de OXXO' : payment === 'efectivo' ? 'la confirmación' : 'la liga de pago'}.</p>
+                        </aside>
+                    </form>
+                </>
+            );
+        };
+
+        renderPage(BagPage);
+    </script>
+</body>
+</html>

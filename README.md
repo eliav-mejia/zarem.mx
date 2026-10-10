@@ -1,14 +1,18 @@
 # zarem.mx
 
-Zarem: tienda en línea de los **uniformes oficiales del Colegio La Florida** (diario, deportes y paquetes completos).
+Zarem, **casa de confección**: una tienda de uniformes por colegio, cada una en su carpeta (`zarem.mx/<colegio>/`).
+`zarem.mx/` es una sola pantalla sin scroll con una tarjeta por colegio. Hoy: **Colegio La Florida**
+(`/colegio_la_florida/`, tienda completa) y **CUM** (`/cum/`, próximamente).
+
+Tienda del Colegio La Florida: uniformes oficiales (diario, deportes y paquetes completos).
 Las familias eligen prenda y talla desde el celular, añaden el bordado del nombre del alumno y pagan con tarjeta,
 en OXXO o en efectivo al recoger en tienda.
 
 **Variante C/D** de `../ARQUITECTURA-WEB-ETAPAS.md` con **módulo de ecommerce**: React + Tailwind por CDN, sin build, datos
-simulados en `public/db/`, una capa de datos (`db`) y una función de precios (`priceBag`) en `js/tienda.jsx`. Mismo
+simulados en `colegio_la_florida/db/`, una capa de datos (`db`) y una función de precios (`priceBag`) en `js/tienda.jsx`. Mismo
 contrato que la plantilla (`../_plataforma/etapa-1-arquitectura-base/plantilla-react-tailwind/`).
 
-**Estado: 1.1.0 · Etapa 1.** Precios, tallas, dirección de la tienda y textos legales son de ejemplo; la bolsa y los
+**Estado: 1.2.0 · Etapa 1.** Precios, tallas, dirección de la tienda y textos legales son de ejemplo; la bolsa y los
 pedidos se guardan solo en el navegador y el pedido se confirma por WhatsApp. Revisar todos los `[marcadores]` y
 `[verificar]` con el cliente antes de anunciar el sitio.
 
@@ -50,7 +54,8 @@ ffmpeg -i img/Diario_Femenil.png -c:v libwebp -quality 82 img/fotos/diario-nina.
 
 | WebP | Original | Se usa en |
 |---|---|---|
-| `patio-grupo` | `Niños-Colegio-Florida-1002.png` | héroe del inicio, imagen para redes (`og:image`) |
+| `florida-edificio` | `b205a4_…~mv2.jpg` (en `img/fotos/`, fuera de Git) | tarjeta Colegio La Florida en `zarem.mx/`, `og:image` del inicio |
+| `patio-grupo` | `Niños-Colegio-Florida-1002.png` | héroe de `/colegio_la_florida/`, imagen para redes (`og:image`) |
 | `diario-nina` | `Diario_Femenil.png` | panel Niña; blusa, cárdigan, jumper, mallas, paquete diario niña |
 | `diario-nino` | `Diario_Varonil.png` | panel Niño; suéter, pantalón, paquete diario niño |
 | `deportes-nina` / `deportes-nino` | `Deportes_Femenil2.png` / `Deportes_Varonil.png` | banda Deportes; chamarras, pants, paquetes |
@@ -66,27 +71,31 @@ Cuando haya foto propia por prenda, basta con cambiar `image` y dejar `focus: "5
 zarem.mx/
 ├── CNAME · .nojekyll · .gitignore · .env.example · robots.txt · sitemap.xml
 ├── README.md                     este archivo
-├── index.html                    inicio: héroe parallax, Niña/Niño, esenciales, deportes, escudo, «Sin filas»
-├── 404.html                      página no encontrada + redirecciones (MOVED)
+├── index.html                    zarem.mx/: una pantalla, una tarjeta por colegio (CLIENTS), logo «Casa de confección»
+├── 404.html                      página no encontrada + redirecciones (MOVED; /pages/* → /colegio_la_florida/*)
+├── cum/index.html                CUM: «próximamente» (logo y menú ya personalizados)
 │
 ├── css/site.css                  UNA hoja de estilos
 ├── js/
 │   ├── tailwind.config.js        paleta y tipografías
-│   ├── layout.jsx                TODAS las páginas: BRAND, MENU, cabecera, menú lateral, pie, bolsa (bag),
+│   ├── layout.jsx                TODAS las páginas: CLIENTS (colegios) y CLIENT (el abierto según la URL), BRAND,
+│   │                             cabecera, menú lateral «Colegios» (carpeta por colegio), pie, bolsa (bag),
 │   │                             useParallax, useReveal, WhatsApp, cookies, PageHero, LegalPage, renderPage()
 │   └── tienda.jsx                capa de datos `db`, useCatalog, priceBag (bordado, envío), Photo (encuadre),
 │                                 ProductCard, ProductPage, BagDrawer, ORDER_ENDPOINT
 │
 ├── img/fotos/*.webp              fotos publicadas (las PNG originales quedan fuera de Git)
-├── public/db/                    BASE DE DATOS SIMULADA — ver public/db/README.md
-│   ├── colecciones.json          líneas (diario, deportes, paquetes) y tipos de prenda
-│   ├── productos.json            15 artículos: 11 prendas + 4 paquetes, tallas, precio con IVA, foto y encuadre
-│   └── tienda.json               bordado, métodos de entrega y formas de pago permitidas en cada uno
 ├── supabase/                     BASE DE DATOS REAL (Etapa 2): esquema + RLS + stock por variante — ver supabase/README.md
-├── tools/generar-paginas-producto.py   crea pages/tienda/<slug>/ y sitemap.xml desde productos.json
+├── tools/generar-paginas-producto.py   crea colegio_la_florida/tienda/<slug>/ y sitemap.xml
 │
-├── pages/
-│   ├── tienda/                   /pages/tienda/  filtros ?corte=nina|nino y ?linea=diario|deportes|paquetes
+├── colegio_la_florida/           TIENDA DEL COLEGIO LA FLORIDA (todo lo de la escuela vive aquí)
+│   ├── index.html                inicio: héroe parallax, Niña/Niño, CATÁLOGO completo (#catalogo: línea →
+│   │                             subcategorías → 15 tarjetas con foto, tallas y precio), deportes, escudo, «Sin filas»
+│   ├── db/                       BASE DE DATOS SIMULADA — ver colegio_la_florida/db/README.md
+│   │   ├── colecciones.json      líneas (diario, deportes, paquetes) y tipos de prenda
+│   │   ├── productos.json        15 artículos: 11 prendas + 4 paquetes, tallas, precio con IVA, foto y encuadre
+│   │   └── tienda.json           bordado, métodos de entrega y formas de pago permitidas en cada uno
+│   ├── tienda/                   filtros ?corte=nina|nino, ?linea=diario|deportes|paquetes, ?tipo=<subcategoría>
 │   ├── tienda/<slug>/            ficha (generada)
 │   ├── bolsa/                    bolsa + entrega + forma de pago + datos → pedido por WhatsApp (noindex)
 │   ├── como-comprar/             #pasos #entrega #pagos #tallas #bordado #cambios
@@ -102,12 +111,12 @@ zarem.mx/
 
 | Página | layout.jsx | tienda.jsx |
 |---|:-:|:-:|
-| `index.html`, `tienda/`, `tienda/<slug>/`, `bolsa/`, `como-comprar/` | ✓ | ✓ |
-| `contacto/`, `terminos/`, `privacidad/`, `404.html` | ✓ | |
+| `colegio_la_florida/`: `index.html`, `tienda/`, `tienda/<slug>/`, `bolsa/`, `como-comprar/` | ✓ | ✓ |
+| `colegio_la_florida/`: `contacto/`, `terminos/`, `privacidad/` · `index.html` · `cum/` · `404.html` | ✓ | |
 
 ## Cómo funciona la compra (Etapa 1)
 
-1. Ficha: talla (+ nombre a bordar) + cantidad → `bag.add()` guarda `{ productId, size, name, qty }` en `za-bolsa` y abre el cajón.
+1. Ficha: talla (+ nombre a bordar) + cantidad → `bag.add()` guarda `{ productId, size, name, qty }` en `za-bolsa-<colegio>` y abre el cajón.
 2. Bolsa: `priceBag()` recalcula desde el catálogo: prendas + bordado ($60 por prenda con nombre) + envío
    (gratis en tienda; $149 a domicilio, gratis desde $2,000).
 3. Forma de pago según la entrega (`tienda.json`): **recoger en tienda → tarjeta o efectivo**; **domicilio → tarjeta u OXXO**.
@@ -117,15 +126,18 @@ zarem.mx/
 ## Cambios habituales
 
 - **Teléfono, WhatsApp, email, dirección y horario de la tienda**: `BRAND` en `js/layout.jsx` (todos `[verificar]`).
-- **Menú lateral / pie**: `MENU`, `MENU_SECONDARY` y `FOOTER_COLUMNS` en `js/layout.jsx`.
-- **Prendas, precios, tallas, fotos**: `public/db/productos.json`; después `python tools/generar-paginas-producto.py`.
-- **Bordado, envíos, formas de pago**: `public/db/tienda.json` (y el texto de `pages/terminos/`).
-- **Guía de tallas**: `SIZES` en `pages/como-comprar/index.html`.
+- **Colegios** (tarjetas del inicio, logo, menú lateral): `CLIENTS` en `js/layout.jsx` — `name`, `base` (carpeta),
+  `cover` (foto de la tarjeta), `menu` (páginas que se despliegan en «Colegios»), `soon` (sin tienda aún).
+  Un colegio nuevo = una entrada en `CLIENTS` + su carpeta. Pie: `footerColumns()` en `js/layout.jsx`.
+- **Foto de CUM**: poner la WebP en `img/fotos/` y su ruta en `cover` de CUM (hoy sale un panel negro).
+- **Prendas, precios, tallas, fotos**: `colegio_la_florida/db/productos.json`; después `python tools/generar-paginas-producto.py`.
+- **Bordado, envíos, formas de pago**: `colegio_la_florida/db/tienda.json` (y el texto de `colegio_la_florida/terminos/`).
+- **Guía de tallas**: `SIZES` en `colegio_la_florida/como-comprar/index.html`.
 - **Velocidad del parallax**: atributo `data-speed` de cada `.parallax` (0 = fija; 0.25 = la más marcada del sitio).
 
 ## Claves de almacenamiento local
 
-`za-bolsa` (bolsa) · `za-pedidos` (pedidos enviados desde este navegador) · `za-cookies`.
+`za-bolsa-<id del colegio>` (una bolsa por colegio) · `za-pedidos` (pedidos enviados desde este navegador) · `za-cookies`.
 
 ## Hoja de ruta (ver `../ARQUITECTURA-WEB-ETAPAS.md`)
 
@@ -137,6 +149,17 @@ zarem.mx/
 | 5 | WhatsApp Business API para avisos; preventa del siguiente ciclo escolar |
 
 ## Versiones
+
+### 1.2.0 — 2026-10-10 · Zarem, casa de confección: un sitio, una tienda por colegio
+- `zarem.mx/` pasa a ser una pantalla sin scroll con dos tarjetas: Colegio La Florida (foto del edificio) y CUM.
+- Toda la tienda del Colegio La Florida se mueve a `/colegio_la_florida/` (antes `/` y `/pages/*`; datos en
+  `colegio_la_florida/db/`). `404.html` redirige las ligas viejas `/pages/*`.
+- El logo se personaliza: «Casa de confección» sin colegio, nombre del colegio dentro de su tienda.
+- Menú lateral con la categoría «Colegios»: cada colegio se despliega como carpeta con sus páginas.
+- Bolsa separada por colegio (`za-bolsa-<id>`); CUM con página «próximamente».
+- Inicio del colegio con el catálogo completo por línea y subcategoría; tarjetas con rango de tallas; filtro
+  de subcategoría (`?tipo=`) en la tienda; `js/tienda.jsx` usa `CLIENT.base` (sin rutas fijas del colegio).
+- Corregido: «Cómo comprar» se salía de la pantalla en el celular (tabla de tallas).
 
 ### 1.1.0 — 2026-10-08 · Tienda del Colegio La Florida, estilo minimalista de moda
 - El sitio pasa a ser la tienda de uniformes del Colegio La Florida (sustituye la página única anterior de zarem.mx).

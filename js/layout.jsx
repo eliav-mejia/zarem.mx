@@ -4,32 +4,53 @@
 
 const { useState, useEffect, useMemo, useRef } = React;
 
+// --- CLIENTS ---
+// Every school is a store under its own folder (zarem.mx/<id>/). The client is picked from the URL; on zarem.mx/
+// there is none, and the logo reads "Casa de confección". To add a school: one entry here + its folder + a card
+// on the home page (index.html). `soon: true` = folder with a "próximamente" page, no store yet.
+const CLIENTS = [
+    {
+        id: 'colegio_la_florida',
+        name: 'Colegio La Florida',
+        base: '/colegio_la_florida',
+        cover: '/img/fotos/florida-edificio.webp',
+        menu: [
+            { href: '/colegio_la_florida/#catalogo', label: 'Catálogo completo' },
+            { href: '/colegio_la_florida/tienda/?corte=nina', label: 'Niña' },
+            { href: '/colegio_la_florida/tienda/?corte=nino', label: 'Niño' },
+            { href: '/colegio_la_florida/tienda/?linea=diario', label: 'Diario' },
+            { href: '/colegio_la_florida/tienda/?linea=deportes', label: 'Deportes' },
+            { href: '/colegio_la_florida/tienda/?linea=paquetes', label: 'Paquetes' },
+            { href: '/colegio_la_florida/como-comprar/', label: 'Cómo comprar' },
+            { href: '/colegio_la_florida/como-comprar/#tallas', label: 'Guía de tallas' },
+            { href: '/colegio_la_florida/contacto/', label: 'Tienda y contacto' },
+        ],
+    },
+    {
+        id: 'cum',
+        name: 'CUM',                                           // [verificar] nombre completo
+        base: '/cum',
+        cover: null,                                           // [foto pendiente]
+        soon: true,
+        menu: [],
+    },
+];
+const CLIENT = CLIENTS.find(c => (window.location.pathname + '/').startsWith(c.base + '/')) || null;
+
 // --- BRAND ---
 // Values marked [verificar] are placeholders until the client confirms them.
 const BRAND = {
     name: 'Zarem',
-    school: 'Colegio La Florida',
-    tagline: 'Uniformes oficiales del Colegio La Florida',
+    slogan: 'Casa de confección',
+    school: CLIENT ? CLIENT.name : '',
+    tagline: CLIENT ? `Uniformes oficiales del ${CLIENT.name}` : 'Casa de confección de uniformes escolares',
     email: 'hola@zarem.mx',                                    // [verificar]
     phone: '+52 55 0000 0000',                                 // [verificar]
     whatsapp: '5200000000000',                                 // [verificar] solo dígitos, formato internacional
     store: '[Dirección de la tienda de uniformes], Ciudad de México',   // [verificar]
     hours: 'Lunes a viernes 9:00 – 18:00 · Sábado 9:00 – 14:00',        // [verificar]
 };
-
-// Side menu (Zara-style): big list on the left. Header shows only the short links.
-const MENU = [
-    { href: '/pages/tienda/?corte=nina', label: 'Niña' },
-    { href: '/pages/tienda/?corte=nino', label: 'Niño' },
-    { href: '/pages/tienda/?linea=diario', label: 'Diario' },
-    { href: '/pages/tienda/?linea=deportes', label: 'Deportes' },
-    { href: '/pages/tienda/?linea=paquetes', label: 'Paquetes' },
-];
-const MENU_SECONDARY = [
-    { href: '/pages/como-comprar/', label: 'Cómo comprar' },
-    { href: '/pages/como-comprar/#tallas', label: 'Guía de tallas' },
-    { href: '/pages/contacto/', label: 'Tienda y contacto' },
-];
+const HOME = CLIENT ? `${CLIENT.base}/` : '/';
 
 const formatMXN = (n) => new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n);
 
@@ -52,11 +73,13 @@ const useStoreEvent = (eventName, keys, read) => {
 };
 
 // --- BAG ---
-// Lines in 'za-bolsa': [{ key, productId, size, name, qty }]. `name` = student name to embroider ('' = none).
-// Prices are NOT stored: they are recomputed from the catalogue (js/tienda.jsx → priceBag), as the server will in Etapa 2.
+// One bag per school, 'za-bolsa-<client id>': [{ key, productId, size, name, qty }]. `name` = student name to embroider
+// ('' = none). Prices are NOT stored: they are recomputed from the catalogue (js/tienda.jsx → priceBag), as the server
+// will in Etapa 2.
+const BAG_KEY = `za-bolsa-${CLIENT ? CLIENT.id : 'zarem'}`;
 const bag = {
-    read: () => store.read('za-bolsa', []),
-    save: (lines) => { store.write('za-bolsa', lines); window.dispatchEvent(new Event('za-bolsa')); },
+    read: () => store.read(BAG_KEY, []),
+    save: (lines) => { store.write(BAG_KEY, lines); window.dispatchEvent(new Event('za-bolsa')); },
     keyOf: ({ productId, size, name }) => `${productId}|${size}|${(name || '').trim().toLowerCase()}`,
     add: (line) => {
         const clean = { ...line, name: (line.name || '').trim() };
@@ -71,7 +94,7 @@ const bag = {
     clear: () => bag.save([]),
 };
 
-const useBag = () => useStoreEvent('za-bolsa', ['za-bolsa'], bag.read);
+const useBag = () => useStoreEvent('za-bolsa', [BAG_KEY], bag.read);
 const bagCount = (lines) => lines.reduce((a, l) => a + l.qty, 0);
 
 // --- ICONS (thin strokes) ---
@@ -80,16 +103,18 @@ const Icon = ({ d, className = 'w-5 h-5' }) => (
 );
 const IconMenu = (p) => <Icon {...p} d={<path d="M3 8h18M3 16h18" />} />;
 const IconClose = (p) => <Icon {...p} d={<path d="M5 5l14 14M19 5L5 19" />} />;
+const IconPlus = (p) => <Icon {...p} d={<path d="M12 5v14M5 12h14" />} />;
+const IconMinus = (p) => <Icon {...p} d={<path d="M5 12h14" />} />;
 const IconArrow = (p) => <Icon {...p} d={<path d="M4 12h16M14 6l6 6-6 6" />} />;
 const IconWhatsApp = ({ className = 'w-6 h-6' }) => (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z" /></svg>
 );
 
-// --- LOGO: Didone wordmark + school line ---
+// --- LOGO: Didone wordmark + line under it: the open school, or the Zarem slogan when no school is open ---
 const Logo = ({ light = false, big = false }) => (
-    <a href="/" className={`block leading-none ${light ? 'text-white' : 'text-ink'}`} aria-label={`${BRAND.name}, inicio`}>
+    <a href={HOME} className={`block leading-none ${light ? 'text-white' : 'text-ink'}`} aria-label={`${BRAND.name}${CLIENT ? ` · ${CLIENT.name}` : ''}, inicio`}>
         <span className={`font-logo block tracking-[0.12em] ${big ? 'text-6xl md:text-8xl' : 'text-[1.9rem] md:text-[2.3rem]'}`}>ZAREM</span>
-        <span className={`label block mt-1 ${light ? 'text-white/80' : 'text-ink-500'}`}>{BRAND.school}</span>
+        <span className={`label block mt-1 ${light ? 'text-white/80' : 'text-ink-500'}`}>{CLIENT ? CLIENT.name : BRAND.slogan}</span>
     </a>
 );
 
@@ -105,7 +130,7 @@ const CookieConsent = () => {
     return (
         <div className="fixed bottom-0 inset-x-0 z-[90] bg-white border-t border-ink animate-fade-in" role="dialog" aria-label="Cookies">
             <div className="max-w-[1600px] mx-auto px-4 md:px-10 py-4 flex flex-col md:flex-row md:items-center gap-4 justify-between">
-                <p className="text-xs max-w-2xl">Usamos almacenamiento necesario para tu bolsa y, con tu permiso, para medir y mejorar el sitio. <a href="/pages/privacidad/" className="underline">Aviso de privacidad</a></p>
+                <p className="text-xs max-w-2xl">Usamos almacenamiento necesario para tu bolsa y, con tu permiso, para medir y mejorar el sitio. <a href="/colegio_la_florida/privacidad/" className="underline">Aviso de privacidad</a></p>
                 <div className="flex gap-2 shrink-0">
                     <button className="btn btn-ink" onClick={() => choose('all')}>Aceptar</button>
                     <button className="btn btn-line" onClick={() => choose('necessary')}>Solo necesarias</button>
@@ -119,7 +144,7 @@ const CookieConsent = () => {
 const waLink = (text) => `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(text)}`;
 
 const WhatsAppButton = () => (
-    <a href={waLink(`Hola, tengo una pregunta sobre los uniformes del ${BRAND.school}.`)} target="_blank" rel="noopener noreferrer"
+    <a href={waLink(CLIENT ? `Hola, tengo una pregunta sobre los uniformes del ${CLIENT.name}.` : 'Hola, tengo una pregunta sobre los uniformes de Zarem.')} target="_blank" rel="noopener noreferrer"
        className="fixed bottom-5 right-5 z-[60] w-12 h-12 bg-white border border-ink text-ink flex items-center justify-center hover:bg-ink hover:text-white transition-colors"
        aria-label="Escríbenos por WhatsApp">
         <IconWhatsApp className="w-5 h-5" />
@@ -181,7 +206,41 @@ const useScrolled = (px = 40) => {
 // --- LAYOUT ---
 // overlay: the header floats transparent (white text) over a full-screen photo until the page scrolls.
 // BagDrawer is defined in tienda.jsx; pages that do not load it simply have no drawer.
-const Layout = ({ children, overlay = false }) => {
+// Side menu, "Colegios": every school opens like a folder with its pages; the open school starts unfolded.
+const SchoolsMenu = () => {
+    const [open, setOpen] = useState(CLIENT ? CLIENT.id : null);
+    return (
+        <nav className="mt-14" aria-label="Colegios">
+            <p className="label text-ink-500 mb-5">Colegios</p>
+            <ul className="flex flex-col gap-4">
+                {CLIENTS.map(c => {
+                    const isOpen = open === c.id;
+                    return (
+                        <li key={c.id}>
+                            <div className="flex items-center justify-between gap-4">
+                                <a href={`${c.base}/`} className="text-3xl font-light tracking-tight hover:pl-2 transition-all" aria-current={CLIENT === c ? 'page' : undefined}>{c.name}</a>
+                                {c.menu.length > 0 && (
+                                    <button onClick={() => setOpen(isOpen ? null : c.id)} aria-expanded={isOpen} aria-label={`${isOpen ? 'Cerrar' : 'Abrir'} ${c.name}`}>
+                                        {isOpen ? <IconMinus /> : <IconPlus />}
+                                    </button>
+                                )}
+                                {c.soon && <span className="label text-ink-400">Próximamente</span>}
+                            </div>
+                            {isOpen && (
+                                <ul className="mt-4 ml-1 pl-5 border-l border-line flex flex-col gap-2.5 animate-fade-in">
+                                    {c.menu.map(l => <li key={l.href}><a href={l.href} className="label link">{l.label}</a></li>)}
+                                </ul>
+                            )}
+                        </li>
+                    );
+                })}
+            </ul>
+        </nav>
+    );
+};
+
+// landing: zarem.mx/ — no footer, no shop links (the page is the two school cards).
+const Layout = ({ children, overlay = false, landing = false }) => {
     const count = bagCount(useBag());
     const [menuOpen, setMenuOpen] = useState(false);
     const scrolled = useScrolled();
@@ -201,11 +260,13 @@ const Layout = ({ children, overlay = false }) => {
                         <button className="mt-1.5" onClick={() => setMenuOpen(true)} aria-label="Abrir menú"><IconMenu className="w-6 h-6" /></button>
                         <Logo light={clear} />
                     </div>
-                    <nav className="flex items-center gap-5 md:gap-8 mt-2" aria-label="Principal">
-                        <a href="/pages/tienda/" className="label link hidden sm:inline" aria-current={here.startsWith('/pages/tienda/') ? 'page' : undefined}>Tienda</a>
-                        <a href="/pages/como-comprar/" className="label link hidden md:inline" aria-current={here.startsWith('/pages/como-comprar') ? 'page' : undefined}>Cómo comprar</a>
-                        <a href="/pages/bolsa/" className="label link" aria-label={`Bolsa, ${count} piezas`}>Bolsa ({count})</a>
-                    </nav>
+                    {CLIENT && !CLIENT.soon && (
+                        <nav className="flex items-center gap-5 md:gap-8 mt-2" aria-label="Principal">
+                            <a href={`${CLIENT.base}/tienda/`} className="label link hidden sm:inline" aria-current={here.startsWith(`${CLIENT.base}/tienda/`) ? 'page' : undefined}>Tienda</a>
+                            <a href={`${CLIENT.base}/como-comprar/`} className="label link hidden md:inline" aria-current={here.startsWith(`${CLIENT.base}/como-comprar`) ? 'page' : undefined}>Cómo comprar</a>
+                            <a href={`${CLIENT.base}/bolsa/`} className="label link" aria-label={`Bolsa, ${count} piezas`}>Bolsa ({count})</a>
+                        </nav>
+                    )}
                 </div>
             </header>
 
@@ -217,11 +278,9 @@ const Layout = ({ children, overlay = false }) => {
                             <button className="mt-1.5" onClick={() => setMenuOpen(false)} aria-label="Cerrar menú"><IconClose className="w-6 h-6" /></button>
                             <Logo />
                         </div>
-                        <nav className="mt-14 flex flex-col gap-4">
-                            {MENU.map(l => <a key={l.href} href={l.href} className="text-3xl font-light tracking-tight hover:pl-2 transition-all">{l.label}</a>)}
-                        </nav>
+                        <SchoolsMenu />
                         <nav className="mt-12 flex flex-col gap-3">
-                            {MENU_SECONDARY.map(l => <a key={l.href} href={l.href} className="label link self-start">{l.label}</a>)}
+                            <a href="/" className="label link self-start">Zarem · {BRAND.slogan}</a>
                         </nav>
                         <p className="mt-auto pt-12 text-xs text-ink-500">{BRAND.store}<br />{BRAND.hours}</p>
                     </aside>
@@ -230,7 +289,7 @@ const Layout = ({ children, overlay = false }) => {
 
             <main id="main" className="flex-1">{children}</main>
 
-            <Footer />
+            {!landing && <Footer />}
             <WhatsAppButton />
             {typeof BagDrawer !== 'undefined' && <BagDrawer />}
             <CookieConsent />
@@ -238,25 +297,27 @@ const Layout = ({ children, overlay = false }) => {
     );
 };
 
-const FOOTER_COLUMNS = [
+// Footer links of the open school's store (none on the home page or a "próximamente" school).
+const footerColumns = (b) => [
     { title: 'Tienda', links: [
-        { href: '/pages/tienda/?corte=nina', label: 'Niña' },
-        { href: '/pages/tienda/?corte=nino', label: 'Niño' },
-        { href: '/pages/tienda/?linea=deportes', label: 'Deportes' },
-        { href: '/pages/tienda/?linea=paquetes', label: 'Paquetes' },
+        { href: `${b}/tienda/?corte=nina`, label: 'Niña' },
+        { href: `${b}/tienda/?corte=nino`, label: 'Niño' },
+        { href: `${b}/tienda/?linea=deportes`, label: 'Deportes' },
+        { href: `${b}/tienda/?linea=paquetes`, label: 'Paquetes' },
     ] },
     { title: 'Ayuda', links: [
-        { href: '/pages/como-comprar/', label: 'Cómo comprar' },
-        { href: '/pages/como-comprar/#tallas', label: 'Guía de tallas' },
-        { href: '/pages/como-comprar/#pagos', label: 'Formas de pago' },
-        { href: '/pages/terminos/#cambios', label: 'Cambios' },
+        { href: `${b}/como-comprar/`, label: 'Cómo comprar' },
+        { href: `${b}/como-comprar/#tallas`, label: 'Guía de tallas' },
+        { href: `${b}/como-comprar/#pagos`, label: 'Formas de pago' },
+        { href: `${b}/terminos/#cambios`, label: 'Cambios' },
     ] },
     { title: 'Zarem', links: [
-        { href: '/pages/contacto/', label: 'Tienda y contacto' },
-        { href: '/pages/terminos/', label: 'Términos de venta' },
-        { href: '/pages/privacidad/', label: 'Aviso de privacidad' },
+        { href: `${b}/contacto/`, label: 'Tienda y contacto' },
+        { href: `${b}/terminos/`, label: 'Términos de venta' },
+        { href: `${b}/privacidad/`, label: 'Aviso de privacidad' },
     ] },
 ];
+const FOOTER_COLUMNS = CLIENT && !CLIENT.soon ? footerColumns(CLIENT.base) : [];
 
 const Footer = () => (
     <footer className="border-t border-line mt-24">
@@ -314,5 +375,5 @@ const LegalPage = ({ kicker, title, updated, sections }) => (
 );
 
 const renderPage = (Page, options = {}) => {
-    ReactDOM.createRoot(document.getElementById('root')).render(<Layout overlay={options.overlay}><Page /></Layout>);
+    ReactDOM.createRoot(document.getElementById('root')).render(<Layout overlay={options.overlay} landing={options.landing}><Page /></Layout>);
 };

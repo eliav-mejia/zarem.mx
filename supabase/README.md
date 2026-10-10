@@ -1,6 +1,6 @@
 # supabase — base de datos real (Etapa 2)
 
-Esquema sin datos ni secretos. **Nada de esto se usa en la Etapa 1**: hoy el sitio lee `public/db/*.json`.
+Esquema sin datos ni secretos. **Nada de esto se usa en la Etapa 1**: hoy el sitio lee `colegio_la_florida/db/*.json`.
 
 | Archivo | Contenido |
 |---|---|
