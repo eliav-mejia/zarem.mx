@@ -10,7 +10,7 @@ en OXXO o en efectivo al recoger en tienda.
 
 **Variante C/D** de `../ARQUITECTURA-WEB-ETAPAS.md` con **módulo de ecommerce**: React + Tailwind por CDN, sin build, datos
 simulados en `colegio_la_florida/db/`, una capa de datos (`db`) y una función de precios (`priceBag`) en `js/tienda.jsx`. Mismo
-contrato que la plantilla (`../_plataforma/etapa-1-arquitectura-base/plantilla-react-tailwind/`).
+contrato que la plantilla (`../_plataforma/etapas/etapa-1-arquitectura-base/plantilla-react-tailwind/`).
 
 **Estado: 1.2.0 · Etapa 1.** Precios, tallas, dirección de la tienda y textos legales son de ejemplo; la bolsa y los
 pedidos se guardan solo en el navegador y el pedido se confirma por WhatsApp. Revisar todos los `[marcadores]` y
