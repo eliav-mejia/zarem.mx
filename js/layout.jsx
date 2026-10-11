@@ -30,7 +30,7 @@ const CLIENTS = [
         id: 'cum',
         name: 'CUM',                                           // [verificar] nombre completo
         base: '/cum',
-        cover: null,                                           // [foto pendiente]
+        cover: '/img/instituto-universitario-mexico-cum-mejores-preparatorias-cdmx.jpeg',
         soon: true,
         menu: [],
     },
