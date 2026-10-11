@@ -56,11 +56,19 @@ ffmpeg -i img/seccion/Diario_Femenil.png -c:v libwebp -quality 82 img/seccion/di
 |---|---|---|
 | `florida-edificio` | `b205a4_…~mv2.jpg` (fuera de Git) | tarjeta Colegio La Florida en `zarem.mx/`, `og:image` del inicio |
 | `patio-grupo` | `Niños-Colegio-Florida-1002.png` | héroe de `/colegio_la_florida/`, imagen para redes (`og:image`) |
-| `diario-nina` | `Diario_Femenil.png` | panel Niña; polo diario niña, suéter abierto |
-| `diario-nino` | `Diario_Varonil.png` | panel Niño; suéter cerrado, pantalón, cinturón |
-| `deportes-nina` / `deportes-nino` | `Deportes_Femenil2.png` / `Deportes_Varonil.png` | banda Deportes; chamarra y pants de deportes |
-| `polo-escudo` | `polo-hombre-diario3-hd.png` | detalle del escudo; polo diario niño |
+| `diario-nina` | `Diario_Femenil.png` | panel Niña |
+| `diario-nino` | `Diario_Varonil.png` | panel Niño; suéter cerrado |
+| `deportes-nina` / `deportes-nino` | `Deportes_Femenil2.png` / `Deportes_Varonil.png` | banda Deportes |
+| `polo-escudo` | `polo-hombre-diario3-hd.png` | detalle del escudo |
 | `jumper-nina` | `Jumper-diario-niña.jpg` | jumper |
+| `polo-diario-nino` / `polo-diario-nina` | `polo-diario-hombre.png` / `polo-diario-mujer.png` | polo diario niño / niña |
+| `sueter-abierto-nina` | `sudadera_abierta-diario-mujer.jpg` | suéter abierto niña |
+| `calcetas-blancas` / `calcetas-grises` | `Calcetas-diario-blancas.jpg` / `Calcetas-diario-grises.jpg` | calcetas niña / niño |
+| `pantalon-diario-nino` | `pantalon-diario-hombre.png` | pantalón de diario niño |
+| `cinturon-nino` | `Cinturon-diario-hombre.jpg` | cinturón niño |
+| `sudadera-relieve` | `Sudadera_relieve-deportes-unisex.png` | sudadera con relieve |
+| `chamarra-deportes` | `chamarra_abierta-deportes-unisex.jpg` | chamarra de deportes |
+| `pants-deportes` | `pants-deportes-unisex (2).png` | pants de deportes |
 | `playera-amigos-de-jesus` | `Gemini_Generated_Image_ygeeo2….jpg` | playera Amigos de Jesús, línea Kinder |
 | `sin-foto` | (generada con ffmpeg) | prendas sin foto todavía |
 | `patio-abrazo` | `Patio.png` | «Sin filas» |
