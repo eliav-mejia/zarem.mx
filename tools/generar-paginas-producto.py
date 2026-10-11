@@ -6,7 +6,7 @@ and rewrite sitemap.xml.
 
 The page is rendered by renderProduct() in js/tienda.jsx, which reads the JSON at load time, so price, colour or
 description changes need no regeneration for visitors. Re-run after adding a product or changing slug, name, short,
-description or price_mxn (copied into <head> and schema.org for search engines).
+description, price_mxn or variants (copied into <head> and schema.org for search engines).
 Product folders whose slug is no longer in the database are listed, not deleted.
 """
 import html
@@ -83,6 +83,12 @@ def main():
                 'itemCondition': 'https://schema.org/NewCondition',
             },
         }
+        # Price by size (variants): publish the range.
+        prices = [v['price_mxn'] for v in p.get('variants', [])]
+        if prices and max(prices) != min(prices):
+            offer = jsonld['offers']
+            del offer['price']
+            offer.update({'@type': 'AggregateOffer', 'lowPrice': min(prices), 'highPrice': max(prices), 'offerCount': len(prices)})
         out = OUT / p['slug'] / 'index.html'
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(TEMPLATE.format(

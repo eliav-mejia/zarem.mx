@@ -1,11 +1,11 @@
 {
   "_schema": "lines: id, label, description, image · types: id, label, sort_order",
   "_note": "Base de datos simulada (Etapa 1). Ver public/db/README.md. Pública: sin datos privados.",
-  "updated_at": "2026-10-08",
+  "updated_at": "2026-10-10",
   "lines": [
-    { "id": "diario", "label": "Diario", "description": "El uniforme de todos los días: polo con escudo bordado, suéter café, pantalón café y jumper gris de tablones.", "image": "/img/fotos/diario-nina.webp" },
-    { "id": "deportes", "label": "Deportes", "description": "Chamarra y pants azul marino con franjas naranja y blanca, para educación física y torneos.", "image": "/img/fotos/deportes-nino.webp" },
-    { "id": "paquetes", "label": "Paquetes", "description": "El uniforme completo en una sola compra, con mejor precio que por pieza.", "image": "/img/fotos/patio-abrazo.webp" }
+    { "id": "diario", "label": "Diario", "description": "El uniforme de todos los días: polo con escudo bordado, suéter café, pantalón café, chaleco y jumper gris.", "image": "/img/fotos/diario-nina.webp" },
+    { "id": "deportes", "label": "Deportes", "description": "Chamarra, pants y polo de deportes, azul marino con franjas naranja y blanca, para educación física y torneos.", "image": "/img/fotos/deportes-nino.webp" },
+    { "id": "kinder", "label": "Kinder", "description": "Bata, playera y chamarra Amigos de Jesús para preescolar.", "image": "/img/fotos/playera-amigos-de-jesus.webp" }
   ],
   "types": [
     { "id": "paquetes", "label": "Paquetes", "sort_order": 0 },
@@ -15,6 +15,9 @@
     { "id": "jumpers", "label": "Jumpers", "sort_order": 4 },
     { "id": "chamarras", "label": "Chamarras", "sort_order": 5 },
     { "id": "pants", "label": "Pants", "sort_order": 6 },
+    { "id": "sudaderas", "label": "Sudaderas", "sort_order": 6 },
+    { "id": "chalecos", "label": "Chalecos", "sort_order": 6 },
+    { "id": "batas", "label": "Batas", "sort_order": 6 },
     { "id": "accesorios", "label": "Accesorios", "sort_order": 7 }
   ]
 }

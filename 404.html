@@ -33,7 +33,24 @@
         // Old URL → new URL. Add one entry per moved or deleted page (e.g. a product removed from the catalogue).
         // The previous one-page site used #anchors on "/", which keep working.
         // 1.2.0: the Florida store moved from /pages/* (and /public/db) to /colegio_la_florida/*.
-        const MOVED = {};
+        // Product pages removed when the catalogue was rebuilt from Odoo (2026-10-10) → closest new page.
+        const MOVED = {
+            '/colegio_la_florida/tienda/blusa-cuello-redondo/': '/colegio_la_florida/tienda/polo-diario-nina/',
+            '/colegio_la_florida/tienda/cardigan-trenzado/': '/colegio_la_florida/tienda/sueter-abierto-nina/',
+            '/colegio_la_florida/tienda/chamarra-deportiva-nina/': '/colegio_la_florida/tienda/chamarra-deportes/',
+            '/colegio_la_florida/tienda/chamarra-deportiva-nino/': '/colegio_la_florida/tienda/chamarra-deportes/',
+            '/colegio_la_florida/tienda/jumper-tablones/': '/colegio_la_florida/tienda/jumper-nina/',
+            '/colegio_la_florida/tienda/mallas-caladas/': '/colegio_la_florida/tienda/calcetas-nina/',
+            '/colegio_la_florida/tienda/pantalon-cafe/': '/colegio_la_florida/tienda/pantalon-diario-nino/',
+            '/colegio_la_florida/tienda/pants-deportivo-nina/': '/colegio_la_florida/tienda/pants-deportes/',
+            '/colegio_la_florida/tienda/pants-deportivo-nino/': '/colegio_la_florida/tienda/pants-deportes/',
+            '/colegio_la_florida/tienda/paquete-deportes-nina/': '/colegio_la_florida/tienda/?linea=deportes&corte=nina',
+            '/colegio_la_florida/tienda/paquete-deportes-nino/': '/colegio_la_florida/tienda/?linea=deportes&corte=nino',
+            '/colegio_la_florida/tienda/paquete-diario-nina/': '/colegio_la_florida/tienda/?linea=diario&corte=nina',
+            '/colegio_la_florida/tienda/paquete-diario-nino/': '/colegio_la_florida/tienda/?linea=diario&corte=nino',
+            '/colegio_la_florida/tienda/polo-escudo/': '/colegio_la_florida/tienda/polo-diario-nino/',
+            '/colegio_la_florida/tienda/sueter-cuello-v/': '/colegio_la_florida/tienda/sueter-cerrado-nino/',
+        };
         const target = MOVED[location.pathname]
             || (location.pathname.startsWith('/pages/') ? location.pathname.replace(/^\/pages\//, '/colegio_la_florida/') : null);
         if (target) location.replace(target + location.search + location.hash);

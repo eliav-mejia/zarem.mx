@@ -72,7 +72,7 @@
                 const text = [
                     `Hola Zarem, quiero confirmar mi pedido ${order.id} de uniformes ${BRAND.school}:`,
                     '',
-                    ...priced.lines.map(l => `• ${l.qty} × ${l.product.name} (${l.product.sku}) talla ${l.size}${l.name ? `, bordado «${l.name}»` : ''} — ${formatMXN(l.qty * l.product.price_mxn)}`),
+                    ...priced.lines.map(l => `• ${l.qty} × ${l.product.name} (${skuOf(l.product, l.size)}) talla ${l.size}${l.name ? `, bordado «${l.name}»` : ''} — ${formatMXN(l.qty * unitPrice(l.product, l.size))}`),
                     '',
                     priced.embroidery > 0 && `Bordado de nombre (${priced.embPieces}): ${formatMXN(priced.embroidery)}`,
                     `${priced.method.label}: ${priced.shipping ? formatMXN(priced.shipping) : 'sin costo'}`,
@@ -109,7 +109,7 @@
                                     <li key={l.key}>
                                         <a href={`/colegio_la_florida/tienda/${l.product.slug}/`}><Photo product={l.product} className="aspect-[3/4]" /></a>
                                         <div className="pt-3 label space-y-1">
-                                            <p className="flex justify-between gap-2"><span>{l.product.name}</span><span>{formatMXN(l.qty * l.product.price_mxn)}</span></p>
+                                            <p className="flex justify-between gap-2"><span>{l.product.name}</span><span>{formatMXN(l.qty * unitPrice(l.product, l.size))}</span></p>
                                             <p className="text-ink-500">Talla {l.size}{l.name ? ` · ${l.name}` : ''}</p>
                                             <div className="flex items-center gap-4 pt-1">
                                                 <div className="flex items-center border border-line">

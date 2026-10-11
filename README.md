@@ -4,7 +4,7 @@ Zarem, **casa de confección**: una tienda de uniformes por colegio, cada una en
 `zarem.mx/` es una sola pantalla sin scroll con una tarjeta por colegio. Hoy: **Colegio La Florida**
 (`/colegio_la_florida/`, tienda completa) y **CUM** (`/cum/`, próximamente).
 
-Tienda del Colegio La Florida: uniformes oficiales (diario, deportes y paquetes completos).
+Tienda del Colegio La Florida: uniformes oficiales (diario, deportes y kinder).
 Las familias eligen prenda y talla desde el celular, añaden el bordado del nombre del alumno y pagan con tarjeta,
 en OXXO o en efectivo al recoger en tienda.
 
@@ -56,11 +56,14 @@ ffmpeg -i img/Diario_Femenil.png -c:v libwebp -quality 82 img/fotos/diario-nina.
 |---|---|---|
 | `florida-edificio` | `b205a4_…~mv2.jpg` (en `img/fotos/`, fuera de Git) | tarjeta Colegio La Florida en `zarem.mx/`, `og:image` del inicio |
 | `patio-grupo` | `Niños-Colegio-Florida-1002.png` | héroe de `/colegio_la_florida/`, imagen para redes (`og:image`) |
-| `diario-nina` | `Diario_Femenil.png` | panel Niña; blusa, cárdigan, jumper, mallas, paquete diario niña |
-| `diario-nino` | `Diario_Varonil.png` | panel Niño; suéter, pantalón, paquete diario niño |
-| `deportes-nina` / `deportes-nino` | `Deportes_Femenil2.png` / `Deportes_Varonil.png` | banda Deportes; chamarras, pants, paquetes |
-| `polo-escudo` | `polo-hombre-diario3-hd.png` | detalle del escudo; polo |
-| `patio-abrazo` | `Patio.png` | «Sin filas»; línea Paquetes |
+| `diario-nina` | `Diario_Femenil.png` | panel Niña; polo diario niña, suéter abierto |
+| `diario-nino` | `Diario_Varonil.png` | panel Niño; suéter cerrado, pantalón, cinturón |
+| `deportes-nina` / `deportes-nino` | `Deportes_Femenil2.png` / `Deportes_Varonil.png` | banda Deportes; chamarra y pants de deportes |
+| `polo-escudo` | `polo-hombre-diario3-hd.png` | detalle del escudo; polo diario niño |
+| `jumper-nina` | `Jumper-diario-niña.jpg` | jumper |
+| `playera-amigos-de-jesus` | `Gemini_Generated_Image_ygeeo2….jpg` | playera Amigos de Jesús, línea Kinder |
+| `sin-foto` | (generada con ffmpeg) | prendas sin foto todavía |
+| `patio-abrazo` | `Patio.png` | «Sin filas» |
 
 Varias prendas comparten foto: en `productos.json`, `focus` (posición) y `zoom` encuadran cada prenda en su tarjeta.
 Cuando haya foto propia por prenda, basta con cambiar `image` y dejar `focus: "50% 50%"`, `zoom: 1`.
@@ -90,12 +93,12 @@ zarem.mx/
 │
 ├── colegio_la_florida/           TIENDA DEL COLEGIO LA FLORIDA (todo lo de la escuela vive aquí)
 │   ├── index.html                inicio: héroe parallax, Niña/Niño, CATÁLOGO completo (#catalogo: línea →
-│   │                             subcategorías → 15 tarjetas con foto, tallas y precio), deportes, escudo, «Sin filas»
+│   │                             subcategorías → 19 tarjetas con foto, tallas y precio), deportes, escudo, «Sin filas»
 │   ├── db/                       BASE DE DATOS SIMULADA — ver colegio_la_florida/db/README.md
-│   │   ├── colecciones.json      líneas (diario, deportes, paquetes) y tipos de prenda
-│   │   ├── productos.json        15 artículos: 11 prendas + 4 paquetes, tallas, precio con IVA, foto y encuadre
+│   │   ├── colecciones.json      líneas (diario, deportes, kinder) y tipos de prenda
+│   │   ├── productos.json        19 prendas, 246 variantes (talla, folio de Odoo, precio con IVA); generado desde Catalogo.xlsx
 │   │   └── tienda.json           bordado, métodos de entrega y formas de pago permitidas en cada uno
-│   ├── tienda/                   filtros ?corte=nina|nino, ?linea=diario|deportes|paquetes, ?tipo=<subcategoría>
+│   ├── tienda/                   filtros ?corte=nina|nino, ?linea=diario|deportes|kinder, ?tipo=<subcategoría>
 │   ├── tienda/<slug>/            ficha (generada)
 │   ├── bolsa/                    bolsa + entrega + forma de pago + datos → pedido por WhatsApp (noindex)
 │   ├── como-comprar/             #pasos #entrega #pagos #tallas #bordado #cambios
@@ -130,7 +133,10 @@ zarem.mx/
   `cover` (foto de la tarjeta), `menu` (páginas que se despliegan en «Colegios»), `soon` (sin tienda aún).
   Un colegio nuevo = una entrada en `CLIENTS` + su carpeta. Pie: `footerColumns()` en `js/layout.jsx`.
 - **Foto de CUM**: poner la WebP en `img/fotos/` y su ruta en `cover` de CUM (hoy sale un panel negro).
-- **Prendas, precios, tallas, fotos**: `colegio_la_florida/db/productos.json`; después `python tools/generar-paginas-producto.py`.
+- **Prendas, precios, tallas**: se editan en `Catalogo.xlsx` (Odoo, `builds/Odoo/Odoo_catalogues/zarem.mx/`) y se importan con
+  `~/.venvs/xl/bin/python tools/importar-catalogo.py` (necesita openpyxl); foto, textos, línea y tipo de cada prenda: `PRODUCTS`
+  en ese script. Después `python tools/generar-paginas-producto.py`. El script también escribe la URL de la foto en la columna
+  `imagen` del catálogo.
 - **Bordado, envíos, formas de pago**: `colegio_la_florida/db/tienda.json` (y el texto de `colegio_la_florida/terminos/`).
 - **Guía de tallas**: `SIZES` en `colegio_la_florida/como-comprar/index.html`.
 - **Velocidad del parallax**: atributo `data-speed` de cada `.parallax` (0 = fija; 0.25 = la más marcada del sitio).
@@ -149,6 +155,14 @@ zarem.mx/
 | 5 | WhatsApp Business API para avisos; preventa del siguiente ciclo escolar |
 
 ## Versiones
+
+### 1.3.0 — 2026-10-10 · Catálogo real desde Odoo
+- `productos.json` se genera desde `Catalogo.xlsx` (`tools/importar-catalogo.py`): 19 prendas y 246 variantes, cada talla
+  con su folio de Odoo y su precio. Polo diario, polo deportes y calcetas por separado para niña y niño.
+- Precio por talla: tarjetas con «Desde $…», la ficha muestra el precio y el folio de la talla elegida; bolsa y pedido
+  usan el precio de cada talla.
+- Nueva línea Kinder (bata, playera y chamarra Amigos de Jesús). Paquetes desactivados (no están en Odoo).
+- Fichas antiguas redirigidas desde `404.html`. Portada del colegio con foto de estudio.
 
 ### 1.2.0 — 2026-10-10 · Zarem, casa de confección: un sitio, una tienda por colegio
 - `zarem.mx/` pasa a ser una pantalla sin scroll con dos tarjetas: Colegio La Florida (foto del edificio) y CUM.

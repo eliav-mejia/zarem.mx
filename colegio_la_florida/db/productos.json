@@ -1,566 +1,2154 @@
 {
- "_schema": "products: id, slug, sku, line_id, type_id, fit (nina|nino|unisex), name, short, description, price_mxn, image, focus (object-position), zoom, sizes, fabric, care, features, embroidery, availability, includes?, active, featured",
- "_note": "Catálogo de ejemplo (Etapa 1) del Colegio La Florida. Precios con IVA: confirmar con el cliente. Varias prendas comparten foto: focus/zoom encuadran la prenda.",
- "updated_at": "2026-10-08",
- "products": [
-  {
-   "id": "cl-001",
-   "slug": "polo-escudo",
-   "sku": "CLF-POL-01",
-   "line_id": "diario",
-   "type_id": "playeras",
-   "fit": "unisex",
-   "name": "Polo con escudo",
-   "short": "Piqué blanco con vivos y escudo bordado.",
-   "description": "Polo de piqué de algodón con cuello y puños tejidos con vivos marino y arena, y el escudo del colegio bordado en el pecho. Para niña y niño.",
-   "price_mxn": 320,
-   "image": "/img/fotos/polo-escudo.webp",
-   "focus": "50% 50%",
-   "zoom": 1,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Piqué 100 % algodón peinado, 220 g/m²",
-   "care": "Lavar a 30 °C del revés; no usar blanqueador sobre el escudo.",
-   "features": [
-    "Escudo bordado, no estampado",
-    "Cuello que no se enrosca",
-    "Vivos tejidos en cuello y manga"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": true
-  },
-  {
-   "id": "cl-002",
-   "slug": "blusa-cuello-redondo",
-   "sku": "CLF-BLU-01",
-   "line_id": "diario",
-   "type_id": "playeras",
-   "fit": "nina",
-   "name": "Blusa cuello redondo",
-   "short": "Popelina blanca, manga larga.",
-   "description": "Blusa blanca de popelina con cuello redondo suave, botones al frente y puño con un botón. Se usa bajo el jumper y el cárdigan.",
-   "price_mxn": 310,
-   "image": "/img/fotos/diario-nina.webp",
-   "focus": "50% 21%",
-   "zoom": 2.4,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Popelina 60 % algodón · 40 % poliéster",
-   "care": "Lavar a 30 °C; planchado ligero.",
-   "features": [
-    "Antiarrugas",
-    "Cuello con entretela suave",
-    "No transparenta"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": false
-  },
-  {
-   "id": "cl-003",
-   "slug": "cardigan-trenzado",
-   "sku": "CLF-SUE-02",
-   "line_id": "diario",
-   "type_id": "sueteres",
-   "fit": "nina",
-   "name": "Cárdigan trenzado",
-   "short": "Café, tejido de trenzas, cuello en V.",
-   "description": "Cárdigan de punto café con tejido de trenzas, cuello en V, cinco botones y puños y cintura de resorte tejido.",
-   "price_mxn": 540,
-   "image": "/img/fotos/diario-nina.webp",
-   "focus": "50% 30%",
-   "zoom": 1.55,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Acrílico antibolitas 70 % · algodón 30 %",
-   "care": "Lavar en frío a mano o ciclo delicado; secar extendido.",
-   "features": [
-    "Antibolitas",
-    "Puños que no se deforman",
-    "Botones cosidos en cruz"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": true
-  },
-  {
-   "id": "cl-004",
-   "slug": "jumper-tablones",
-   "sku": "CLF-JUM-01",
-   "line_id": "diario",
-   "type_id": "jumpers",
-   "fit": "nina",
-   "name": "Jumper de tablones",
-   "short": "Gris jaspeado, tablones encontrados.",
-   "description": "Jumper gris jaspeado con tablones encontrados al frente, cierre lateral y dobladillo amplio para alargar conforme crece.",
-   "price_mxn": 580,
-   "image": "/img/fotos/diario-nina.webp",
-   "focus": "50% 57%",
-   "zoom": 1.7,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16"
-   ],
-   "fabric": "Gabardina jaspeada 65 % poliéster · 35 % rayón",
-   "care": "Lavar en frío; planchar los tablones del revés.",
-   "features": [
-    "Dobladillo de 5 cm para alargar",
-    "Tablones cosidos que no se abren",
-    "Cierre lateral invisible"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": false
-  },
-  {
-   "id": "cl-005",
-   "slug": "mallas-caladas",
-   "sku": "CLF-ACC-01",
-   "line_id": "diario",
-   "type_id": "accesorios",
-   "fit": "nina",
-   "name": "Mallas caladas",
-   "short": "Blancas, tejido calado.",
-   "description": "Mallas blancas de tejido calado, suaves y resistentes, con pretina cómoda que no aprieta.",
-   "price_mxn": 130,
-   "image": "/img/fotos/diario-nina.webp",
-   "focus": "50% 80%",
-   "zoom": 2.1,
-   "sizes": [
-    "4-6",
-    "7-9",
-    "10-12",
-    "13-16"
-   ],
-   "fabric": "Algodón 80 % · poliamida 18 % · elastano 2 %",
-   "care": "Lavar en bolsa de malla, en frío.",
-   "features": [
-    "Puntera reforzada",
-    "Pretina ancha"
-   ],
-   "embroidery": false,
-   "availability": "existencia",
-   "active": true,
-   "featured": false
-  },
-  {
-   "id": "cl-006",
-   "slug": "sueter-cuello-v",
-   "sku": "CLF-SUE-01",
-   "line_id": "diario",
-   "type_id": "sueteres",
-   "fit": "nino",
-   "name": "Suéter cuello V",
-   "short": "Café, punto liso.",
-   "description": "Suéter de punto liso café con cuello en V y resorte tejido en cuello, puños y cintura.",
-   "price_mxn": 480,
-   "image": "/img/fotos/diario-nino.webp",
-   "focus": "26% 27%",
-   "zoom": 2.0,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Acrílico antibolitas 70 % · algodón 30 %",
-   "care": "Lavar en frío; secar extendido.",
-   "features": [
-    "Antibolitas",
-    "Codos reforzados"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": false
-  },
-  {
-   "id": "cl-007",
-   "slug": "pantalon-cafe",
-   "sku": "CLF-PAN-01",
-   "line_id": "diario",
-   "type_id": "pantalones",
-   "fit": "nino",
-   "name": "Pantalón café",
-   "short": "Corte recto, pretina ajustable.",
-   "description": "Pantalón café de corte recto con pretina de botón y ajustador interior, presillas para cinturón y dobladillo amplio.",
-   "price_mxn": 420,
-   "image": "/img/fotos/diario-nino.webp",
-   "focus": "50% 66%",
-   "zoom": 1.35,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Gabardina 65 % poliéster · 35 % rayón",
-   "care": "Lavar en frío; planchar del revés.",
-   "features": [
-    "Rodillas reforzadas",
-    "Ajustador interior de cintura",
-    "Dobladillo de 5 cm para alargar"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": true
-  },
-  {
-   "id": "cl-008",
-   "slug": "chamarra-deportiva-nina",
-   "sku": "CLF-DEP-01",
-   "line_id": "deportes",
-   "type_id": "chamarras",
-   "fit": "nina",
-   "name": "Chamarra deportiva niña",
-   "short": "Marino con franjas naranja y blanca.",
-   "description": "Chamarra deportiva azul marino con cierre al frente, cuello alto y franjas naranja y blanca en las mangas. Corte para niña.",
-   "price_mxn": 690,
-   "image": "/img/fotos/deportes-nina.webp",
-   "focus": "62% 24%",
-   "zoom": 1.7,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Tricot deportivo 100 % poliéster",
-   "care": "Lavar en frío del revés; no planchar las franjas.",
-   "features": [
-    "Franjas cosidas, no termofijadas",
-    "Cierre con protector de barbilla",
-    "Escudo bordado"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": true
-  },
-  {
-   "id": "cl-009",
-   "slug": "pants-deportivo-nina",
-   "sku": "CLF-DEP-02",
-   "line_id": "deportes",
-   "type_id": "pants",
-   "fit": "nina",
-   "name": "Pants deportivo niña",
-   "short": "Marino, franjas laterales.",
-   "description": "Pants azul marino con franjas laterales naranja y blanca, cintura de resorte con cordón y bolsas laterales.",
-   "price_mxn": 460,
-   "image": "/img/fotos/deportes-nina.webp",
-   "focus": "58% 74%",
-   "zoom": 1.5,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Tricot deportivo 100 % poliéster",
-   "care": "Lavar en frío del revés.",
-   "features": [
-    "Rodillas reforzadas",
-    "Cordón interior"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": false
-  },
-  {
-   "id": "cl-010",
-   "slug": "chamarra-deportiva-nino",
-   "sku": "CLF-DEP-03",
-   "line_id": "deportes",
-   "type_id": "chamarras",
-   "fit": "nino",
-   "name": "Chamarra deportiva niño",
-   "short": "Marino con cuello naranja.",
-   "description": "Chamarra deportiva azul marino con cuello naranja, cierre al frente y franjas naranja y blanca en hombros y mangas. Corte para niño.",
-   "price_mxn": 690,
-   "image": "/img/fotos/deportes-nino.webp",
-   "focus": "40% 30%",
-   "zoom": 1.5,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Tricot deportivo 100 % poliéster",
-   "care": "Lavar en frío del revés; no planchar las franjas.",
-   "features": [
-    "Franjas cosidas, no termofijadas",
-    "Puños de resorte",
-    "Escudo bordado"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": false
-  },
-  {
-   "id": "cl-011",
-   "slug": "pants-deportivo-nino",
-   "sku": "CLF-DEP-04",
-   "line_id": "deportes",
-   "type_id": "pants",
-   "fit": "nino",
-   "name": "Pants deportivo niño",
-   "short": "Marino, franjas laterales.",
-   "description": "Pants azul marino con franjas laterales naranja y blanca, cintura de resorte con cordón y bolsas laterales.",
-   "price_mxn": 460,
-   "image": "/img/fotos/deportes-nino.webp",
-   "focus": "60% 68%",
-   "zoom": 1.35,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16",
-    "CH",
-    "M",
-    "G"
-   ],
-   "fabric": "Tricot deportivo 100 % poliéster",
-   "care": "Lavar en frío del revés.",
-   "features": [
-    "Rodillas reforzadas",
-    "Cordón interior"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": false
-  },
-  {
-   "id": "cl-020",
-   "slug": "paquete-diario-nina",
-   "sku": "CLF-PAQ-01",
-   "line_id": "paquetes",
-   "type_id": "paquetes",
-   "fit": "nina",
-   "name": "Paquete diario niña",
-   "short": "Blusa, cárdigan, jumper y mallas.",
-   "description": "El uniforme diario completo para niña: blusa cuello redondo, cárdigan trenzado, jumper de tablones y mallas caladas, en la misma talla.",
-   "price_mxn": 1390,
-   "image": "/img/fotos/diario-nina.webp",
-   "focus": "50% 45%",
-   "zoom": 1,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16"
-   ],
-   "fabric": "Ver cada prenda",
-   "care": "Ver cada prenda",
-   "features": [
-    "Ahorras $170 frente a comprar por pieza",
-    "Una talla para todo el paquete; las mallas se ajustan por edad"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": true,
-   "includes": [
-    "cl-002",
-    "cl-003",
-    "cl-004",
-    "cl-005"
-   ]
-  },
-  {
-   "id": "cl-021",
-   "slug": "paquete-diario-nino",
-   "sku": "CLF-PAQ-02",
-   "line_id": "paquetes",
-   "type_id": "paquetes",
-   "fit": "nino",
-   "name": "Paquete diario niño",
-   "short": "Polo, suéter y pantalón.",
-   "description": "El uniforme diario completo para niño: polo con escudo, suéter cuello V y pantalón café, en la misma talla.",
-   "price_mxn": 1090,
-   "image": "/img/fotos/diario-nino.webp",
-   "focus": "50% 45%",
-   "zoom": 1,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16"
-   ],
-   "fabric": "Ver cada prenda",
-   "care": "Ver cada prenda",
-   "features": [
-    "Ahorras $130 frente a comprar por pieza"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": true,
-   "includes": [
-    "cl-001",
-    "cl-006",
-    "cl-007"
-   ]
-  },
-  {
-   "id": "cl-022",
-   "slug": "paquete-deportes-nina",
-   "sku": "CLF-PAQ-03",
-   "line_id": "paquetes",
-   "type_id": "paquetes",
-   "fit": "nina",
-   "name": "Paquete deportes niña",
-   "short": "Chamarra, pants y polo.",
-   "description": "El uniforme de deportes completo para niña: chamarra, pants y polo con escudo, en la misma talla.",
-   "price_mxn": 1290,
-   "image": "/img/fotos/deportes-nina.webp",
-   "focus": "50% 45%",
-   "zoom": 1,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16"
-   ],
-   "fabric": "Ver cada prenda",
-   "care": "Ver cada prenda",
-   "features": [
-    "Ahorras $180 frente a comprar por pieza"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": false,
-   "includes": [
-    "cl-008",
-    "cl-009",
-    "cl-001"
-   ]
-  },
-  {
-   "id": "cl-023",
-   "slug": "paquete-deportes-nino",
-   "sku": "CLF-PAQ-04",
-   "line_id": "paquetes",
-   "type_id": "paquetes",
-   "fit": "nino",
-   "name": "Paquete deportes niño",
-   "short": "Chamarra, pants y polo.",
-   "description": "El uniforme de deportes completo para niño: chamarra, pants y polo con escudo, en la misma talla.",
-   "price_mxn": 1290,
-   "image": "/img/fotos/deportes-nino.webp",
-   "focus": "50% 45%",
-   "zoom": 1,
-   "sizes": [
-    "4",
-    "6",
-    "8",
-    "10",
-    "12",
-    "14",
-    "16"
-   ],
-   "fabric": "Ver cada prenda",
-   "care": "Ver cada prenda",
-   "features": [
-    "Ahorras $180 frente a comprar por pieza"
-   ],
-   "embroidery": true,
-   "availability": "existencia",
-   "active": true,
-   "featured": false,
-   "includes": [
-    "cl-010",
-    "cl-011",
-    "cl-001"
-   ]
-  }
- ]
+  "_schema": "products: id, slug, sku, line_id, type_id, fit (nina|nino|unisex), name, short, description, price_mxn, image, focus (object-position), zoom, sizes, variants [{size, sku, price_mxn}], fabric, care, features, embroidery, availability, includes?, active, featured",
+  "_note": "Generado con tools/importar-catalogo.py desde Catalogo.xlsx (Odoo). Precios con IVA por talla; sku de cada variante = folio de Odoo. Varias prendas comparten foto: focus/zoom encuadran la prenda.",
+  "updated_at": "2026-10-10",
+  "products": [
+    {
+      "id": "cl-102",
+      "slug": "polo-diario-nino",
+      "sku": "CLF02",
+      "line_id": "diario",
+      "type_id": "playeras",
+      "fit": "nino",
+      "name": "Polo diario niño",
+      "short": "Piqué blanco con vivos y escudo bordado.",
+      "description": "Polo de piqué blanco con cuello y puños tejidos con vivos, y el escudo del colegio bordado en el pecho. Corte para niño.",
+      "price_mxn": 285,
+      "image": "/img/fotos/polo-escudo.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "CH",
+        "M",
+        "G",
+        "EG"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF02V02",
+          "price_mxn": 285
+        },
+        {
+          "size": "3",
+          "sku": "CLF02V03",
+          "price_mxn": 285
+        },
+        {
+          "size": "4",
+          "sku": "CLF02V04",
+          "price_mxn": 285
+        },
+        {
+          "size": "6",
+          "sku": "CLF02V06",
+          "price_mxn": 285
+        },
+        {
+          "size": "8",
+          "sku": "CLF02V08",
+          "price_mxn": 285
+        },
+        {
+          "size": "10",
+          "sku": "CLF02V10",
+          "price_mxn": 285
+        },
+        {
+          "size": "12",
+          "sku": "CLF02V12",
+          "price_mxn": 305
+        },
+        {
+          "size": "14",
+          "sku": "CLF02V14",
+          "price_mxn": 305
+        },
+        {
+          "size": "16",
+          "sku": "CLF02V16",
+          "price_mxn": 305
+        },
+        {
+          "size": "CH",
+          "sku": "CLF02VCH",
+          "price_mxn": 325
+        },
+        {
+          "size": "M",
+          "sku": "CLF02VMD",
+          "price_mxn": 325
+        },
+        {
+          "size": "G",
+          "sku": "CLF02VGD",
+          "price_mxn": 325
+        },
+        {
+          "size": "EG",
+          "sku": "CLF02VXG",
+          "price_mxn": 325
+        }
+      ],
+      "fabric": "Piqué 100 % algodón peinado, 220 g/m²",
+      "care": "Lavar a 30 °C del revés; no usar blanqueador sobre el escudo.",
+      "features": [
+        "Escudo bordado, no estampado",
+        "Cuello que no se enrosca",
+        "Vivos tejidos en cuello y manga"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": true
+    },
+    {
+      "id": "cl-103",
+      "slug": "polo-diario-nina",
+      "sku": "CLF02",
+      "line_id": "diario",
+      "type_id": "playeras",
+      "fit": "nina",
+      "name": "Polo diario niña",
+      "short": "Blanca, cuello tejido y escudo bordado.",
+      "description": "Playera polo blanca de diario con el escudo del colegio bordado. Corte para niña; se usa bajo el jumper y el suéter.",
+      "price_mxn": 285,
+      "image": "/img/fotos/diario-nina.webp",
+      "focus": "50% 21%",
+      "zoom": 2.4,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "CH",
+        "M",
+        "G",
+        "EG"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF02F02",
+          "price_mxn": 285
+        },
+        {
+          "size": "3",
+          "sku": "CLF02F03",
+          "price_mxn": 285
+        },
+        {
+          "size": "4",
+          "sku": "CLF02F04",
+          "price_mxn": 285
+        },
+        {
+          "size": "6",
+          "sku": "CLF02F06",
+          "price_mxn": 285
+        },
+        {
+          "size": "8",
+          "sku": "CLF02F08",
+          "price_mxn": 285
+        },
+        {
+          "size": "10",
+          "sku": "CLF02F10",
+          "price_mxn": 285
+        },
+        {
+          "size": "12",
+          "sku": "CLF02F12",
+          "price_mxn": 305
+        },
+        {
+          "size": "14",
+          "sku": "CLF02F14",
+          "price_mxn": 305
+        },
+        {
+          "size": "16",
+          "sku": "CLF02F16",
+          "price_mxn": 305
+        },
+        {
+          "size": "CH",
+          "sku": "CLF02FCH",
+          "price_mxn": 325
+        },
+        {
+          "size": "M",
+          "sku": "CLF02FMD",
+          "price_mxn": 325
+        },
+        {
+          "size": "G",
+          "sku": "CLF02FGD",
+          "price_mxn": 325
+        },
+        {
+          "size": "EG",
+          "sku": "CLF02FXG",
+          "price_mxn": 325
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": true
+    },
+    {
+      "id": "cl-104",
+      "slug": "polo-deportes-nino",
+      "sku": "CLF03",
+      "line_id": "deportes",
+      "type_id": "playeras",
+      "fit": "nino",
+      "name": "Polo deportes niño",
+      "short": "Playera polo para educación física.",
+      "description": "Playera polo del uniforme de deportes. Corte para niño.",
+      "price_mxn": 275,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "CH",
+        "M",
+        "G",
+        "EG"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF03V02",
+          "price_mxn": 275
+        },
+        {
+          "size": "3",
+          "sku": "CLF03V03",
+          "price_mxn": 275
+        },
+        {
+          "size": "4",
+          "sku": "CLF03V04",
+          "price_mxn": 275
+        },
+        {
+          "size": "6",
+          "sku": "CLF03V06",
+          "price_mxn": 275
+        },
+        {
+          "size": "8",
+          "sku": "CLF03V08",
+          "price_mxn": 275
+        },
+        {
+          "size": "10",
+          "sku": "CLF03V10",
+          "price_mxn": 285
+        },
+        {
+          "size": "12",
+          "sku": "CLF03V12",
+          "price_mxn": 285
+        },
+        {
+          "size": "14",
+          "sku": "CLF03V14",
+          "price_mxn": 285
+        },
+        {
+          "size": "16",
+          "sku": "CLF03V16",
+          "price_mxn": 285
+        },
+        {
+          "size": "CH",
+          "sku": "CLF03VCH",
+          "price_mxn": 315
+        },
+        {
+          "size": "M",
+          "sku": "CLF03VMD",
+          "price_mxn": 315
+        },
+        {
+          "size": "G",
+          "sku": "CLF03VGD",
+          "price_mxn": 315
+        },
+        {
+          "size": "EG",
+          "sku": "CLF03VXG",
+          "price_mxn": 315
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-105",
+      "slug": "polo-deportes-nina",
+      "sku": "CLF03",
+      "line_id": "deportes",
+      "type_id": "playeras",
+      "fit": "nina",
+      "name": "Polo deportes niña",
+      "short": "Playera polo para educación física.",
+      "description": "Playera polo del uniforme de deportes. Corte para niña.",
+      "price_mxn": 275,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "CH",
+        "M",
+        "G",
+        "EG"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF03F02",
+          "price_mxn": 275
+        },
+        {
+          "size": "3",
+          "sku": "CLF03F03",
+          "price_mxn": 275
+        },
+        {
+          "size": "4",
+          "sku": "CLF03F04",
+          "price_mxn": 275
+        },
+        {
+          "size": "6",
+          "sku": "CLF03F06",
+          "price_mxn": 275
+        },
+        {
+          "size": "8",
+          "sku": "CLF03F08",
+          "price_mxn": 275
+        },
+        {
+          "size": "10",
+          "sku": "CLF03F10",
+          "price_mxn": 285
+        },
+        {
+          "size": "12",
+          "sku": "CLF03F12",
+          "price_mxn": 285
+        },
+        {
+          "size": "14",
+          "sku": "CLF03F14",
+          "price_mxn": 285
+        },
+        {
+          "size": "16",
+          "sku": "CLF03F16",
+          "price_mxn": 285
+        },
+        {
+          "size": "CH",
+          "sku": "CLF03FCH",
+          "price_mxn": 315
+        },
+        {
+          "size": "M",
+          "sku": "CLF03FMD",
+          "price_mxn": 315
+        },
+        {
+          "size": "G",
+          "sku": "CLF03FGD",
+          "price_mxn": 315
+        },
+        {
+          "size": "EG",
+          "sku": "CLF03FXG",
+          "price_mxn": 315
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-106",
+      "slug": "sueter-abierto-nina",
+      "sku": "CLF06",
+      "line_id": "diario",
+      "type_id": "sueteres",
+      "fit": "nina",
+      "name": "Suéter abierto niña",
+      "short": "Cárdigan café, tejido de trenzas.",
+      "description": "Suéter abierto (cárdigan) de punto café con tejido de trenzas, cuello en V y botones al frente.",
+      "price_mxn": 480,
+      "image": "/img/fotos/diario-nina.webp",
+      "focus": "50% 30%",
+      "zoom": 1.55,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "28",
+        "30",
+        "32",
+        "34",
+        "36",
+        "38",
+        "40",
+        "42"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF06F02",
+          "price_mxn": 480
+        },
+        {
+          "size": "3",
+          "sku": "CLF06F03",
+          "price_mxn": 480
+        },
+        {
+          "size": "4",
+          "sku": "CLF06F04",
+          "price_mxn": 480
+        },
+        {
+          "size": "6",
+          "sku": "CLF06F06",
+          "price_mxn": 480
+        },
+        {
+          "size": "8",
+          "sku": "CLF06F08",
+          "price_mxn": 480
+        },
+        {
+          "size": "10",
+          "sku": "CLF06F10",
+          "price_mxn": 480
+        },
+        {
+          "size": "12",
+          "sku": "CLF06F12",
+          "price_mxn": 510
+        },
+        {
+          "size": "14",
+          "sku": "CLF06F14",
+          "price_mxn": 510
+        },
+        {
+          "size": "16",
+          "sku": "CLF06F16",
+          "price_mxn": 510
+        },
+        {
+          "size": "28",
+          "sku": "CLF06F28",
+          "price_mxn": 550
+        },
+        {
+          "size": "30",
+          "sku": "CLF06F30",
+          "price_mxn": 550
+        },
+        {
+          "size": "32",
+          "sku": "CLF06F32",
+          "price_mxn": 550
+        },
+        {
+          "size": "34",
+          "sku": "CLF06F34",
+          "price_mxn": 550
+        },
+        {
+          "size": "36",
+          "sku": "CLF06F36",
+          "price_mxn": 580
+        },
+        {
+          "size": "38",
+          "sku": "CLF06F38",
+          "price_mxn": 580
+        },
+        {
+          "size": "40",
+          "sku": "CLF06F40",
+          "price_mxn": 580
+        },
+        {
+          "size": "42",
+          "sku": "CLF06F42",
+          "price_mxn": 580
+        }
+      ],
+      "fabric": "Acrílico antibolitas 70 % · algodón 30 %",
+      "care": "Lavar en frío a mano o ciclo delicado; secar extendido.",
+      "features": [
+        "Antibolitas",
+        "Puños que no se deforman",
+        "Botones cosidos en cruz"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": true
+    },
+    {
+      "id": "cl-107",
+      "slug": "jumper-nina",
+      "sku": "CLF05",
+      "line_id": "diario",
+      "type_id": "jumpers",
+      "fit": "nina",
+      "name": "Jumper",
+      "short": "Gris jaspeado, con tablones.",
+      "description": "Jumper gris jaspeado de tirantes con tablones al frente y dobladillo amplio para alargar conforme crece.",
+      "price_mxn": 550,
+      "image": "/img/fotos/jumper-nina.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "28",
+        "30",
+        "32",
+        "34"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF05V02",
+          "price_mxn": 550
+        },
+        {
+          "size": "3",
+          "sku": "CLF05V03",
+          "price_mxn": 550
+        },
+        {
+          "size": "4",
+          "sku": "CLF05F04",
+          "price_mxn": 550
+        },
+        {
+          "size": "6",
+          "sku": "CLF05F06",
+          "price_mxn": 550
+        },
+        {
+          "size": "8",
+          "sku": "CLF05F08",
+          "price_mxn": 550
+        },
+        {
+          "size": "10",
+          "sku": "CLF05F10",
+          "price_mxn": 600
+        },
+        {
+          "size": "12",
+          "sku": "CLF05F12",
+          "price_mxn": 600
+        },
+        {
+          "size": "14",
+          "sku": "CLF05F14",
+          "price_mxn": 600
+        },
+        {
+          "size": "16",
+          "sku": "CLF05F16",
+          "price_mxn": 600
+        },
+        {
+          "size": "28",
+          "sku": "CLF05F28",
+          "price_mxn": 655
+        },
+        {
+          "size": "30",
+          "sku": "CLF05F30",
+          "price_mxn": 655
+        },
+        {
+          "size": "32",
+          "sku": "CLF05F32",
+          "price_mxn": 655
+        },
+        {
+          "size": "34",
+          "sku": "CLF05F34",
+          "price_mxn": 655
+        }
+      ],
+      "fabric": "Gabardina jaspeada 65 % poliéster · 35 % rayón",
+      "care": "Lavar en frío; planchar los tablones del revés.",
+      "features": [
+        "Dobladillo de 5 cm para alargar",
+        "Tablones cosidos que no se abren"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-108",
+      "slug": "calcetas-nina",
+      "sku": "CLF08",
+      "line_id": "diario",
+      "type_id": "accesorios",
+      "fit": "nina",
+      "name": "Calcetas niña",
+      "short": "Calcetas del uniforme.",
+      "description": "Calcetas del uniforme diario para niña.",
+      "price_mxn": 70,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF08F02",
+          "price_mxn": 70
+        },
+        {
+          "size": "3",
+          "sku": "CLF08F03",
+          "price_mxn": 70
+        },
+        {
+          "size": "4",
+          "sku": "CLF08F04",
+          "price_mxn": 70
+        },
+        {
+          "size": "5",
+          "sku": "CLF08F05",
+          "price_mxn": 70
+        },
+        {
+          "size": "6",
+          "sku": "CLF08F06",
+          "price_mxn": 70
+        },
+        {
+          "size": "8",
+          "sku": "CLF08F08",
+          "price_mxn": 70
+        },
+        {
+          "size": "10",
+          "sku": "CLF08F10",
+          "price_mxn": 70
+        },
+        {
+          "size": "12",
+          "sku": "CLF08F12",
+          "price_mxn": 70
+        },
+        {
+          "size": "14",
+          "sku": "CLF08F14",
+          "price_mxn": 70
+        },
+        {
+          "size": "16",
+          "sku": "CLF08F16",
+          "price_mxn": 70
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": false,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-109",
+      "slug": "calcetas-nino",
+      "sku": "CLF08",
+      "line_id": "diario",
+      "type_id": "accesorios",
+      "fit": "nino",
+      "name": "Calcetas niño",
+      "short": "Calcetas del uniforme.",
+      "description": "Calcetas del uniforme diario para niño.",
+      "price_mxn": 70,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF08V02",
+          "price_mxn": 70
+        },
+        {
+          "size": "3",
+          "sku": "CLF08V03",
+          "price_mxn": 70
+        },
+        {
+          "size": "4",
+          "sku": "CLF08V04",
+          "price_mxn": 70
+        },
+        {
+          "size": "5",
+          "sku": "CLF08V05",
+          "price_mxn": 70
+        },
+        {
+          "size": "6",
+          "sku": "CLF08V06",
+          "price_mxn": 70
+        },
+        {
+          "size": "8",
+          "sku": "CLF08V07",
+          "price_mxn": 70
+        },
+        {
+          "size": "10",
+          "sku": "CLF08V10",
+          "price_mxn": 70
+        },
+        {
+          "size": "12",
+          "sku": "CLF08V12",
+          "price_mxn": 70
+        },
+        {
+          "size": "14",
+          "sku": "CLF08V14",
+          "price_mxn": 70
+        },
+        {
+          "size": "16",
+          "sku": "CLF08V16",
+          "price_mxn": 70
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": false,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-110",
+      "slug": "sueter-cerrado-nino",
+      "sku": "CLF10",
+      "line_id": "diario",
+      "type_id": "sueteres",
+      "fit": "nino",
+      "name": "Suéter cerrado niño",
+      "short": "Café, cuello en V.",
+      "description": "Suéter cerrado de punto liso café con cuello en V y resorte tejido en cuello, puños y cintura.",
+      "price_mxn": 450,
+      "image": "/img/fotos/diario-nino.webp",
+      "focus": "26% 27%",
+      "zoom": 2.0,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "18",
+        "20",
+        "22",
+        "24",
+        "26",
+        "28",
+        "30",
+        "32",
+        "34",
+        "36",
+        "38",
+        "40",
+        "42"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF10V02",
+          "price_mxn": 450
+        },
+        {
+          "size": "3",
+          "sku": "CLF10V03",
+          "price_mxn": 450
+        },
+        {
+          "size": "4",
+          "sku": "CLF10V04",
+          "price_mxn": 450
+        },
+        {
+          "size": "5",
+          "sku": "CLF10V05",
+          "price_mxn": 450
+        },
+        {
+          "size": "6",
+          "sku": "CLF10V06",
+          "price_mxn": 450
+        },
+        {
+          "size": "8",
+          "sku": "CLF10V08",
+          "price_mxn": 450
+        },
+        {
+          "size": "10",
+          "sku": "CLF10V10",
+          "price_mxn": 470
+        },
+        {
+          "size": "12",
+          "sku": "CLF10V12",
+          "price_mxn": 470
+        },
+        {
+          "size": "14",
+          "sku": "CLF10V14",
+          "price_mxn": 470
+        },
+        {
+          "size": "16",
+          "sku": "CLF10V16",
+          "price_mxn": 470
+        },
+        {
+          "size": "18",
+          "sku": "CLF10V18",
+          "price_mxn": 470
+        },
+        {
+          "size": "20",
+          "sku": "CLF10V20",
+          "price_mxn": 500
+        },
+        {
+          "size": "22",
+          "sku": "CLF10V22",
+          "price_mxn": 500
+        },
+        {
+          "size": "24",
+          "sku": "CLF10V24",
+          "price_mxn": 500
+        },
+        {
+          "size": "26",
+          "sku": "CLF10V26",
+          "price_mxn": 500
+        },
+        {
+          "size": "28",
+          "sku": "CLF10V28",
+          "price_mxn": 500
+        },
+        {
+          "size": "30",
+          "sku": "CLF10V30",
+          "price_mxn": 500
+        },
+        {
+          "size": "32",
+          "sku": "CLF10V32",
+          "price_mxn": 500
+        },
+        {
+          "size": "34",
+          "sku": "CLF10V34",
+          "price_mxn": 500
+        },
+        {
+          "size": "36",
+          "sku": "CLF10V36",
+          "price_mxn": 530
+        },
+        {
+          "size": "38",
+          "sku": "CLF10V38",
+          "price_mxn": 530
+        },
+        {
+          "size": "40",
+          "sku": "CLF10V40",
+          "price_mxn": 530
+        },
+        {
+          "size": "42",
+          "sku": "CLF10V42",
+          "price_mxn": 530
+        }
+      ],
+      "fabric": "Acrílico antibolitas 70 % · algodón 30 %",
+      "care": "Lavar en frío; secar extendido.",
+      "features": [
+        "Antibolitas",
+        "Codos reforzados"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-111",
+      "slug": "chaleco-nino",
+      "sku": "CLF11",
+      "line_id": "diario",
+      "type_id": "chalecos",
+      "fit": "nino",
+      "name": "Chaleco niño",
+      "short": "Chaleco del uniforme diario.",
+      "description": "Chaleco del uniforme diario para niño.",
+      "price_mxn": 400,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "18",
+        "24",
+        "26",
+        "28",
+        "30",
+        "32",
+        "34"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF11V02",
+          "price_mxn": 400
+        },
+        {
+          "size": "3",
+          "sku": "CLF11V03",
+          "price_mxn": 400
+        },
+        {
+          "size": "4",
+          "sku": "CLF11V04",
+          "price_mxn": 400
+        },
+        {
+          "size": "5",
+          "sku": "CLF11V05",
+          "price_mxn": 400
+        },
+        {
+          "size": "6",
+          "sku": "CLF11V06",
+          "price_mxn": 400
+        },
+        {
+          "size": "7",
+          "sku": "CLF11V07",
+          "price_mxn": 400
+        },
+        {
+          "size": "8",
+          "sku": "CLF11V08",
+          "price_mxn": 400
+        },
+        {
+          "size": "10",
+          "sku": "CLF11V10",
+          "price_mxn": 400
+        },
+        {
+          "size": "12",
+          "sku": "CLF11V12",
+          "price_mxn": 408
+        },
+        {
+          "size": "14",
+          "sku": "CLF11V14",
+          "price_mxn": 408
+        },
+        {
+          "size": "16",
+          "sku": "CLF11V16",
+          "price_mxn": 408
+        },
+        {
+          "size": "18",
+          "sku": "CLF11V18",
+          "price_mxn": 475
+        },
+        {
+          "size": "24",
+          "sku": "CLF11V24",
+          "price_mxn": 475
+        },
+        {
+          "size": "26",
+          "sku": "CLF11V26",
+          "price_mxn": 475
+        },
+        {
+          "size": "28",
+          "sku": "CLF11V28",
+          "price_mxn": 475
+        },
+        {
+          "size": "30",
+          "sku": "CLF11V30",
+          "price_mxn": 475
+        },
+        {
+          "size": "32",
+          "sku": "CLF11V32",
+          "price_mxn": 475
+        },
+        {
+          "size": "34",
+          "sku": "CLF11V34",
+          "price_mxn": 475
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-112",
+      "slug": "pantalon-diario-nino",
+      "sku": "CLF12",
+      "line_id": "diario",
+      "type_id": "pantalones",
+      "fit": "nino",
+      "name": "Pantalón de diario niño",
+      "short": "Café, corte recto.",
+      "description": "Pantalón café de corte recto con pretina de botón, presillas para cinturón y dobladillo amplio.",
+      "price_mxn": 380,
+      "image": "/img/fotos/diario-nino.webp",
+      "focus": "50% 66%",
+      "zoom": 1.35,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "17",
+        "18",
+        "24",
+        "26",
+        "28",
+        "30",
+        "32",
+        "34"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF12V02",
+          "price_mxn": 380
+        },
+        {
+          "size": "3",
+          "sku": "CLF12V03",
+          "price_mxn": 380
+        },
+        {
+          "size": "4",
+          "sku": "CLF12V04",
+          "price_mxn": 380
+        },
+        {
+          "size": "5",
+          "sku": "CLF12V05",
+          "price_mxn": 380
+        },
+        {
+          "size": "6",
+          "sku": "CLF12V06",
+          "price_mxn": 380
+        },
+        {
+          "size": "7",
+          "sku": "CLF12V07",
+          "price_mxn": 380
+        },
+        {
+          "size": "8",
+          "sku": "CLF12V08",
+          "price_mxn": 380
+        },
+        {
+          "size": "10",
+          "sku": "CLF12V10",
+          "price_mxn": 430
+        },
+        {
+          "size": "12",
+          "sku": "CLF12V12",
+          "price_mxn": 430
+        },
+        {
+          "size": "14",
+          "sku": "CLF12V14",
+          "price_mxn": 430
+        },
+        {
+          "size": "16",
+          "sku": "CLF12V16",
+          "price_mxn": 430
+        },
+        {
+          "size": "17",
+          "sku": "CLF12V17",
+          "price_mxn": 430
+        },
+        {
+          "size": "18",
+          "sku": "CLF12V18",
+          "price_mxn": 430
+        },
+        {
+          "size": "24",
+          "sku": "CLF12V24",
+          "price_mxn": 430
+        },
+        {
+          "size": "26",
+          "sku": "CLF12V26",
+          "price_mxn": 430
+        },
+        {
+          "size": "28",
+          "sku": "CLF12V28",
+          "price_mxn": 535
+        },
+        {
+          "size": "30",
+          "sku": "CLF12V30",
+          "price_mxn": 535
+        },
+        {
+          "size": "32",
+          "sku": "CLF12V32",
+          "price_mxn": 535
+        },
+        {
+          "size": "34",
+          "sku": "CLF12V34",
+          "price_mxn": 535
+        }
+      ],
+      "fabric": "Gabardina 65 % poliéster · 35 % rayón",
+      "care": "Lavar en frío; planchar del revés.",
+      "features": [
+        "Rodillas reforzadas",
+        "Dobladillo de 5 cm para alargar"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": true
+    },
+    {
+      "id": "cl-113",
+      "slug": "cinturon-nino",
+      "sku": "CLF09",
+      "line_id": "diario",
+      "type_id": "accesorios",
+      "fit": "nino",
+      "name": "Cinturón niño",
+      "short": "Café, hebilla metálica.",
+      "description": "Cinturón café del uniforme diario para niño.",
+      "price_mxn": 280,
+      "image": "/img/fotos/diario-nino.webp",
+      "focus": "52% 42%",
+      "zoom": 3.2,
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34"
+      ],
+      "variants": [
+        {
+          "size": "28",
+          "sku": "CLF09V28",
+          "price_mxn": 280
+        },
+        {
+          "size": "30",
+          "sku": "CLF09V30",
+          "price_mxn": 280
+        },
+        {
+          "size": "32",
+          "sku": "CLF09V32",
+          "price_mxn": 280
+        },
+        {
+          "size": "34",
+          "sku": "CLF09V34",
+          "price_mxn": 280
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": false,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-114",
+      "slug": "chamarra-invierno",
+      "sku": "CLF04",
+      "line_id": "diario",
+      "type_id": "chamarras",
+      "fit": "unisex",
+      "name": "Chamarra de invierno",
+      "short": "Chamarra para frío, niña y niño.",
+      "description": "Chamarra de invierno del uniforme, para niña y niño.",
+      "price_mxn": 650,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "CH",
+        "M",
+        "G",
+        "EG"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF04U02",
+          "price_mxn": 650
+        },
+        {
+          "size": "3",
+          "sku": "CLF04U03",
+          "price_mxn": 650
+        },
+        {
+          "size": "4",
+          "sku": "CLF04U04",
+          "price_mxn": 650
+        },
+        {
+          "size": "6",
+          "sku": "CLF04U06",
+          "price_mxn": 650
+        },
+        {
+          "size": "8",
+          "sku": "CLF04U08",
+          "price_mxn": 650
+        },
+        {
+          "size": "10",
+          "sku": "CLF04U10",
+          "price_mxn": 650
+        },
+        {
+          "size": "12",
+          "sku": "CLF04U12",
+          "price_mxn": 700
+        },
+        {
+          "size": "14",
+          "sku": "CLF04U14",
+          "price_mxn": 700
+        },
+        {
+          "size": "16",
+          "sku": "CLF04U16",
+          "price_mxn": 700
+        },
+        {
+          "size": "CH",
+          "sku": "CLF04UCH",
+          "price_mxn": 750
+        },
+        {
+          "size": "M",
+          "sku": "CLF04UMD",
+          "price_mxn": 750
+        },
+        {
+          "size": "G",
+          "sku": "CLF04UGD",
+          "price_mxn": 750
+        },
+        {
+          "size": "EG",
+          "sku": "CLF04UXG",
+          "price_mxn": 750
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-115",
+      "slug": "sudadera-relieve",
+      "sku": "CLF15",
+      "line_id": "diario",
+      "type_id": "sudaderas",
+      "fit": "unisex",
+      "name": "Sudadera con relieve",
+      "short": "Sudadera con escudo en relieve.",
+      "description": "Sudadera del uniforme con el escudo en relieve, para niña y niño.",
+      "price_mxn": 600,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "CH",
+        "M",
+        "G",
+        "EG"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF15U02",
+          "price_mxn": 600
+        },
+        {
+          "size": "3",
+          "sku": "CLF15U03",
+          "price_mxn": 600
+        },
+        {
+          "size": "4",
+          "sku": "CLF15U04",
+          "price_mxn": 600
+        },
+        {
+          "size": "5",
+          "sku": "CLF15U05",
+          "price_mxn": 600
+        },
+        {
+          "size": "6",
+          "sku": "CLF15U06",
+          "price_mxn": 600
+        },
+        {
+          "size": "7",
+          "sku": "CLF15U07",
+          "price_mxn": 600
+        },
+        {
+          "size": "8",
+          "sku": "CLF15U08",
+          "price_mxn": 600
+        },
+        {
+          "size": "10",
+          "sku": "CLF15U10",
+          "price_mxn": 650
+        },
+        {
+          "size": "12",
+          "sku": "CLF15U12",
+          "price_mxn": 650
+        },
+        {
+          "size": "14",
+          "sku": "CLF15U14",
+          "price_mxn": 650
+        },
+        {
+          "size": "16",
+          "sku": "CLF15U16",
+          "price_mxn": 650
+        },
+        {
+          "size": "CH",
+          "sku": "CLF15UCH",
+          "price_mxn": 720
+        },
+        {
+          "size": "M",
+          "sku": "CLF15UMD",
+          "price_mxn": 720
+        },
+        {
+          "size": "G",
+          "sku": "CLF15UGD",
+          "price_mxn": 720
+        },
+        {
+          "size": "EG",
+          "sku": "CLF15UXG",
+          "price_mxn": 720
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-116",
+      "slug": "chamarra-deportes",
+      "sku": "CLF01",
+      "line_id": "deportes",
+      "type_id": "chamarras",
+      "fit": "unisex",
+      "name": "Chamarra de deportes",
+      "short": "Marino con franjas naranja y blanca.",
+      "description": "Chamarra deportiva azul marino con cierre al frente, cuello naranja y franjas naranja y blanca en las mangas. Para niña y niño.",
+      "price_mxn": 535,
+      "image": "/img/fotos/deportes-nino.webp",
+      "focus": "40% 30%",
+      "zoom": 1.5,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "CH",
+        "M",
+        "G",
+        "EG"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF01U02",
+          "price_mxn": 535
+        },
+        {
+          "size": "3",
+          "sku": "CLF01U03",
+          "price_mxn": 535
+        },
+        {
+          "size": "4",
+          "sku": "CLF01U04",
+          "price_mxn": 535
+        },
+        {
+          "size": "6",
+          "sku": "CLF01U06",
+          "price_mxn": 535
+        },
+        {
+          "size": "8",
+          "sku": "CLF01U08",
+          "price_mxn": 535
+        },
+        {
+          "size": "10",
+          "sku": "CLF01U10",
+          "price_mxn": 560
+        },
+        {
+          "size": "12",
+          "sku": "CLF01U12",
+          "price_mxn": 560
+        },
+        {
+          "size": "14",
+          "sku": "CLF01U14",
+          "price_mxn": 560
+        },
+        {
+          "size": "16",
+          "sku": "CLF01U16",
+          "price_mxn": 560
+        },
+        {
+          "size": "CH",
+          "sku": "CLF01UCH",
+          "price_mxn": 600
+        },
+        {
+          "size": "M",
+          "sku": "CLF01UMD",
+          "price_mxn": 600
+        },
+        {
+          "size": "G",
+          "sku": "CLF01UGD",
+          "price_mxn": 600
+        },
+        {
+          "size": "EG",
+          "sku": "CLF01UXG",
+          "price_mxn": 600
+        }
+      ],
+      "fabric": "Tricot deportivo 100 % poliéster",
+      "care": "Lavar en frío del revés; no planchar las franjas.",
+      "features": [
+        "Franjas cosidas, no termofijadas",
+        "Escudo bordado"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": true
+    },
+    {
+      "id": "cl-117",
+      "slug": "pants-deportes",
+      "sku": "CLF16",
+      "line_id": "deportes",
+      "type_id": "pants",
+      "fit": "unisex",
+      "name": "Pants de deportes",
+      "short": "Marino, franjas laterales.",
+      "description": "Pants azul marino con franjas laterales naranja y blanca y cintura de resorte con cordón. Para niña y niño.",
+      "price_mxn": 495,
+      "image": "/img/fotos/deportes-nina.webp",
+      "focus": "58% 74%",
+      "zoom": 1.5,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "CH",
+        "M",
+        "G",
+        "EG"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF16U02",
+          "price_mxn": 495
+        },
+        {
+          "size": "3",
+          "sku": "CLF16U03",
+          "price_mxn": 495
+        },
+        {
+          "size": "4",
+          "sku": "CLF16U04",
+          "price_mxn": 495
+        },
+        {
+          "size": "5",
+          "sku": "CLF16U05",
+          "price_mxn": 495
+        },
+        {
+          "size": "6",
+          "sku": "CLF16U06",
+          "price_mxn": 495
+        },
+        {
+          "size": "7",
+          "sku": "CLF16U07",
+          "price_mxn": 495
+        },
+        {
+          "size": "8",
+          "sku": "CLF16U08",
+          "price_mxn": 495
+        },
+        {
+          "size": "10",
+          "sku": "CLF16U10",
+          "price_mxn": 535
+        },
+        {
+          "size": "12",
+          "sku": "CLF16U12",
+          "price_mxn": 535
+        },
+        {
+          "size": "14",
+          "sku": "CLF16U14",
+          "price_mxn": 535
+        },
+        {
+          "size": "16",
+          "sku": "CLF16U16",
+          "price_mxn": 535
+        },
+        {
+          "size": "CH",
+          "sku": "CLF16UCH",
+          "price_mxn": 550
+        },
+        {
+          "size": "M",
+          "sku": "CLF16UMD",
+          "price_mxn": 550
+        },
+        {
+          "size": "G",
+          "sku": "CLF16UGD",
+          "price_mxn": 550
+        },
+        {
+          "size": "EG",
+          "sku": "CLF16UXG",
+          "price_mxn": 550
+        }
+      ],
+      "fabric": "Tricot deportivo 100 % poliéster",
+      "care": "Lavar en frío del revés.",
+      "features": [
+        "Rodillas reforzadas",
+        "Cordón interior"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-118",
+      "slug": "bata-kinder-nina",
+      "sku": "CLF07",
+      "line_id": "kinder",
+      "type_id": "batas",
+      "fit": "nina",
+      "name": "Bata kinder niña",
+      "short": "Bata para preescolar.",
+      "description": "Bata del uniforme de kinder para niña.",
+      "price_mxn": 240,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF07F02",
+          "price_mxn": 240
+        },
+        {
+          "size": "3",
+          "sku": "CLF07F03",
+          "price_mxn": 240
+        },
+        {
+          "size": "4",
+          "sku": "CLF07F04",
+          "price_mxn": 240
+        },
+        {
+          "size": "5",
+          "sku": "CLF07F05",
+          "price_mxn": 240
+        },
+        {
+          "size": "6",
+          "sku": "CLF07F06",
+          "price_mxn": 240
+        },
+        {
+          "size": "8",
+          "sku": "CLF07F08",
+          "price_mxn": 240
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-119",
+      "slug": "playera-amigos-de-jesus",
+      "sku": "CLF13",
+      "line_id": "kinder",
+      "type_id": "playeras",
+      "fit": "unisex",
+      "name": "Playera Amigos de Jesús",
+      "short": "Blanca con vivos verdes, estampado.",
+      "description": "Playera blanca de kinder con cuello y mangas en verde y el estampado «Amigos de Jesús». Para niña y niño.",
+      "price_mxn": 250,
+      "image": "/img/fotos/playera-amigos-de-jesus.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF13U02",
+          "price_mxn": 250
+        },
+        {
+          "size": "3",
+          "sku": "CLF13U03",
+          "price_mxn": 250
+        },
+        {
+          "size": "4",
+          "sku": "CLF13U04",
+          "price_mxn": 250
+        },
+        {
+          "size": "5",
+          "sku": "CLF13U05",
+          "price_mxn": 250
+        },
+        {
+          "size": "6",
+          "sku": "CLF13U06",
+          "price_mxn": 250
+        },
+        {
+          "size": "7",
+          "sku": "CLF13U07",
+          "price_mxn": 250
+        },
+        {
+          "size": "8",
+          "sku": "CLF13U08",
+          "price_mxn": 250
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-120",
+      "slug": "chamarra-amigos-de-jesus",
+      "sku": "CLF14",
+      "line_id": "kinder",
+      "type_id": "chamarras",
+      "fit": "unisex",
+      "name": "Chamarra Amigos de Jesús",
+      "short": "Chamarra de kinder, niña y niño.",
+      "description": "Chamarra «Amigos de Jesús» del uniforme de kinder, para niña y niño.",
+      "price_mxn": 420,
+      "image": "/img/fotos/sin-foto.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
+      "sizes": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
+      "variants": [
+        {
+          "size": "2",
+          "sku": "CLF14U02",
+          "price_mxn": 420
+        },
+        {
+          "size": "3",
+          "sku": "CLF14U03",
+          "price_mxn": 420
+        },
+        {
+          "size": "4",
+          "sku": "CLF14U04",
+          "price_mxn": 420
+        },
+        {
+          "size": "5",
+          "sku": "CLF14U05",
+          "price_mxn": 420
+        },
+        {
+          "size": "6",
+          "sku": "CLF14U06",
+          "price_mxn": 420
+        },
+        {
+          "size": "7",
+          "sku": "CLF14U07",
+          "price_mxn": 420
+        },
+        {
+          "size": "8",
+          "sku": "CLF14U08",
+          "price_mxn": 420
+        },
+        {
+          "size": "10",
+          "sku": "CLF14U10",
+          "price_mxn": 440
+        },
+        {
+          "size": "12",
+          "sku": "CLF14U12",
+          "price_mxn": 440
+        },
+        {
+          "size": "14",
+          "sku": "CLF14U14",
+          "price_mxn": 440
+        },
+        {
+          "size": "16",
+          "sku": "CLF14U16",
+          "price_mxn": 440
+        }
+      ],
+      "fabric": "",
+      "care": "",
+      "features": [],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": true,
+      "featured": false
+    },
+    {
+      "id": "cl-020",
+      "slug": "paquete-diario-nina",
+      "sku": "CLF-PAQ-01",
+      "line_id": "paquetes",
+      "type_id": "paquetes",
+      "fit": "nina",
+      "name": "Paquete diario niña",
+      "short": "Blusa, cárdigan, jumper y mallas.",
+      "description": "El uniforme diario completo para niña: blusa cuello redondo, cárdigan trenzado, jumper de tablones y mallas caladas, en la misma talla.",
+      "price_mxn": 1390,
+      "image": "/img/fotos/diario-nina.webp",
+      "focus": "50% 45%",
+      "zoom": 1,
+      "sizes": [
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
+      "fabric": "Ver cada prenda",
+      "care": "Ver cada prenda",
+      "features": [
+        "Ahorras $170 frente a comprar por pieza",
+        "Una talla para todo el paquete; las mallas se ajustan por edad"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": false,
+      "featured": true,
+      "includes": [
+        "cl-002",
+        "cl-003",
+        "cl-004",
+        "cl-005"
+      ]
+    },
+    {
+      "id": "cl-021",
+      "slug": "paquete-diario-nino",
+      "sku": "CLF-PAQ-02",
+      "line_id": "paquetes",
+      "type_id": "paquetes",
+      "fit": "nino",
+      "name": "Paquete diario niño",
+      "short": "Polo, suéter y pantalón.",
+      "description": "El uniforme diario completo para niño: polo con escudo, suéter cuello V y pantalón café, en la misma talla.",
+      "price_mxn": 1090,
+      "image": "/img/fotos/diario-nino.webp",
+      "focus": "50% 45%",
+      "zoom": 1,
+      "sizes": [
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
+      "fabric": "Ver cada prenda",
+      "care": "Ver cada prenda",
+      "features": [
+        "Ahorras $130 frente a comprar por pieza"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": false,
+      "featured": true,
+      "includes": [
+        "cl-001",
+        "cl-006",
+        "cl-007"
+      ]
+    },
+    {
+      "id": "cl-022",
+      "slug": "paquete-deportes-nina",
+      "sku": "CLF-PAQ-03",
+      "line_id": "paquetes",
+      "type_id": "paquetes",
+      "fit": "nina",
+      "name": "Paquete deportes niña",
+      "short": "Chamarra, pants y polo.",
+      "description": "El uniforme de deportes completo para niña: chamarra, pants y polo con escudo, en la misma talla.",
+      "price_mxn": 1290,
+      "image": "/img/fotos/deportes-nina.webp",
+      "focus": "50% 45%",
+      "zoom": 1,
+      "sizes": [
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
+      "fabric": "Ver cada prenda",
+      "care": "Ver cada prenda",
+      "features": [
+        "Ahorras $180 frente a comprar por pieza"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": false,
+      "featured": false,
+      "includes": [
+        "cl-008",
+        "cl-009",
+        "cl-001"
+      ]
+    },
+    {
+      "id": "cl-023",
+      "slug": "paquete-deportes-nino",
+      "sku": "CLF-PAQ-04",
+      "line_id": "paquetes",
+      "type_id": "paquetes",
+      "fit": "nino",
+      "name": "Paquete deportes niño",
+      "short": "Chamarra, pants y polo.",
+      "description": "El uniforme de deportes completo para niño: chamarra, pants y polo con escudo, en la misma talla.",
+      "price_mxn": 1290,
+      "image": "/img/fotos/deportes-nino.webp",
+      "focus": "50% 45%",
+      "zoom": 1,
+      "sizes": [
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ],
+      "fabric": "Ver cada prenda",
+      "care": "Ver cada prenda",
+      "features": [
+        "Ahorras $180 frente a comprar por pieza"
+      ],
+      "embroidery": true,
+      "availability": "existencia",
+      "active": false,
+      "featured": false,
+      "includes": [
+        "cl-010",
+        "cl-011",
+        "cl-001"
+      ]
+    }
+  ]
 }

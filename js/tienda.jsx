@@ -30,7 +30,7 @@ const db = {
             created_at: new Date().toISOString(),
             status: 'por-pagar',
             customer, shipping_id: shippingId, payment_id: paymentId,
-            lines: priced.lines.map(l => ({ sku: l.product.sku, name: l.product.name, size: l.size, embroider: l.name || null, qty: l.qty, unit_mxn: l.product.price_mxn })),
+            lines: priced.lines.map(l => ({ sku: skuOf(l.product, l.size), name: l.product.name, size: l.size, embroider: l.name || null, qty: l.qty, unit_mxn: unitPrice(l.product, l.size) })),
             pieces: priced.pieces, subtotal: priced.subtotal, embroidery: priced.embroidery, shipping: priced.shipping, total: priced.total,
         };
         store.write('za-pedidos', [order, ...store.read('za-pedidos', [])]);
@@ -58,12 +58,22 @@ const useCatalog = () => {
 };
 
 // --- PRICING ---
+// Price depends on the size: each product lists its `variants` (size, Odoo folio, price). `price_mxn` is the lowest.
+const variantOf = (product, size) => (product.variants || []).find(v => v.size === size) || null;
+const unitPrice = (product, size) => (variantOf(product, size) || product).price_mxn;
+const skuOf = (product, size) => (variantOf(product, size) || product).sku;
+// "$285" when every size costs the same, "Desde $285" otherwise.
+const priceLabel = (product) => {
+    const prices = (product.variants || []).map(v => v.price_mxn);
+    return prices.length && Math.max(...prices) !== product.price_mxn ? `Desde ${formatMXN(product.price_mxn)}` : formatMXN(product.price_mxn);
+};
+
 // Same rules the server will apply in Etapa 2 (tienda.json). Prices include IVA.
 //   embroidery: per piece that carries a student name
 //   shipping: free above the method's threshold
 const priceBag = (lines, rules, shippingId) => {
     const pieces = lines.reduce((a, l) => a + l.qty, 0);
-    const subtotal = lines.reduce((a, l) => a + l.qty * l.product.price_mxn, 0);
+    const subtotal = lines.reduce((a, l) => a + l.qty * unitPrice(l.product, l.size), 0);
     const embPieces = lines.filter(l => l.name).reduce((a, l) => a + l.qty, 0);
     const embroidery = embPieces * rules.embroidery_mxn;
     const method = rules.shipping.find(s => s.id === shippingId) || rules.shipping[0];
@@ -108,7 +118,7 @@ const ProductCard = ({ product, catalog }) => {
                         <p className="label text-ink-400 mt-0.5">{FIT_LABEL[product.fit]}{product.includes ? ` · ${product.includes.length} prendas` : ''}</p>
                         {product.sizes && product.sizes.length > 0 && <p className="label text-ink-400 mt-0.5">{sizeRange(product.sizes)}</p>}
                     </div>
-                    <p className="label whitespace-nowrap">{formatMXN(product.price_mxn)}</p>
+                    <p className="label whitespace-nowrap">{priceLabel(product)}</p>
                 </div>
             </a>
         </article>
@@ -179,8 +189,8 @@ const ProductPage = () => {
                         <a href={`${CLIENT.base}/tienda/`} className="link">Tienda</a> / <a href={`${CLIENT.base}/tienda/?linea=${product.line_id}`} className="link">{catalog.line[product.line_id].label}</a>
                     </nav>
                     <h1 className="text-3xl md:text-4xl uppercase tracking-tight">{product.name}</h1>
-                    <p className="label text-ink-500 mt-2">{FIT_LABEL[product.fit]} · {product.sku}</p>
-                    <p className="text-lg mt-6">{formatMXN(product.price_mxn)} <span className="label text-ink-400">IVA incluido</span></p>
+                    <p className="label text-ink-500 mt-2">{FIT_LABEL[product.fit]} · {size ? skuOf(product, size) : product.sku}</p>
+                    <p className="text-lg mt-6">{size ? formatMXN(unitPrice(product, size)) : priceLabel(product)} <span className="label text-ink-400">IVA incluido</span></p>
                     <p className="text-ink-700 mt-6 leading-relaxed max-w-md">{product.description}</p>
 
                     {included.length > 0 && (
@@ -220,8 +230,8 @@ const ProductPage = () => {
                     <p className="label text-ink-400 mt-4">En existencia · lista en 48 h hábiles</p>
 
                     <div className="mt-10 max-w-md border-b border-line">
-                        <Disclosure title="Detalles" open><ul className="space-y-1">{product.features.map(f => <li key={f}>— {f}</li>)}</ul></Disclosure>
-                        <Disclosure title="Composición y cuidados"><p>{product.fabric}.</p><p className="mt-2">{product.care}</p></Disclosure>
+                        {product.features.length > 0 && <Disclosure title="Detalles" open><ul className="space-y-1">{product.features.map(f => <li key={f}>— {f}</li>)}</ul></Disclosure>}
+                        {product.fabric && <Disclosure title="Composición y cuidados"><p>{product.fabric}.</p><p className="mt-2">{product.care}</p></Disclosure>}
                         <Disclosure title="Entrega y pago">
                             {rules.shipping.map(s => <p key={s.id} className="mb-2"><strong className="font-medium text-ink">{s.label}.</strong> {s.detail}</p>)}
                             <p>Tarjeta, OXXO o efectivo en tienda. <a href={`${CLIENT.base}/como-comprar/`} className="underline">Cómo comprar</a></p>
@@ -273,7 +283,7 @@ const BagDrawer = () => {
                             <p className="label-strong">{added.product.name}</p>
                             <p className="text-ink-500">Talla {added.size}</p>
                             {added.name && <p className="text-ink-500">Bordado: {added.name}</p>}
-                            <p>{added.qty} × {formatMXN(added.product.price_mxn)}</p>
+                            <p>{added.qty} × {formatMXN(unitPrice(added.product, added.size))}</p>
                         </div>
                     </div>
                 )}

@@ -17,14 +17,16 @@ márgenes ni datos de familias o alumnos.
 | `slug` | URL `/colegio_la_florida/tienda/<slug>/` |
 | `line_id` / `type_id` | `diario` · `deportes` · `paquetes` / tipos de `colecciones.json` |
 | `fit` | `nina` · `nino` · `unisex` (los unisex salen en ambos filtros) |
-| `price_mxn` | precio por pieza **con IVA** |
+| `price_mxn` | precio más bajo **con IVA** («Desde») |
+| `variants` | `[{size, sku, price_mxn}]`, una por talla: `sku` = folio de Odoo; el precio depende de la talla |
 | `image` · `focus` · `zoom` | foto WebP; `focus` = `object-position` («x% y%») y `zoom` = escala para encuadrar la prenda |
 | `sizes` | tallas en orden; una sola talla se preselecciona |
 | `embroidery` | si admite bordado del nombre del alumno |
 | `includes` | solo paquetes: ids de las prendas incluidas (se muestran tachadas con su precio suelto) |
 | `active` / `featured` | ocultar / destacar en «Esenciales» |
 
-Tras añadir un producto o cambiar `slug`, `name`, `short`, `description`, `price_mxn` o `image`:
+`productos.json` se genera desde el catálogo de Odoo (`Catalogo.xlsx`) con `tools/importar-catalogo.py`; no lo edites a mano.
+Después de importar, o tras cambiar `slug`, `name`, `short`, `description`, precios o `image`:
 `python tools/generar-paginas-producto.py` (fichas + `sitemap.xml`).
 
 ## tienda.json

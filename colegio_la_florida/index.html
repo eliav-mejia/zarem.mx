@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zarem · Uniformes del Colegio La Florida</title>
-    <meta name="description" content="Uniformes oficiales del Colegio La Florida: diario, deportes y paquetes completos. Elige prenda y talla desde tu celular y paga con tarjeta, OXXO o efectivo en tienda.">
+    <meta name="description" content="Uniformes oficiales del Colegio La Florida: diario, deportes y kinder. Elige prenda y talla desde tu celular y paga con tarjeta, OXXO o efectivo en tienda.">
     <link rel="canonical" href="https://zarem.mx/colegio_la_florida/">
     <meta property="og:title" content="Zarem · Uniformes del Colegio La Florida">
-    <meta property="og:description" content="Uniformes oficiales del Colegio La Florida: diario, deportes y paquetes completos. Elige prenda y talla desde tu celular y paga con tarjeta, OXXO o efectivo en tienda.">
+    <meta property="og:description" content="Uniformes oficiales del Colegio La Florida: diario, deportes y kinder. Elige prenda y talla desde tu celular y paga con tarjeta, OXXO o efectivo en tienda.">
     <meta property="og:url" content="https://zarem.mx/colegio_la_florida/">
     <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
@@ -31,18 +31,22 @@
     <script type="text/babel" src="/js/layout.jsx"></script>
     <script type="text/babel" src="/js/tienda.jsx"></script>
     <script type="text/babel">
-        // Home: full-screen photos with slow parallax (useParallax in layout.jsx), Zara-style. Header floats over the hero.
+        // Home: hero split in two (copy on white, studio photo on its own panel), then full-screen photos with slow
+        // parallax (useParallax in layout.jsx), Zara-style. The studio photo has a light background, so the header
+        // stays solid (no overlay) and the copy is dark.
         const Hero = () => (
-            <section className="parallax h-[100svh] min-h-[560px] bg-florida-marino" data-speed="0.25">
-                <img src="/img/fotos/florida-grupo-uniformes.webp" alt={`Alumnos del ${BRAND.school} con uniforme diario y deportivo`} style={{ objectPosition: "center top" }} fetchpriority="high" />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/45" />
-                <div className="absolute inset-x-0 bottom-0 max-w-[1600px] mx-auto px-4 md:px-10 pb-14 md:pb-20 text-white">
-                    <p className="label mb-5">Ciclo escolar 2026 – 2027</p>
-                    <h1 className="text-[13vw] md:text-[8.5vw] leading-[0.88] uppercase font-light tracking-[-0.04em]">Uniformes<br />La Florida</h1>
+            <section className="grid md:grid-cols-2 md:h-[calc(100svh-6rem)] md:min-h-[560px]">
+                <div className="order-2 md:order-1 flex flex-col justify-end px-4 md:px-10 pt-10 pb-14 md:pb-20">
+                    <p className="label mb-5 text-ink-500">Ciclo escolar 2026 – 2027</p>
+                    <h1 className="text-[13vw] md:text-[7vw] leading-[0.88] uppercase font-light tracking-[-0.04em]">Uniformes<br />La Florida</h1>
+                    <p className="mt-6 max-w-md text-ink-700">Uniforme diario y deportivo del {BRAND.school}, confeccionado por Zarem.</p>
                     <div className="flex flex-wrap gap-2 mt-10">
-                        <a href="/colegio_la_florida/tienda/" className="btn btn-light">Comprar ahora</a>
-                        <a href="/colegio_la_florida/tienda/?linea=paquetes" className="btn btn-light">Paquetes completos</a>
+                        <a href="/colegio_la_florida/tienda/" className="btn btn-ink">Comprar ahora</a>
+                        <a href="#catalogo" className="btn btn-line">Ver catálogo</a>
                     </div>
+                </div>
+                <div className="order-1 md:order-2 relative aspect-[4/5] md:aspect-auto bg-paper-50 overflow-hidden">
+                    <img src="/img/fotos/florida-alumnos-corriendo.webp" alt={`Alumnos del ${BRAND.school} corriendo con uniforme diario y deportivo`} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 75%' }} fetchpriority="high" />
                 </div>
             </section>
         );
@@ -63,7 +67,7 @@
             </section>
         );
 
-        // Full catalogue, from db/: one block per line (Diario, Deportes, Paquetes), with its garment types (subcategories)
+        // Full catalogue, from db/: one block per line (Diario, Deportes, Kinder), with its garment types (subcategories)
         // as links to the filtered store, then all its products sorted by type. Every card shows photo, name, fit, sizes and price, and opens the product page.
         const Catalog = () => {
             const catalog = useCatalog();
@@ -105,8 +109,8 @@
         const Sports = () => (
             <section className="mt-24 md:mt-32">
                 <div className="grid grid-cols-2 gap-1">
-                    <a href="/colegio_la_florida/tienda/chamarra-deportiva-nina/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50" data-speed="0.1"><img src="/img/fotos/deportes-nina.webp" alt="Uniforme deportivo de niña, azul marino con franjas naranja y blanca" loading="lazy" /></a>
-                    <a href="/colegio_la_florida/tienda/chamarra-deportiva-nino/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50 md:mt-40" data-speed="0.22"><img src="/img/fotos/deportes-nino.webp" alt="Uniforme deportivo de niño, azul marino con cuello naranja" loading="lazy" /></a>
+                    <a href="/colegio_la_florida/tienda/pants-deportes/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50" data-speed="0.1"><img src="/img/fotos/deportes-nina.webp" alt="Uniforme deportivo de niña, azul marino con franjas naranja y blanca" loading="lazy" /></a>
+                    <a href="/colegio_la_florida/tienda/chamarra-deportes/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50 md:mt-40" data-speed="0.22"><img src="/img/fotos/deportes-nino.webp" alt="Uniforme deportivo de niño, azul marino con cuello naranja" loading="lazy" /></a>
                 </div>
                 <div className="max-w-[1600px] mx-auto px-4 md:px-10 mt-10 flex flex-col md:flex-row justify-between gap-6 md:items-end">
                     <h2 className="text-5xl md:text-8xl uppercase leading-[0.9]">Deportes</h2>
@@ -128,13 +132,16 @@
                     <p className="label text-ink-500 mb-6">El detalle</p>
                     <h2 className="text-4xl md:text-6xl uppercase">El escudo, bordado.</h2>
                     <p className="text-ink-700 mt-6 leading-relaxed">Piqué de algodón peinado, cuello con vivos tejidos que no se enrosca y el escudo bordado punto por punto. Puedes añadir el nombre del alumno al comprar.</p>
-                    <a href="/colegio_la_florida/tienda/polo-escudo/" className="btn btn-ink mt-8">Polo con escudo</a>
+                    <div className="flex flex-wrap gap-1 mt-8">
+                        <a href="/colegio_la_florida/tienda/polo-diario-nino/" className="btn btn-ink">Polo niño</a>
+                        <a href="/colegio_la_florida/tienda/polo-diario-nina/" className="btn btn-line">Polo niña</a>
+                    </div>
                 </div>
             </section>
         );
 
         const STEPS = [
-            ['01', 'Elige', 'Prenda o paquete, y la talla de tu hijo o hija.'],
+            ['01', 'Elige', 'Cada prenda en la talla de tu hijo o hija.'],
             ['02', 'Paga', 'Con tarjeta, en OXXO o en efectivo al recoger.'],
             ['03', 'Recibe', 'Recoge en tienda en 48 h hábiles o recíbelo en casa.'],
         ];
@@ -153,7 +160,7 @@
             </section>
         );
 
-        renderPage(() => <><Hero /><Split /><Catalog /><Sports /><Crest /><NoLines /></>, { overlay: true });
+        renderPage(() => <><Hero /><Split /><Catalog /><Sports /><Crest /><NoLines /></>);
     </script>
 </body>
 </html>

@@ -20,7 +20,7 @@ const CLIENTS = [
             { href: '/colegio_la_florida/tienda/?corte=nino', label: 'Niño' },
             { href: '/colegio_la_florida/tienda/?linea=diario', label: 'Diario' },
             { href: '/colegio_la_florida/tienda/?linea=deportes', label: 'Deportes' },
-            { href: '/colegio_la_florida/tienda/?linea=paquetes', label: 'Paquetes' },
+            { href: '/colegio_la_florida/tienda/?linea=kinder', label: 'Kinder' },
             { href: '/colegio_la_florida/como-comprar/', label: 'Cómo comprar' },
             { href: '/colegio_la_florida/como-comprar/#tallas', label: 'Guía de tallas' },
             { href: '/colegio_la_florida/contacto/', label: 'Tienda y contacto' },
@@ -303,7 +303,7 @@ const footerColumns = (b) => [
         { href: `${b}/tienda/?corte=nina`, label: 'Niña' },
         { href: `${b}/tienda/?corte=nino`, label: 'Niño' },
         { href: `${b}/tienda/?linea=deportes`, label: 'Deportes' },
-        { href: `${b}/tienda/?linea=paquetes`, label: 'Paquetes' },
+        { href: `${b}/tienda/?linea=kinder`, label: 'Kinder' },
     ] },
     { title: 'Ayuda', links: [
         { href: `${b}/como-comprar/`, label: 'Cómo comprar' },
