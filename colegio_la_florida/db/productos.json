@@ -14,7 +14,7 @@
       "short": "Piqué blanco con vivos y escudo bordado.",
       "description": "Polo de piqué blanco con cuello y puños tejidos con vivos, y el escudo del colegio bordado en el pecho. Corte para niño.",
       "price_mxn": 285,
-      "image": "/img/producto/polo-diario-nino.webp",
+      "image": "/img/producto/colegio-la-florida-playera-polo-diario-nino.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -122,7 +122,7 @@
       "short": "Blanca, cuello tejido y escudo bordado.",
       "description": "Playera polo blanca de diario con el escudo del colegio bordado. Corte para niña; se usa bajo el jumper y el suéter.",
       "price_mxn": 285,
-      "image": "/img/producto/polo-diario-nina.webp",
+      "image": "/img/producto/colegio-la-florida-playera-polo-diario-nina.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -434,7 +434,7 @@
       "short": "Cárdigan café, tejido de trenzas.",
       "description": "Suéter abierto (cárdigan) de punto café con tejido de trenzas, cuello en V y botones al frente.",
       "price_mxn": 480,
-      "image": "/img/producto/sueter-abierto-nina.webp",
+      "image": "/img/producto/colegio-la-florida-sueter-abierto-nina.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -566,7 +566,7 @@
       "short": "Gris jaspeado, con tablones.",
       "description": "Jumper gris jaspeado de tirantes con tablones al frente y dobladillo amplio para alargar conforme crece.",
       "price_mxn": 550,
-      "image": "/img/producto/jumper-nina.webp",
+      "image": "/img/producto/colegio-la-florida-jumper-nina.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -673,7 +673,7 @@
       "short": "Calcetas del uniforme.",
       "description": "Calcetas del uniforme diario para niña.",
       "price_mxn": 70,
-      "image": "/img/producto/calcetas-blancas.webp",
+      "image": "/img/producto/colegio-la-florida-calcetas-nina.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -759,7 +759,7 @@
       "short": "Calcetas del uniforme.",
       "description": "Calcetas del uniforme diario para niño.",
       "price_mxn": 70,
-      "image": "/img/producto/calcetas-grises.webp",
+      "image": "/img/producto/colegio-la-florida-calcetas-nino.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -845,9 +845,9 @@
       "short": "Café, cuello en V.",
       "description": "Suéter cerrado de punto liso café con cuello en V y resorte tejido en cuello, puños y cintura.",
       "price_mxn": 450,
-      "image": "/img/seccion/diario-nino.webp",
-      "focus": "26% 27%",
-      "zoom": 2.0,
+      "image": "/img/producto/colegio-la-florida-sueter-cerrado-nino.webp",
+      "focus": "50% 50%",
+      "zoom": 1,
       "sizes": [
         "2",
         "3",
@@ -1012,7 +1012,7 @@
       "short": "Chaleco del uniforme diario.",
       "description": "Chaleco del uniforme diario para niño.",
       "price_mxn": 400,
-      "image": "/img/producto/sin-foto.webp",
+      "image": "/img/producto/colegio-la-florida-chaleco-nino.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -1146,7 +1146,7 @@
       "short": "Café, corte recto.",
       "description": "Pantalón café de corte recto con pretina de botón, presillas para cinturón y dobladillo amplio.",
       "price_mxn": 380,
-      "image": "/img/producto/pantalon-diario-nino.webp",
+      "image": "/img/producto/colegio-la-florida-pantalon-de-diario-nino.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -1289,7 +1289,7 @@
       "short": "Café, hebilla metálica.",
       "description": "Cinturón café del uniforme diario para niño.",
       "price_mxn": 280,
-      "image": "/img/producto/cinturon-nino.webp",
+      "image": "/img/producto/colegio-la-florida-cinturon-nino.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -1339,7 +1339,7 @@
       "short": "Chamarra para frío, niña y niño.",
       "description": "Chamarra de invierno del uniforme, para niña y niño.",
       "price_mxn": 650,
-      "image": "/img/producto/sin-foto.webp",
+      "image": "/img/producto/colegio-la-florida-chamarra-invierno-unisex.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -1443,7 +1443,7 @@
       "short": "Sudadera con escudo en relieve.",
       "description": "Sudadera del uniforme con el escudo en relieve, para niña y niño.",
       "price_mxn": 600,
-      "image": "/img/producto/sudadera-relieve.webp",
+      "image": "/img/producto/colegio-la-florida-sudadera-con-relieve-unisex.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -1559,7 +1559,7 @@
       "short": "Marino con franjas naranja y blanca.",
       "description": "Chamarra deportiva azul marino con cierre al frente, cuello naranja y franjas naranja y blanca en las mangas. Para niña y niño.",
       "price_mxn": 535,
-      "image": "/img/producto/chamarra-deportes.webp",
+      "image": "/img/producto/colegio-la-florida-chamarra-deportes-unisex.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -1666,7 +1666,7 @@
       "short": "Marino, franjas laterales.",
       "description": "Pants azul marino con franjas laterales naranja y blanca y cintura de resorte con cordón. Para niña y niño.",
       "price_mxn": 495,
-      "image": "/img/producto/pants-deportes.webp",
+      "image": "/img/producto/colegio-la-florida-pants-de-deportes-unisex.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
@@ -1847,7 +1847,7 @@
       "short": "Blanca con vivos verdes, estampado.",
       "description": "Playera blanca de kinder con cuello y mangas en verde y el estampado «Amigos de Jesús». Para niña y niño.",
       "price_mxn": 250,
-      "image": "/img/producto/playera-amigos-de-jesus.webp",
+      "image": "/img/producto/colegio-la-florida-playera-amigos-de-jesus-kinder-unisex.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [

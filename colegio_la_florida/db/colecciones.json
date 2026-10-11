@@ -5,7 +5,7 @@
   "lines": [
     { "id": "diario", "label": "Diario", "description": "El uniforme de todos los días: polo con escudo bordado, suéter café, pantalón café, chaleco y jumper gris.", "image": "/img/seccion/diario-nina.webp" },
     { "id": "deportes", "label": "Deportes", "description": "Chamarra, pants y polo de deportes, azul marino con franjas naranja y blanca, para educación física y torneos.", "image": "/img/seccion/deportes-nino.webp" },
-    { "id": "kinder", "label": "Kinder", "description": "Bata, playera y chamarra Amigos de Jesús para preescolar.", "image": "/img/producto/playera-amigos-de-jesus.webp" }
+    { "id": "kinder", "label": "Kinder", "description": "Bata, playera y chamarra Amigos de Jesús para preescolar.", "image": "/img/producto/colegio-la-florida-playera-amigos-de-jesus-kinder-unisex.webp" }
   ],
   "types": [
     { "id": "paquetes", "label": "Paquetes", "sort_order": 0 },

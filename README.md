@@ -57,24 +57,19 @@ ffmpeg -i img/seccion/Diario_Femenil.png -c:v libwebp -quality 82 img/seccion/di
 | `florida-edificio` | `b205a4_…~mv2.jpg` (fuera de Git) | tarjeta Colegio La Florida en `zarem.mx/`, `og:image` del inicio |
 | `patio-grupo` | `Niños-Colegio-Florida-1002.png` | héroe de `/colegio_la_florida/`, imagen para redes (`og:image`) |
 | `diario-nina` | `Diario_Femenil.png` | panel Niña |
-| `diario-nino` | `Diario_Varonil.png` | panel Niño; suéter cerrado |
+| `diario-nino` | `Diario_Varonil.png` | panel Niño |
 | `deportes-nina` / `deportes-nino` | `Deportes_Femenil2.png` / `Deportes_Varonil.png` | banda Deportes |
 | `polo-escudo` | `polo-hombre-diario3-hd.png` | detalle del escudo |
-| `jumper-nina` | `Jumper-diario-niña.jpg` | jumper |
-| `polo-diario-nino` / `polo-diario-nina` | `polo-diario-hombre.png` / `polo-diario-mujer.png` | polo diario niño / niña |
-| `sueter-abierto-nina` | `sudadera_abierta-diario-mujer.jpg` | suéter abierto niña |
-| `calcetas-blancas` / `calcetas-grises` | `Calcetas-diario-blancas.jpg` / `Calcetas-diario-grises.jpg` | calcetas niña / niño |
-| `pantalon-diario-nino` | `pantalon-diario-hombre.png` | pantalón de diario niño |
-| `cinturon-nino` | `Cinturon-diario-hombre.jpg` | cinturón niño |
-| `sudadera-relieve` | `Sudadera_relieve-deportes-unisex.png` | sudadera con relieve |
-| `chamarra-deportes` | `chamarra_abierta-deportes-unisex.jpg` | chamarra de deportes |
-| `pants-deportes` | `pants-deportes-unisex (2).png` | pants de deportes |
-| `playera-amigos-de-jesus` | `Gemini_Generated_Image_ygeeo2….jpg` | playera Amigos de Jesús, línea Kinder |
+| `colegio-la-florida-<productos>-<sexo>` | mismo nombre en `.png` / `.jpg` | la prenda de Odoo con ese nombre (ver abajo) |
 | `sin-foto` | (generada con ffmpeg) | prendas sin foto todavía |
 | `patio-abrazo` | `Patio.png` | «Sin filas» |
 
 Varias prendas comparten foto: en `productos.json`, `focus` (posición) y `zoom` encuadran cada prenda en su tarjeta.
-Cuando haya foto propia por prenda, basta con cambiar `image` y dejar `focus: "50% 50%"`, `zoom: 1`.
+**Fotos de producto = nombre de Odoo.** Cada foto de `img/producto/` se llama como el producto en `Catalogo.xlsx`
+(colegio + `productos` + `sexo`, en minúsculas, sin acentos, con guiones): `Playera polo diario` · `Niño` →
+`colegio-la-florida-playera-polo-diario-nino.webp`. `tools/importar-catalogo.py` la toma sola (`photo_for`) y la escribe
+en la columna `imagen`; si no existe, usa el recorte de `PRODUCTS` (`image`, `focus`, `zoom`) o `sin-foto`.
+Para agregar una foto: guardar la original con ese nombre, convertirla a WebP y volver a correr los dos scripts.
 
 ## Estructura de carpetas
 
