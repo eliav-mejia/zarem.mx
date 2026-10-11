@@ -45,16 +45,16 @@ Componentes: `.btn-ink / .btn-line / .btn-light`, `.field` (solo línea inferior
 
 ## Fotos
 
-Las originales en PNG (≈ 11 MB) están en `img/` y **no se publican** (`.gitignore`). El sitio usa `img/fotos/*.webp`
+Las originales en PNG / JPG (≈ 11 MB) están junto a su WebP y **no se publican** (`.gitignore`). El sitio usa `img/<carpeta>/*.webp`
 (≈ 0,5 MB en total), convertidas con:
 
 ```
-ffmpeg -i img/Diario_Femenil.png -c:v libwebp -quality 82 img/fotos/diario-nina.webp
+ffmpeg -i img/seccion/Diario_Femenil.png -c:v libwebp -quality 82 img/seccion/diario-nina.webp
 ```
 
 | WebP | Original | Se usa en |
 |---|---|---|
-| `florida-edificio` | `b205a4_…~mv2.jpg` (en `img/fotos/`, fuera de Git) | tarjeta Colegio La Florida en `zarem.mx/`, `og:image` del inicio |
+| `florida-edificio` | `b205a4_…~mv2.jpg` (fuera de Git) | tarjeta Colegio La Florida en `zarem.mx/`, `og:image` del inicio |
 | `patio-grupo` | `Niños-Colegio-Florida-1002.png` | héroe de `/colegio_la_florida/`, imagen para redes (`og:image`) |
 | `diario-nina` | `Diario_Femenil.png` | panel Niña; polo diario niña, suéter abierto |
 | `diario-nino` | `Diario_Varonil.png` | panel Niño; suéter cerrado, pantalón, cinturón |
@@ -87,7 +87,10 @@ zarem.mx/
 │   └── tienda.jsx                capa de datos `db`, useCatalog, priceBag (bordado, envío), Photo (encuadre),
 │                                 ProductCard, ProductPage, BagDrawer, ORDER_ENDPOINT
 │
-├── img/fotos/*.webp              fotos publicadas (las PNG originales quedan fuera de Git)
+├── img/portada/*.webp           escenas: modelos actuando con uniforme, bodegón de producto, fotos de los colegios
+├── img/seccion/*.webp           modelos con uniforme (estudio o pose)
+├── img/producto/*.webp          prenda sola: doblada, colgada o extendida
+│                                (originales PNG / JPG junto a cada WebP, fuera de Git)
 ├── supabase/                     BASE DE DATOS REAL (Etapa 2): esquema + RLS + stock por variante — ver supabase/README.md
 ├── tools/generar-paginas-producto.py   crea colegio_la_florida/tienda/<slug>/ y sitemap.xml
 │
@@ -132,7 +135,8 @@ zarem.mx/
 - **Colegios** (tarjetas del inicio, logo, menú lateral): `CLIENTS` en `js/layout.jsx` — `name`, `base` (carpeta),
   `cover` (foto de la tarjeta), `menu` (páginas que se despliegan en «Colegios»), `soon` (sin tienda aún).
   Un colegio nuevo = una entrada en `CLIENTS` + su carpeta. Pie: `footerColumns()` en `js/layout.jsx`.
-- **Foto de CUM**: poner la WebP en `img/fotos/` y su ruta en `cover` de CUM (hoy sale un panel negro).
+- **Fotos**: `img/portada/` (escenas con modelos actuando y bodegón: producto puesto en escena), `img/seccion/` (modelos
+  con uniforme), `img/producto/` (prenda suelta, doblada o colgada). Original y WebP van juntos en la misma carpeta.
 - **Prendas, precios, tallas**: se editan en `Catalogo.xlsx` (Odoo, `builds/Odoo/Odoo_catalogues/zarem.mx/`) y se importan con
   `~/.venvs/xl/bin/python tools/importar-catalogo.py` (necesita openpyxl); foto, textos, línea y tipo de cada prenda: `PRODUCTS`
   en ese script. Después `python tools/generar-paginas-producto.py`. El script también escribe la URL de la foto en la columna

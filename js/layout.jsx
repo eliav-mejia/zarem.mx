@@ -13,7 +13,7 @@ const CLIENTS = [
         id: 'colegio_la_florida',
         name: 'Colegio La Florida',
         base: '/colegio_la_florida',
-        cover: '/img/fotos/florida-edificio.webp',
+        cover: '/img/portada/florida-edificio.webp',
         menu: [
             { href: '/colegio_la_florida/#catalogo', label: 'Catálogo completo' },
             { href: '/colegio_la_florida/tienda/?corte=nina', label: 'Niña' },
@@ -30,7 +30,7 @@ const CLIENTS = [
         id: 'cum',
         name: 'CUM',                                           // [verificar] nombre completo
         base: '/cum',
-        cover: '/img/instituto-universitario-mexico-cum-mejores-preparatorias-cdmx.jpeg',
+        cover: '/img/portada/instituto-universitario-mexico-cum-mejores-preparatorias-cdmx.jpeg',
         soon: true,
         menu: [],
     },

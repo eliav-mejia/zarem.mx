@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DB = ROOT / 'colegio_la_florida' / 'db' / 'productos.json'
 DEFAULT_XLSX = ROOT.parent.parent / 'builds' / 'Odoo' / 'Odoo_catalogues' / 'zarem.mx' / 'Catalogo.xlsx'
 SITE = 'https://zarem.mx'
-NO_PHOTO = '/img/fotos/sin-foto.webp'
+NO_PHOTO = '/img/producto/sin-foto.webp'
 
 SIZE = {'Chica': 'CH', 'Mediana': 'M', 'Grande': 'G', 'Extra Grande': 'EG'}
 FIT = {'Niña': 'nina', 'Niño': 'nino', 'Unisex': 'unisex'}
@@ -31,13 +31,13 @@ FIT = {'Niña': 'nina', 'Niño': 'nino', 'Unisex': 'unisex'}
 PRODUCTS = {
     ('Playera polo diario', 'Niño'): dict(
         id='cl-102', slug='polo-diario-nino', line_id='diario', type_id='playeras', name='Polo diario niño',
-        short='Piqué blanco con vivos y escudo bordado.', image='/img/fotos/polo-escudo.webp', focus='50% 50%', zoom=1,
+        short='Piqué blanco con vivos y escudo bordado.', image='/img/seccion/polo-escudo.webp', focus='50% 50%', zoom=1,
         description='Polo de piqué blanco con cuello y puños tejidos con vivos, y el escudo del colegio bordado en el pecho. Corte para niño.',
         fabric='Piqué 100 % algodón peinado, 220 g/m²', care='Lavar a 30 °C del revés; no usar blanqueador sobre el escudo.',
         features=['Escudo bordado, no estampado', 'Cuello que no se enrosca', 'Vivos tejidos en cuello y manga'], featured=True),
     ('Playera polo diario', 'Niña'): dict(
         id='cl-103', slug='polo-diario-nina', line_id='diario', type_id='playeras', name='Polo diario niña',
-        short='Blanca, cuello tejido y escudo bordado.', image='/img/fotos/diario-nina.webp', focus='50% 21%', zoom=2.4,
+        short='Blanca, cuello tejido y escudo bordado.', image='/img/seccion/diario-nina.webp', focus='50% 21%', zoom=2.4,
         description='Playera polo blanca de diario con el escudo del colegio bordado. Corte para niña; se usa bajo el jumper y el suéter.',
         featured=True),
     ('Playera polo deportes', 'Niño'): dict(
@@ -50,13 +50,13 @@ PRODUCTS = {
         description='Playera polo del uniforme de deportes. Corte para niña.'),
     ('Sueter abierto', 'Niña'): dict(
         id='cl-106', slug='sueter-abierto-nina', line_id='diario', type_id='sueteres', name='Suéter abierto niña',
-        short='Cárdigan café, tejido de trenzas.', image='/img/fotos/diario-nina.webp', focus='50% 30%', zoom=1.55,
+        short='Cárdigan café, tejido de trenzas.', image='/img/seccion/diario-nina.webp', focus='50% 30%', zoom=1.55,
         description='Suéter abierto (cárdigan) de punto café con tejido de trenzas, cuello en V y botones al frente.',
         fabric='Acrílico antibolitas 70 % · algodón 30 %', care='Lavar en frío a mano o ciclo delicado; secar extendido.',
         features=['Antibolitas', 'Puños que no se deforman', 'Botones cosidos en cruz'], featured=True),
     ('Jumper', 'Niña'): dict(
         id='cl-107', slug='jumper-nina', line_id='diario', type_id='jumpers', name='Jumper',
-        short='Gris jaspeado, con tablones.', image='/img/fotos/jumper-nina.webp', focus='50% 50%', zoom=1,
+        short='Gris jaspeado, con tablones.', image='/img/producto/jumper-nina.webp', focus='50% 50%', zoom=1,
         description='Jumper gris jaspeado de tirantes con tablones al frente y dobladillo amplio para alargar conforme crece.',
         fabric='Gabardina jaspeada 65 % poliéster · 35 % rayón', care='Lavar en frío; planchar los tablones del revés.',
         features=['Dobladillo de 5 cm para alargar', 'Tablones cosidos que no se abren']),
@@ -70,7 +70,7 @@ PRODUCTS = {
         description='Calcetas del uniforme diario para niño.'),
     ('Sueter cerrado', 'Niño'): dict(
         id='cl-110', slug='sueter-cerrado-nino', line_id='diario', type_id='sueteres', name='Suéter cerrado niño',
-        short='Café, cuello en V.', image='/img/fotos/diario-nino.webp', focus='26% 27%', zoom=2.0,
+        short='Café, cuello en V.', image='/img/seccion/diario-nino.webp', focus='26% 27%', zoom=2.0,
         description='Suéter cerrado de punto liso café con cuello en V y resorte tejido en cuello, puños y cintura.',
         fabric='Acrílico antibolitas 70 % · algodón 30 %', care='Lavar en frío; secar extendido.',
         features=['Antibolitas', 'Codos reforzados']),
@@ -80,13 +80,13 @@ PRODUCTS = {
         description='Chaleco del uniforme diario para niño.'),
     ('Pantalón de diario', 'Niño'): dict(
         id='cl-112', slug='pantalon-diario-nino', line_id='diario', type_id='pantalones', name='Pantalón de diario niño',
-        short='Café, corte recto.', image='/img/fotos/diario-nino.webp', focus='50% 66%', zoom=1.35,
+        short='Café, corte recto.', image='/img/seccion/diario-nino.webp', focus='50% 66%', zoom=1.35,
         description='Pantalón café de corte recto con pretina de botón, presillas para cinturón y dobladillo amplio.',
         fabric='Gabardina 65 % poliéster · 35 % rayón', care='Lavar en frío; planchar del revés.',
         features=['Rodillas reforzadas', 'Dobladillo de 5 cm para alargar'], featured=True),
     ('Cinturon', 'Niño'): dict(
         id='cl-113', slug='cinturon-nino', line_id='diario', type_id='accesorios', name='Cinturón niño',
-        short='Café, hebilla metálica.', image='/img/fotos/diario-nino.webp', focus='52% 42%', zoom=3.2, embroidery=False,
+        short='Café, hebilla metálica.', image='/img/seccion/diario-nino.webp', focus='52% 42%', zoom=3.2, embroidery=False,
         description='Cinturón café del uniforme diario para niño.'),
     ('Chamarra invierno', 'Unisex'): dict(
         id='cl-114', slug='chamarra-invierno', line_id='diario', type_id='chamarras', name='Chamarra de invierno',
@@ -98,13 +98,13 @@ PRODUCTS = {
         description='Sudadera del uniforme con el escudo en relieve, para niña y niño.'),
     ('Chamarra deportes', 'Unisex'): dict(
         id='cl-116', slug='chamarra-deportes', line_id='deportes', type_id='chamarras', name='Chamarra de deportes',
-        short='Marino con franjas naranja y blanca.', image='/img/fotos/deportes-nino.webp', focus='40% 30%', zoom=1.5,
+        short='Marino con franjas naranja y blanca.', image='/img/seccion/deportes-nino.webp', focus='40% 30%', zoom=1.5,
         description='Chamarra deportiva azul marino con cierre al frente, cuello naranja y franjas naranja y blanca en las mangas. Para niña y niño.',
         fabric='Tricot deportivo 100 % poliéster', care='Lavar en frío del revés; no planchar las franjas.',
         features=['Franjas cosidas, no termofijadas', 'Escudo bordado'], featured=True),
     ('Pants de deportes', 'Unisex'): dict(
         id='cl-117', slug='pants-deportes', line_id='deportes', type_id='pants', name='Pants de deportes',
-        short='Marino, franjas laterales.', image='/img/fotos/deportes-nina.webp', focus='58% 74%', zoom=1.5,
+        short='Marino, franjas laterales.', image='/img/seccion/deportes-nina.webp', focus='58% 74%', zoom=1.5,
         description='Pants azul marino con franjas laterales naranja y blanca y cintura de resorte con cordón. Para niña y niño.',
         fabric='Tricot deportivo 100 % poliéster', care='Lavar en frío del revés.',
         features=['Rodillas reforzadas', 'Cordón interior']),
@@ -114,7 +114,7 @@ PRODUCTS = {
         description='Bata del uniforme de kinder para niña.'),
     ('Playera amigos de jesus kinder', 'Unisex'): dict(
         id='cl-119', slug='playera-amigos-de-jesus', line_id='kinder', type_id='playeras', name='Playera Amigos de Jesús',
-        short='Blanca con vivos verdes, estampado.', image='/img/fotos/playera-amigos-de-jesus.webp', focus='50% 50%', zoom=1,
+        short='Blanca con vivos verdes, estampado.', image='/img/producto/playera-amigos-de-jesus.webp', focus='50% 50%', zoom=1,
         description='Playera blanca de kinder con cuello y mangas en verde y el estampado «Amigos de Jesús». Para niña y niño.'),
     ('Chamarra amigos de jesus', 'Unisex'): dict(
         id='cl-120', slug='chamarra-amigos-de-jesus', line_id='kinder', type_id='chamarras', name='Chamarra Amigos de Jesús',

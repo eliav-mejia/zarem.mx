@@ -9,7 +9,7 @@
     <meta property="og:title" content="Zarem · Uniformes del Colegio La Florida">
     <meta property="og:description" content="Uniformes oficiales del Colegio La Florida: diario, deportes y kinder. Elige prenda y talla desde tu celular y paga con tarjeta, OXXO o efectivo en tienda.">
     <meta property="og:url" content="https://zarem.mx/colegio_la_florida/">
-    <meta property="og:image" content="https://zarem.mx/img/fotos/patio-grupo.webp">
+    <meta property="og:image" content="https://zarem.mx/img/portada/patio-grupo.webp">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#ffffff">
 
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div className="order-1 md:order-2 relative aspect-[4/5] md:aspect-auto bg-paper-50 overflow-hidden">
-                    <img src="/img/fotos/florida-alumnos-corriendo.webp" alt={`Alumnos del ${BRAND.school} corriendo con uniforme diario y deportivo`} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 75%' }} fetchpriority="high" />
+                    <img src="/img/portada/florida-alumnos-corriendo.webp" alt={`Alumnos del ${BRAND.school} corriendo con uniforme diario y deportivo`} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 75%' }} fetchpriority="high" />
                 </div>
             </section>
         );
@@ -55,8 +55,8 @@
         const Split = () => (
             <section className="grid md:grid-cols-2 gap-1 mt-1">
                 {[
-                    { href: '/colegio_la_florida/tienda/?corte=nina', label: 'Niña', img: '/img/fotos/diario-nina.webp', alt: 'Uniforme diario de niña: cárdigan café, jumper gris y mallas blancas' },
-                    { href: '/colegio_la_florida/tienda/?corte=nino', label: 'Niño', img: '/img/fotos/diario-nino.webp', alt: 'Uniforme diario de niño: polo blanca y pantalón café' },
+                    { href: '/colegio_la_florida/tienda/?corte=nina', label: 'Niña', img: '/img/seccion/diario-nina.webp', alt: 'Uniforme diario de niña: cárdigan café, jumper gris y mallas blancas' },
+                    { href: '/colegio_la_florida/tienda/?corte=nino', label: 'Niño', img: '/img/seccion/diario-nino.webp', alt: 'Uniforme diario de niño: polo blanca y pantalón café' },
                 ].map(p => (
                     <a key={p.label} href={p.href} className="parallax group block h-[85vh] md:h-[110vh] bg-paper-50" data-speed="0.15">
                         <img src={p.img} alt={p.alt} loading="lazy" />
@@ -109,8 +109,8 @@
         const Sports = () => (
             <section className="mt-24 md:mt-32">
                 <div className="grid grid-cols-2 gap-1">
-                    <a href="/colegio_la_florida/tienda/pants-deportes/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50" data-speed="0.1"><img src="/img/fotos/deportes-nina.webp" alt="Uniforme deportivo de niña, azul marino con franjas naranja y blanca" loading="lazy" /></a>
-                    <a href="/colegio_la_florida/tienda/chamarra-deportes/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50 md:mt-40" data-speed="0.22"><img src="/img/fotos/deportes-nino.webp" alt="Uniforme deportivo de niño, azul marino con cuello naranja" loading="lazy" /></a>
+                    <a href="/colegio_la_florida/tienda/pants-deportes/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50" data-speed="0.1"><img src="/img/seccion/deportes-nina.webp" alt="Uniforme deportivo de niña, azul marino con franjas naranja y blanca" loading="lazy" /></a>
+                    <a href="/colegio_la_florida/tienda/chamarra-deportes/" className="parallax block h-[70vh] md:h-[120vh] bg-paper-50 md:mt-40" data-speed="0.22"><img src="/img/seccion/deportes-nino.webp" alt="Uniforme deportivo de niño, azul marino con cuello naranja" loading="lazy" /></a>
                 </div>
                 <div className="max-w-[1600px] mx-auto px-4 md:px-10 mt-10 flex flex-col md:flex-row justify-between gap-6 md:items-end">
                     <h2 className="text-5xl md:text-8xl uppercase leading-[0.9]">Deportes</h2>
@@ -126,7 +126,7 @@
         const Crest = () => (
             <section className="max-w-[1600px] mx-auto px-4 md:px-10 mt-24 md:mt-40 grid md:grid-cols-12 gap-8 items-center">
                 <div className="md:col-span-7 parallax aspect-[4/5] bg-paper-50" data-speed="0.12">
-                    <img src="/img/fotos/polo-escudo.webp" alt="Polo blanca con vivos y escudo del colegio bordado" loading="lazy" />
+                    <img src="/img/seccion/polo-escudo.webp" alt="Polo blanca con vivos y escudo del colegio bordado" loading="lazy" />
                 </div>
                 <div className="md:col-span-4 md:col-start-9 reveal">
                     <p className="label text-ink-500 mb-6">El detalle</p>
@@ -148,7 +148,7 @@
 
         const NoLines = () => (
             <section className="parallax mt-24 md:mt-40 h-[100svh] min-h-[600px] bg-florida-marino" data-speed="0.2">
-                <img src="/img/fotos/patio-abrazo.webp" alt={`Alumnos del ${BRAND.school} abrazados en el patio`} loading="lazy" />
+                <img src="/img/portada/patio-abrazo.webp" alt={`Alumnos del ${BRAND.school} abrazados en el patio`} loading="lazy" />
                 <div className="absolute inset-0 bg-black/35" />
                 <div className="absolute inset-0 max-w-[1600px] mx-auto px-4 md:px-10 flex flex-col justify-end pb-14 md:pb-20 text-white">
                     <h2 className="text-5xl md:text-8xl uppercase leading-[0.9] max-w-4xl">Sin filas.</h2>

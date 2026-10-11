@@ -13,7 +13,6 @@ _interno/
 node_modules/
 dist/
 
-# Fotos originales en PNG (pesadas). Se publican las versiones WebP de img/fotos/.
-img/*.png
-# Originales en JPG descargados (se publica la versión WebP: florida-edificio.webp)
-img/fotos/*.jpg
+# Fotos originales en PNG / JPG (pesadas), junto a su WebP en img/portada|seccion|producto/. Solo se publica la WebP.
+img/**/*.png
+img/**/*.jpg
