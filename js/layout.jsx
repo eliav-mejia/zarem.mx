@@ -46,7 +46,7 @@ const BRAND = {
     tagline: CLIENT ? `Uniformes oficiales del ${CLIENT.name}` : 'Casa de confección de uniformes escolares',
     email: 'hola@zarem.mx',                                    // [verificar]
     phone: '+52 55 0000 0000',                                 // [verificar]
-    whatsapp: '5200000000000',                                 // [verificar] solo dígitos, formato internacional
+    whatsapp: '525555840104',                                  // solo dígitos, formato internacional
     store: '[Dirección de la tienda de uniformes], Ciudad de México',   // [verificar]
     hours: 'Lunes a viernes 9:00 – 18:00 · Sábado 9:00 – 14:00',        // [verificar]
 };
