@@ -1,7 +1,7 @@
 {
   "_schema": "products: id, slug, sku, line_id, type_id, fit (nina|nino|unisex), name, short, description, price_mxn, image, focus (object-position), zoom, sizes, variants [{size, sku, price_mxn}], fabric, care, features, embroidery, availability, includes?, active, featured",
   "_note": "Generado con tools/importar-catalogo.py desde Catalogo.xlsx (Odoo). Precios con IVA por talla; sku de cada variante = folio de Odoo. Varias prendas comparten foto: focus/zoom encuadran la prenda.",
-  "updated_at": "2026-10-10",
+  "updated_at": "2026-10-13",
   "products": [
     {
       "id": "cl-102",
@@ -1915,7 +1915,7 @@
       "short": "Chamarra de kinder, niña y niño.",
       "description": "Chamarra «Amigos de Jesús» del uniforme de kinder, para niña y niño.",
       "price_mxn": 420,
-      "image": "/img/producto/sin-foto.webp",
+      "image": "/img/producto/colegio-la-florida-chamarra-amigos-de-jesus-unisex.webp",
       "focus": "50% 50%",
       "zoom": 1,
       "sizes": [
