@@ -261,10 +261,12 @@ const Layout = ({ children, overlay = false, landing = false }) => {
                         <Logo light={clear} />
                     </div>
                     {CLIENT && !CLIENT.soon && (
-                        <nav className="flex items-center gap-5 md:gap-8 mt-2" aria-label="Principal">
-                            <a href={`${CLIENT.base}/tienda/`} className="label link hidden sm:inline" aria-current={here.startsWith(`${CLIENT.base}/tienda/`) ? 'page' : undefined}>Tienda</a>
-                            <a href={`${CLIENT.base}/como-comprar/`} className="label link hidden md:inline" aria-current={here.startsWith(`${CLIENT.base}/como-comprar`) ? 'page' : undefined}>Cómo comprar</a>
-                            <a href={`${CLIENT.base}/bolsa/`} className="label link" aria-label={`Bolsa, ${count} piezas`}>Bolsa ({count})</a>
+                        <nav className="mt-2" aria-label="Principal">
+                            <ul className="flex items-center gap-5 md:gap-8">
+                                <li className="hidden sm:block"><a href={`${CLIENT.base}/tienda/`} className="label link" aria-current={here.startsWith(`${CLIENT.base}/tienda/`) ? 'page' : undefined}>Tienda</a></li>
+                                <li className="hidden md:block"><a href={`${CLIENT.base}/como-comprar/`} className="label link" aria-current={here.startsWith(`${CLIENT.base}/como-comprar`) ? 'page' : undefined}>Cómo comprar</a></li>
+                                <li><a href={`${CLIENT.base}/bolsa/`} className="label link" aria-label={`Bolsa, ${count} piezas`}>Bolsa ({count})</a></li>
+                            </ul>
                         </nav>
                     )}
                 </div>
@@ -279,8 +281,10 @@ const Layout = ({ children, overlay = false, landing = false }) => {
                             <Logo />
                         </div>
                         <SchoolsMenu />
-                        <nav className="mt-12 flex flex-col gap-3">
-                            <a href="/" className="label link self-start">Zarem · {BRAND.slogan}</a>
+                        <nav className="mt-12" aria-label="Zarem">
+                            <ul className="flex flex-col gap-3">
+                                <li><a href="/" className="label link">Zarem · {BRAND.slogan}</a></li>
+                            </ul>
                         </nav>
                         <p className="mt-auto pt-12 text-xs text-ink-500">{BRAND.store}<br />{BRAND.hours}</p>
                     </aside>
@@ -359,8 +363,10 @@ const LegalPage = ({ kicker, title, updated, sections }) => (
     <>
         <PageHero kicker={kicker} title={title} intro={`Última actualización: ${updated}`} />
         <section className="max-w-[1600px] mx-auto px-4 md:px-10 py-10 grid md:grid-cols-4 gap-12">
-            <nav className="hidden md:flex flex-col gap-3 md:sticky md:top-28 self-start" aria-label="Índice">
-                {sections.map(s => <a key={s.id} href={`#${s.id}`} className="label link self-start text-ink-500 hover:text-ink">{s.title}</a>)}
+            <nav className="hidden md:block md:sticky md:top-28 self-start" aria-label="Índice">
+                <ul className="flex flex-col gap-3">
+                    {sections.map(s => <li key={s.id} className="flex"><a href={`#${s.id}`} className="label link text-ink-500 hover:text-ink">{s.title}</a></li>)}
+                </ul>
             </nav>
             <div className="md:col-span-3 max-w-3xl space-y-12">
                 {sections.map(s => (

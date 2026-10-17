@@ -11,6 +11,7 @@ Product folders whose slug is no longer in the database are listed, not deleted.
 """
 import html
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -18,7 +19,7 @@ SITE = 'https://zarem.mx'
 OUT = ROOT / 'colegio_la_florida' / 'tienda'
 
 # Static pages for sitemap.xml (bolsa is excluded: no value for search engines).
-STATIC_PAGES = ['/', '/colegio_la_florida/', '/colegio_la_florida/tienda/', '/colegio_la_florida/como-comprar/', '/colegio_la_florida/contacto/', '/colegio_la_florida/terminos/', '/colegio_la_florida/privacidad/']
+STATIC_PAGES = ['/', '/cum/', '/colegio_la_florida/', '/colegio_la_florida/tienda/', '/colegio_la_florida/como-comprar/', '/colegio_la_florida/contacto/', '/colegio_la_florida/terminos/', '/colegio_la_florida/privacidad/']
 
 TEMPLATE = """<!DOCTYPE html>
 <html lang="es-MX">
@@ -32,10 +33,14 @@ TEMPLATE = """<!DOCTYPE html>
     <meta property="og:description" content="{description}">
     <meta property="og:url" content="{url}">
     <meta property="og:type" content="product">
+    <meta property="og:site_name" content="Zarem">
+    <meta property="og:locale" content="es_MX">
     <meta property="og:image" content="{image}">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
     <meta name="theme-color" content="#ffffff">
     <script type="application/ld+json">{jsonld}</script>
+    <script type="application/ld+json">{breadcrumb}</script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/js/tailwind.config.js"></script>
@@ -50,7 +55,19 @@ TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
 
-    <div id="root"></div>
+    <div id="root">
+        <noscript>
+            <h1>{h1}</h1>
+            <p>{description}</p>
+            <nav aria-label="Colegio La Florida">
+                <ul>
+                    <li><a href="/colegio_la_florida/tienda/">Tienda de uniformes del Colegio La Florida</a></li>
+                    <li><a href="/colegio_la_florida/como-comprar/">Cómo comprar</a></li>
+                    <li><a href="/colegio_la_florida/contacto/">Tienda y contacto</a></li>
+                </ul>
+            </nav>
+        </noscript>
+    </div>
 
     <script type="text/babel" src="/js/layout.jsx"></script>
     <script type="text/babel" src="/js/tienda.jsx"></script>
@@ -63,6 +80,20 @@ TEMPLATE = """<!DOCTYPE html>
 """
 
 FIT = {'nina': 'niña', 'nino': 'niño', 'unisex': 'niña y niño'}
+DESCRIPTION_MAX = 160  # what Google shows of the meta description
+DESCRIPTION_TAIL = 'Uniforme oficial del Colegio La Florida en Zarem.'
+
+
+def page_description(p):
+    # short + description, whole sentences only, up to 160 characters; short ones get the school and brand.
+    text = ''
+    for sentence in re.split(r'(?<=\.) ', f"{p['short'].rstrip('.')}. {p['description']}"):
+        if len(text) + len(sentence) + 1 > DESCRIPTION_MAX:
+            break
+        text = f'{text} {sentence}'.strip()
+    if len(text) + len(DESCRIPTION_TAIL) + 1 <= DESCRIPTION_MAX:
+        text = f'{text} {DESCRIPTION_TAIL}'
+    return text
 
 
 def main():
@@ -91,9 +122,20 @@ def main():
             offer.update({'@type': 'AggregateOffer', 'lowPrice': min(prices), 'highPrice': max(prices), 'offerCount': len(prices)})
         out = OUT / p['slug'] / 'index.html'
         out.parent.mkdir(parents=True, exist_ok=True)
+        breadcrumb = {
+            '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'Zarem', 'item': f'{SITE}/'},
+                {'@type': 'ListItem', 'position': 2, 'name': 'Colegio La Florida', 'item': f'{SITE}/colegio_la_florida/'},
+                {'@type': 'ListItem', 'position': 3, 'name': 'Tienda', 'item': f'{SITE}/colegio_la_florida/tienda/'},
+                {'@type': 'ListItem', 'position': 4, 'name': p['name'], 'item': url},
+            ],
+        }
         out.write_text(TEMPLATE.format(
-            title=html.escape(title), description=html.escape(f"{p['short']} {p['description']}"), url=url, image=SITE + p['image'],
+            title=html.escape(title), description=html.escape(page_description(p)), url=url, image=SITE + p['image'],
+            h1=html.escape(f"{p['name']} · Uniforme del Colegio La Florida"),
             jsonld=json.dumps(jsonld, ensure_ascii=False).replace('</', '<\\/'),
+            breadcrumb=json.dumps(breadcrumb, ensure_ascii=False).replace('</', '<\\/'),
         ), encoding='utf-8', newline='\n')
         print(f"ok   colegio_la_florida/tienda/{p['slug']}/")
 

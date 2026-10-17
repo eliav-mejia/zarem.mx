@@ -186,7 +186,11 @@ const ProductPage = () => {
                 </div>
                 <div className="md:col-span-5 md:sticky md:top-28 px-4 md:px-0 pb-10 animate-fade-in">
                     <nav className="label text-ink-400 mb-8" aria-label="Ruta">
-                        <a href={`${CLIENT.base}/tienda/`} className="link">Tienda</a> / <a href={`${CLIENT.base}/tienda/?linea=${product.line_id}`} className="link">{catalog.line[product.line_id].label}</a>
+                        <ol className="flex flex-wrap gap-1.5">
+                            <li><a href={`${CLIENT.base}/tienda/`} className="link">Tienda</a></li>
+                            <li aria-hidden="true">/</li>
+                            <li><a href={`${CLIENT.base}/tienda/?linea=${product.line_id}`} className="link">{catalog.line[product.line_id].label}</a></li>
+                        </ol>
                     </nav>
                     <h1 className="text-3xl md:text-4xl uppercase tracking-tight">{product.name}</h1>
                     <p className="label text-ink-500 mt-2">{FIT_LABEL[product.fit]} · {size ? skuOf(product, size) : product.sku}</p>
@@ -242,7 +246,7 @@ const ProductPage = () => {
 
             {related.length > 0 && (
                 <section className="max-w-[1600px] mx-auto px-4 md:px-10 pt-20">
-                    <p className="label mb-6">Completa el uniforme</p>
+                    <h2 className="label mb-6">Completa el uniforme</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-x-1">{related.map(p => <ProductCard key={p.id} product={p} catalog={catalog} />)}</div>
                 </section>
             )}
