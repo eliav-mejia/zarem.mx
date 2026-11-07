@@ -32,9 +32,13 @@
     <script type="text/babel" src="/js/layout.jsx"></script>
     <script type="text/babel" src="/js/tienda.jsx"></script>
     <script type="text/babel">
-        // Etapa 1 checkout: the order is saved in this browser (db.createOrder) and sent by WhatsApp; we reply with the card
-        // payment link or the OXXO slip. Etapa 2: db.createOrder → Edge Function (re-prices) → Stripe / Mercado Pago.
+        // Etapa 1 checkout (PAYMENTS_ENDPOINT = null): the order is saved in this browser (db.createOrder) and sent by
+        // WhatsApp; we reply with the card payment link or the OXXO slip.
+        // 1.1.1 · Etapa 2 (PAYMENTS_ENDPOINT set): db.pay → Edge Function (re-prices) → Stripe Checkout (card / OXXO);
+        // cash at pickup is saved on the server and paid at the store. Totals shown here are a preview only.
         // Payment depends on delivery (tienda.json): pickup → card or cash; home delivery → card or OXXO.
+        const ONLINE = Boolean(PAYMENTS_ENDPOINT);
+        const CANCELLED = new URLSearchParams(window.location.search).get('cancelado');
         const EMPTY = { parent: '', email: '', phone: '', student: '', grade: '', street: '', colonia: '', zip: '', city: '', notes: '', consent: false };
 
         const BagPage = () => {
@@ -44,8 +48,16 @@
             const [paymentId, setPaymentId] = useState('tarjeta');
             const [form, setForm] = useState(EMPTY);
             const [sent, setSent] = useState(null);
+            const [paying, setPaying] = useState(false);
+            const [payError, setPayError] = useState(CANCELLED ? 'cancelado' : null);
             const f = (key) => ({ value: form[key], onChange: (e) => setForm({ ...form, [key]: e.target.value }) });
 
+            if (sent && sent.online) return (
+                <PageHero kicker={`Pedido ${sent.order}`} title="Gracias. Tu pedido está apartado."
+                    intro={`Pagas en efectivo al recoger en la tienda. Te avisamos a ${form.email} cuando esté listo (máximo 48 horas hábiles). Guarda la referencia ${sent.order}.`}>
+                    <div className="flex flex-wrap gap-2 mt-10"><a href={`${CLIENT.base}/pedido/?pedido=${sent.order}&t=${encodeURIComponent(sent.token)}`} className="btn btn-ink">Ver mi pedido</a><a href={`${CLIENT.base}/`} className="btn btn-line">Inicio</a></div>
+                </PageHero>
+            );
             if (sent) return (
                 <PageHero kicker={`Pedido ${sent.id}`} title="Gracias. Recibimos tu pedido."
                     intro={`Abrimos WhatsApp con el detalle. Te enviamos ${sent.payment_id === 'oxxo' ? 'tu ficha de OXXO' : sent.payment_id === 'efectivo' ? 'la confirmación para pagar al recoger' : 'la liga de pago con tarjeta'} en horario de atención. Si no se abrió, escríbenos a ${BRAND.email} con la referencia ${sent.id}.`}>
@@ -68,6 +80,20 @@
 
             const submit = async (e) => {
                 e.preventDefault();
+                if (ONLINE) {
+                    setPaying(true); setPayError(null);
+                    try {
+                        const r = await db.pay({ customer: form, shippingId, paymentId: payment, lines });
+                        // Stripe Checkout (host checked in db.pay). The bag is kept until <school>/pedido/ confirms.
+                        if (r.url) { window.location.assign(r.url); return; }
+                        bag.clear();
+                        setSent({ online: true, ...r });
+                    } catch (err) {
+                        setPayError(err.code || 'red');
+                    }
+                    setPaying(false);
+                    return;
+                }
                 const order = await db.createOrder({ customer: form, shippingId, paymentId: payment, priced });
                 const text = [
                     `Hola Zarem, quiero confirmar mi pedido ${order.id} de uniformes ${BRAND.school}:`,
@@ -166,8 +192,13 @@
                                 <input type="checkbox" required checked={form.consent} onChange={e => setForm({ ...form, consent: e.target.checked })} className="mt-0.5 accent-black" />
                                 <span>Acepto los <a href="/colegio_la_florida/terminos/" className="underline">términos de venta</a> y el <a href="/colegio_la_florida/privacidad/" className="underline">aviso de privacidad</a>.</span>
                             </label>
-                            <button className="btn btn-ink w-full mt-6">Confirmar pedido</button>
-                            <p className="text-xs text-ink-500 mt-3">Se abre WhatsApp con tu pedido; te respondemos con {payment === 'oxxo' ? 'tu ficha de OXXO' : payment === 'efectivo' ? 'la confirmación' : 'la liga de pago'}.</p>
+                            {payError && <p className="text-xs text-florida-naranja mt-6" role="alert">{payError === 'cancelado'
+                                ? 'No se completó el pago. Tu bolsa sigue aquí: puedes intentarlo de nuevo.'
+                                : PAY_ERRORS[payError] || `No pudimos iniciar el pago. Inténtalo en un momento o escríbenos a ${BRAND.email}.`}</p>}
+                            <button className="btn btn-ink w-full mt-6" disabled={paying}>{!ONLINE ? 'Confirmar pedido' : paying ? 'Un momento…' : payment === 'efectivo' ? 'Apartar pedido' : 'Ir a pagar'}</button>
+                            <p className="text-xs text-ink-500 mt-3">{ONLINE
+                                ? (payment === 'efectivo' ? 'Pagas en efectivo al recoger.' : `Pagas en la página segura de Stripe${payment === 'oxxo' ? ', que genera tu ficha de OXXO' : ''}. Tu tarjeta no pasa por este sitio.`)
+                                : `Se abre WhatsApp con tu pedido; te respondemos con ${payment === 'oxxo' ? 'tu ficha de OXXO' : payment === 'efectivo' ? 'la confirmación' : 'la liga de pago'}.`}</p>
                         </aside>
                     </form>
                 </>

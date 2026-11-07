@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu pedido · Zarem</title>
+    <meta name="description" content="Estado de tu pedido de uniformes.">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel" src="/js/tienda.jsx"></script>
+    <script type="text/babel">
+        // 1.1.1 · Etapa 2: Stripe's success_url lands here with ?pedido=ZA-…&t=<token>. This page NEVER marks anything as
+        // paid: it only reads the status the webhook wrote (estado-pedido). OXXO and slow cards are polled for a minute.
+        const params = new URLSearchParams(window.location.search);
+        const ORDER = params.get('pedido');
+        const TOKEN = params.get('t');
+        const TITLE = {
+            'pagado': 'Gracias. Tu pago está confirmado.',
+            'por-pagar': 'Recibimos tu pedido.',
+            'cancelado': 'Este pedido se canceló.',
+            'reembolsado': 'Este pedido se reembolsó.',
+        };
+
+        const OrderPage = () => {
+            const [state, setState] = useState({ status: 'loading' });
+            useEffect(() => {
+                if (!PAYMENTS_ENDPOINT || !ORDER || !TOKEN) { setState({ status: 'error' }); return; }
+                let alive = true, tries = 0;
+                const load = () => db.orderStatus(ORDER, TOKEN).then(o => {
+                    if (!alive) return;
+                    setState({ status: 'ready', order: o });
+                    if (o.status === 'pagado' || o.payment_status === 'esperando-oxxo' || o.payment_method === 'efectivo') bag.clear();
+                    if (o.status === 'por-pagar' && o.payment_status === 'abierto' && ++tries < 12) setTimeout(load, 5000);
+                }).catch(() => alive && setState({ status: 'error' }));
+                load();
+                return () => { alive = false; };
+            }, []);
+
+            if (state.status === 'loading') return <PageHero kicker="Tu pedido" title="Un momento…" />;
+            if (state.status === 'error') return (
+                <PageHero kicker="Tu pedido" title="No encontramos este pedido."
+                    intro={`Revisa la liga del correo de confirmación o escríbenos a ${BRAND.email} con tu referencia.`}>
+                    <a href={`${CLIENT.base}/`} className="btn btn-ink mt-10">Inicio</a>
+                </PageHero>
+            );
+
+            const o = state.order;
+            const oxxo = o.payment_status === 'esperando-oxxo';
+            const intro = o.status === 'pagado' ? 'Te avisamos por correo cuando esté listo: máximo 48 horas hábiles.'
+                : oxxo ? 'Paga tu ficha de OXXO en los próximos 3 días; Stripe te la envió por correo. Confirmamos tu pedido en cuanto se acredite.'
+                : o.payment_method === 'efectivo' ? 'Pagas en efectivo al recoger en la tienda.'
+                : o.status === 'por-pagar' ? 'Estamos esperando la confirmación del banco. Esta página se actualiza sola.'
+                : `Si tienes dudas, escríbenos a ${BRAND.email}.`;
+            return (
+                <PageHero kicker={`Pedido ${o.id}`} title={oxxo ? 'Tu ficha de OXXO está lista.' : TITLE[o.status] || TITLE['por-pagar']} intro={intro}>
+                    <dl className="label space-y-3 mt-10 max-w-md">
+                        {o.items.map((i, n) => (
+                            <div key={n} className="flex justify-between gap-4"><dt>{i.qty} × {i.name} · Talla {i.size}{i.embroidery ? ' · bordado' : ''}</dt><dd>{formatMXN(i.qty * i.unit_cents / 100)}</dd></div>
+                        ))}
+                        <div className="flex justify-between label-strong text-base pt-4 border-t border-line"><dt>Total</dt><dd>{formatMXN(o.total_cents / 100)}</dd></div>
+                    </dl>
+                    <div className="flex flex-wrap gap-2 mt-10"><a href={`${CLIENT.base}/tienda/`} className="btn btn-ink">Seguir comprando</a><a href={`${CLIENT.base}/`} className="btn btn-line">Inicio</a></div>
+                </PageHero>
+            );
+        };
+
+        renderPage(OrderPage);
+    </script>
+</body>
+</html>

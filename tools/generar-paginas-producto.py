@@ -19,7 +19,7 @@ SITE = 'https://zarem.mx'
 OUT = ROOT / 'colegio_la_florida' / 'tienda'
 
 # Static pages for sitemap.xml (bolsa is excluded: no value for search engines).
-STATIC_PAGES = ['/', '/cum/', '/colegio_la_florida/', '/colegio_la_florida/tienda/', '/colegio_la_florida/como-comprar/', '/colegio_la_florida/contacto/', '/colegio_la_florida/terminos/', '/colegio_la_florida/privacidad/']
+STATIC_PAGES = ['/', '/creadores/', '/cum/', '/colegio_la_florida/', '/colegio_la_florida/tienda/', '/colegio_la_florida/como-comprar/', '/colegio_la_florida/contacto/', '/colegio_la_florida/terminos/', '/colegio_la_florida/privacidad/']
 
 TEMPLATE = """<!DOCTYPE html>
 <html lang="es-MX">

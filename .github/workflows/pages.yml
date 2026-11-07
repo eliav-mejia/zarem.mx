@@ -1,4 +1,6 @@
-# Static deploy to GitHub Pages: publishes the folder as-is (no Jekyll build, so nothing is hidden or rewritten).
+# Static deploy to GitHub Pages (no Jekyll build).
+# 1.1.1: publishes ONLY the site (pages, css, js, img, school folders). Server code (supabase/), scripts (tools/),
+# repo docs and dotfiles stay in the repo and never reach zarem.mx. A secret scan blocks the deploy if a key leaks.
 name: Deploy static site to GitHub Pages
 
 on:
@@ -24,12 +26,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Secret scan (Stripe, Supabase service_role, private keys)
+        run: |
+          if grep -rInE --exclude-dir=.git \
+               -e '(sk|rk)_(live|test)_[0-9A-Za-z]{20,}' \
+               -e 'whsec_[0-9A-Za-z]{20,}' \
+               -e 'eyJ[0-9A-Za-z_-]{10,}\.eyJ[0-9A-Za-z_-]{20,}' \
+               -e '-----BEGIN [A-Z ]*PRIVATE KEY-----' . ; then
+            echo "::error::Posible secreto en el repositorio. Retíralo, rota la clave y vuelve a publicar (SECURITY.md)."
+            exit 1
+          fi
+
+      - name: Build the public folder (site only)
+        run: |
+          mkdir _site
+          rsync -a ./ _site/ \
+            --exclude '.git*' --exclude '.github/' --exclude '.claude/' --exclude '.env*' \
+            --exclude '_interno/' --exclude 'supabase/' --exclude 'tools/' \
+            --exclude '/README.md' --exclude '/SECURITY.md' --exclude '_site/' \
+            --exclude '*.png' --exclude '*.jpg'
+          touch _site/.nojekyll
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload artifact (without repo metadata)
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

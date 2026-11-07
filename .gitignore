@@ -4,10 +4,21 @@ _interno/
 # Configuración local del editor / agente
 .claude/
 
-# Secretos (Etapa 2+: Supabase service_role, pasarela de pago, SMTP). Solo .env.example se publica.
+# Secretos (Etapa 2+: Supabase service_role, pasarela de pago, SMTP). Solo .env.example se publica. Ver SECURITY.md.
 .env
 .env.*
 !.env.example
+.dev.vars
+*.pem
+*.key
+
+# Supabase CLI (estado local, puede contener el proyecto enlazado)
+supabase/.temp/
+supabase/.branches/
+supabase/functions/.env
+
+# Carpeta que arma el despliegue (.github/workflows/pages.yml)
+_site/
 
 # Futuro build (Variante E)
 node_modules/

@@ -260,15 +260,18 @@ const Layout = ({ children, overlay = false, landing = false }) => {
                         <button className="mt-1.5" onClick={() => setMenuOpen(true)} aria-label="Abrir menú"><IconMenu className="w-6 h-6" /></button>
                         <Logo light={clear} />
                     </div>
-                    {CLIENT && !CLIENT.soon && (
-                        <nav className="mt-2" aria-label="Principal">
-                            <ul className="flex items-center gap-5 md:gap-8">
-                                <li className="hidden sm:block"><a href={`${CLIENT.base}/tienda/`} className="label link" aria-current={here.startsWith(`${CLIENT.base}/tienda/`) ? 'page' : undefined}>Tienda</a></li>
-                                <li className="hidden md:block"><a href={`${CLIENT.base}/como-comprar/`} className="label link" aria-current={here.startsWith(`${CLIENT.base}/como-comprar`) ? 'page' : undefined}>Cómo comprar</a></li>
-                                <li><a href={`${CLIENT.base}/bolsa/`} className="label link" aria-label={`Bolsa, ${count} piezas`}>Bolsa ({count})</a></li>
-                            </ul>
-                        </nav>
-                    )}
+                    <nav className="mt-2" aria-label="Principal">
+                        <ul className="flex items-center gap-5 md:gap-8">
+                            <li className={CLIENT && !CLIENT.soon ? 'hidden sm:block' : undefined}><a href="/creadores/" className="label link" aria-current={here.startsWith('/creadores') ? 'page' : undefined}>Creadores</a></li>
+                            {CLIENT && !CLIENT.soon && (
+                                <>
+                                    <li className="hidden sm:block"><a href={`${CLIENT.base}/tienda/`} className="label link" aria-current={here.startsWith(`${CLIENT.base}/tienda/`) ? 'page' : undefined}>Tienda</a></li>
+                                    <li className="hidden md:block"><a href={`${CLIENT.base}/como-comprar/`} className="label link" aria-current={here.startsWith(`${CLIENT.base}/como-comprar`) ? 'page' : undefined}>Cómo comprar</a></li>
+                                    <li><a href={`${CLIENT.base}/bolsa/`} className="label link" aria-label={`Bolsa, ${count} piezas`}>Bolsa ({count})</a></li>
+                                </>
+                            )}
+                        </ul>
+                    </nav>
                 </div>
             </header>
 
@@ -283,6 +286,7 @@ const Layout = ({ children, overlay = false, landing = false }) => {
                         <SchoolsMenu />
                         <nav className="mt-12" aria-label="Zarem">
                             <ul className="flex flex-col gap-3">
+                                <li><a href="/creadores/" className="label link">Creadores · Crea tu marca</a></li>
                                 <li><a href="/" className="label link">Zarem · {BRAND.slogan}</a></li>
                             </ul>
                         </nav>

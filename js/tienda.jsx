@@ -13,6 +13,23 @@ const loadJson = (name) => jsonCache[name] || (jsonCache[name] =
 // Where a copy of each order is posted. null = WhatsApp only (Etapa 1). The endpoint is public: validate and rate-limit.
 const ORDER_ENDPOINT = null;
 
+// 1.1.1 · Etapa 2: Supabase Edge Functions base ('https://<proyecto>.supabase.co/functions/v1'). null = Etapa 1
+// (WhatsApp). Set it only after the test-mode checklist in SECURITY.md passes. It is public by design: no key here.
+const PAYMENTS_ENDPOINT = null;
+const STRIPE_CHECKOUT = 'https://checkout.stripe.com/';   // the only place the bag may redirect to
+
+// Thrown by db.pay(); `code` is the server's error id (precios.js / crear-checkout), shown with PAY_ERRORS.
+class PayError extends Error { constructor(code) { super(code); this.code = code; } }
+const PAY_ERRORS = {
+    'producto-no-disponible': 'Una prenda de tu bolsa ya no está disponible. Quítala e inténtalo de nuevo.',
+    'talla-no-disponible': 'Una talla de tu bolsa ya no está disponible. Quítala e inténtalo de nuevo.',
+    'cantidad-invalida': 'Máximo 20 piezas de cada prenda y talla.',
+    'demasiadas-lineas': 'Máximo 30 prendas distintas por pedido.',
+    'nombre-bordado-invalido': 'El nombre a bordar solo puede llevar letras y espacios (máx. 24).',
+    'datos': 'Revisa tus datos: email, teléfono y dirección completa.',
+    'demasiados-pedidos': 'Ya tienes pedidos pendientes de pago. Espera una hora o escríbenos.',
+};
+
 const db = {
     catalog: () => Promise.all([loadJson('colecciones'), loadJson('productos'), loadJson('tienda')]).then(([c, p, rules]) => ({
         lines: c.lines,
@@ -36,6 +53,32 @@ const db = {
         store.write('za-pedidos', [order, ...store.read('za-pedidos', [])]);
         if (ORDER_ENDPOINT) fetch(ORDER_ENDPOINT, { method: 'POST', mode: 'no-cors', body: JSON.stringify(order) }).catch(() => {});
         return order;
+    },
+
+    // 1.1.1: only ids, sizes, names and quantities travel; the server re-prices (supabase/functions/crear-checkout).
+    // → { url } (card / OXXO: Stripe Checkout) or { order, token } (cash at pickup).
+    pay: async ({ customer, shippingId, paymentId, lines }) => {
+        const res = await fetch(`${PAYMENTS_ENDPOINT}/crear-checkout`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+                school: CLIENT.id, shippingId, paymentId, customer,
+                lines: lines.map(l => ({ productId: l.productId, size: l.size, name: l.name || '', qty: l.qty })),
+            }),
+        }).catch(() => null);
+        const data = res ? await res.json().catch(() => ({})) : {};
+        if (!res || !res.ok) throw new PayError(data.error || 'red');
+        if (data.url && !data.url.startsWith(STRIPE_CHECKOUT)) throw new PayError('pasarela');
+        return data;
+    },
+
+    // Order status for <school>/pedido/ (no personal data comes back).
+    orderStatus: async (order, token) => {
+        const res = await fetch(`${PAYMENTS_ENDPOINT}/estado-pedido`, {
+            method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ order, token }),
+        });
+        if (!res.ok) throw new PayError('no-encontrado');
+        return res.json();
     },
 };
 

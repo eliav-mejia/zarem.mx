@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creadores: crea tu marca de hoodies y pants · Zarem</title>
+    <meta name="description" content="Crea tu propia marca de ropa con Zarem: hoodies y pants confeccionados en la Ciudad de México con tu logo, tu etiqueta y tu empaque. Guía en cinco pasos.">
+    <link rel="canonical" href="https://zarem.mx/creadores/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Zarem">
+    <meta property="og:locale" content="es_MX">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Zarem","item":"https://zarem.mx/"},{"@type":"ListItem","position":2,"name":"Creadores","item":"https://zarem.mx/creadores/"}]}]}</script>
+    <meta property="og:title" content="Creadores: crea tu marca de hoodies y pants · Zarem">
+    <meta property="og:description" content="Crea tu propia marca de ropa con Zarem: hoodies y pants confeccionados en la Ciudad de México con tu logo, tu etiqueta y tu empaque. Guía en cinco pasos.">
+    <meta property="og:url" content="https://zarem.mx/creadores/">
+    <meta property="og:image" content="https://zarem.mx/img/portada/florida-edificio.webp">
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/tailwind.config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root">
+        <noscript>
+            <h1>Crea tu marca de ropa con Zarem</h1>
+            <p>Hoodies y pants con tu logo, tu etiqueta y tu empaque, confeccionados en la Ciudad de México. Cinco pasos: define tu marca, elige tus prendas, personaliza, aprueba la muestra y produce.</p>
+            <nav aria-label="Principal">
+                <ul>
+                    <li><a href="/">Zarem</a></li>
+                    <li><a href="/colegio_la_florida/">Colegio La Florida</a></li>
+                </ul>
+            </nav>
+        </noscript>
+    </div>
+
+    <script type="text/babel" src="/js/layout.jsx"></script>
+    <script type="text/babel">
+        // Creadores: short guide for people who want their own clothing brand (hoodies and pants) made by Zarem.
+        // No store: every step ends in a WhatsApp quote. Options, fabrics and finishes are [verificar con el taller].
+        const STEPS = [
+            { id: 'marca', n: '01', title: 'Define tu marca', body: 'Nombre, logo y colores. Mándanos tu logo en vector (AI, SVG o PDF) y cuéntanos a quién le vas a vender.' },
+            { id: 'prendas', n: '02', title: 'Elige tus prendas', body: 'Empieza con una o dos piezas: un hoodie y un pants que combinen ya son una colección.' },
+            { id: 'personaliza', n: '03', title: 'Personaliza', body: 'Bordado o estampado de tu logo, etiqueta de cuello con tu marca y empaque propio.' },
+            { id: 'muestra', n: '04', title: 'Aprueba la muestra', body: 'Confeccionamos una muestra de cada modelo para que revises corte, tela y acabados antes de producir.' },
+            { id: 'produccion', n: '05', title: 'Produce y vende', body: 'Confeccionamos tu pedido en la Ciudad de México. Lo recoges en el taller o te lo enviamos.' },
+        ];
+
+        const GARMENTS = [
+            { name: 'Hoodies', rows: [['Corte', 'Cerrado o con cierre · regular u oversize'], ['Tela', 'Felpa perchada o french terry'], ['Detalles', 'Capucha forrada, bolsa canguro, puños y pretina de resorte'], ['Logo', 'Pecho, espalda, manga o capucha']] },
+            { name: 'Pants', rows: [['Corte', 'Jogger con puño o recto'], ['Tela', 'Felpa perchada o french terry, a juego con el hoodie'], ['Detalles', 'Pretina con cordón, bolsas laterales y trasera'], ['Logo', 'Pierna, cadera o bolsa trasera']] },
+        ];
+
+        const quote = waLink('Hola, quiero crear mi marca de ropa con Zarem (hoodies y pants).');
+
+        const CreatorsPage = () => (
+            <>
+                <PageHero kicker="Creadores" title="Crea tu marca con Zarem" intro="Hoodies y pants con tu logo, tu etiqueta y tu empaque. Tú pones la idea; nosotros la confeccionamos.">
+                    <a href={quote} target="_blank" rel="noopener noreferrer" className="btn btn-ink mt-10">Cotiza tu marca</a>
+                </PageHero>
+                <div className="max-w-[1600px] mx-auto px-4 md:px-10 grid md:grid-cols-4 gap-12 py-10">
+                    <nav className="hidden md:block sticky top-28 self-start" aria-label="Índice">
+                        <ol className="flex flex-col gap-3">
+                            {STEPS.map(s => <li key={s.id} className="flex"><a href={`#${s.id}`} className="label link text-ink-500 hover:text-ink">{s.n} · {s.title}</a></li>)}
+                        </ol>
+                    </nav>
+                    <div className="md:col-span-3 min-w-0 max-w-3xl space-y-16">
+                        <ol className="space-y-12">
+                            {STEPS.map(s => (
+                                <li key={s.id} id={s.id} className="scroll-mt-28 border-t border-ink pt-4 grid sm:grid-cols-4 gap-4">
+                                    <p className="text-4xl font-light">{s.n}</p>
+                                    <div className="sm:col-span-3">
+                                        <h2 className="label-strong">{s.title}</h2>
+                                        <p className="text-sm text-ink-700 mt-2 leading-relaxed">{s.body}</p>
+                                        {s.id === 'prendas' && (
+                                            <div className="grid sm:grid-cols-2 gap-8 mt-8">
+                                                {GARMENTS.map(g => (
+                                                    <section key={g.name}>
+                                                        <h3 className="text-2xl font-light mb-4">{g.name}</h3>
+                                                        {g.rows.map(([k, v]) => <div key={k} className="border-t border-line py-3"><p className="label text-ink-500">{k}</p><p className="text-sm text-ink-700 mt-1">{v}</p></div>)}
+                                                    </section>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                        <section className="border-t border-ink pt-4">
+                            <h2 className="label-strong">¿Empezamos?</h2>
+                            <p className="text-sm text-ink-700 mt-2">Cuéntanos tu idea y cuántas piezas imaginas; te respondemos con mínimos por modelo, precio y tiempos.</p>
+                            <a href={quote} target="_blank" rel="noopener noreferrer" className="btn btn-ink mt-6">Escríbenos por WhatsApp</a>
+                        </section>
+                    </div>
+                </div>
+            </>
+        );
+
+        renderPage(CreatorsPage);
+    </script>
+</body>
+</html>

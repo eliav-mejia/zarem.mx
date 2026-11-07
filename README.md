@@ -10,7 +10,7 @@ en OXXO o en efectivo al recoger en tienda.
 
 **Variante C/D** de `../ARQUITECTURA-WEB-ETAPAS.md` con **módulo de ecommerce**: React + Tailwind por CDN, sin build, datos
 simulados en `colegio_la_florida/db/`, una capa de datos (`db`) y una función de precios (`priceBag`) en `js/tienda.jsx`. Mismo
-contrato que la plantilla (`../_plataforma/etapas/etapa-1-arquitectura-base/plantilla-react-tailwind/`).
+contrato que la plantilla (`../../builds/sites/_plataforma/etapas/etapa-1-arquitectura-base/plantilla-react-tailwind/`).
 
 **Estado: 1.2.0 · Etapa 1.** Precios, tallas, dirección de la tienda y textos legales son de ejemplo; la bolsa y los
 pedidos se guardan solo en el navegador y el pedido se confirma por WhatsApp. Revisar todos los `[marcadores]` y
@@ -80,6 +80,7 @@ zarem.mx/
 ├── index.html                    zarem.mx/: una pantalla, una tarjeta por colegio (CLIENTS), logo «Casa de confección»
 ├── 404.html                      página no encontrada + redirecciones (MOVED; /pages/* → /colegio_la_florida/*)
 ├── cum/index.html                CUM: «próximamente» (logo y menú ya personalizados)
+├── creadores/index.html          Creadores: guía corta para crear tu marca (hoodies y pants) → cotización por WhatsApp
 │
 ├── css/site.css                  UNA hoja de estilos
 ├── js/
@@ -94,7 +95,8 @@ zarem.mx/
 ├── img/seccion/*.webp           modelos con uniforme (estudio o pose)
 ├── img/producto/*.webp          prenda sola: doblada, colgada o extendida
 │                                (originales PNG / JPG junto a cada WebP, fuera de Git)
-├── supabase/                     BASE DE DATOS REAL (Etapa 2): esquema + RLS + stock por variante — ver supabase/README.md
+├── SECURITY.md                   1.1.1: secretos, controles del cobro, publicación y lista de pruebas (no se publica)
+├── supabase/                     1.1.1: pedidos + pagos con Stripe (Edge Functions, RLS) — ver supabase/README.md
 ├── tools/generar-paginas-producto.py   crea colegio_la_florida/tienda/<slug>/ y sitemap.xml
 │
 ├── colegio_la_florida/           TIENDA DEL COLEGIO LA FLORIDA (todo lo de la escuela vive aquí)
@@ -106,7 +108,8 @@ zarem.mx/
 │   │   └── tienda.json           bordado, métodos de entrega y formas de pago permitidas en cada uno
 │   ├── tienda/                   filtros ?corte=nina|nino, ?linea=diario|deportes|kinder, ?tipo=<subcategoría>
 │   ├── tienda/<slug>/            ficha (generada)
-│   ├── bolsa/                    bolsa + entrega + forma de pago + datos → pedido por WhatsApp (noindex)
+│   ├── bolsa/                    bolsa + entrega + forma de pago + datos → WhatsApp, o Stripe en 1.1.1 (noindex)
+│   ├── pedido/                   1.1.1: estado del pedido tras pagar (solo lectura; noindex)
 │   ├── como-comprar/             #pasos #entrega #pagos #tallas #bordado #cambios
 │   ├── contacto/                 tienda, horario, formulario → WhatsApp
 │   ├── terminos/                 #precios #pagos #entregas #cambios #garantia
@@ -114,6 +117,10 @@ zarem.mx/
 │
 ├── _docs/src/v1.1.0.html         PÚBLICO: documento de versión
 └── _interno/                     LOCAL, NO SE PUBLICA (.gitignore)
+    └── versiones/                documentos de versión en PDF (1.1.0, 1.1.1 interno) y sus fuentes
+
+El despliegue (`.github/workflows/pages.yml`) publica solo el sitio: `supabase/`, `tools/`, `README.md`, `SECURITY.md`
+y los archivos ocultos se quedan en el repositorio.
 ```
 
 ## Qué carga cada página
@@ -121,7 +128,7 @@ zarem.mx/
 | Página | layout.jsx | tienda.jsx |
 |---|:-:|:-:|
 | `colegio_la_florida/`: `index.html`, `tienda/`, `tienda/<slug>/`, `bolsa/`, `como-comprar/` | ✓ | ✓ |
-| `colegio_la_florida/`: `contacto/`, `terminos/`, `privacidad/` · `index.html` · `cum/` · `404.html` | ✓ | |
+| `colegio_la_florida/`: `contacto/`, `terminos/`, `privacidad/` · `index.html` · `cum/` · `creadores/` · `404.html` | ✓ | |
 
 ## Cómo funciona la compra (Etapa 1)
 
@@ -130,7 +137,20 @@ zarem.mx/
    (gratis en tienda; $149 a domicilio, gratis desde $2,000).
 3. Forma de pago según la entrega (`tienda.json`): **recoger en tienda → tarjeta o efectivo**; **domicilio → tarjeta u OXXO**.
 4. Confirmar: `db.createOrder()` guarda el pedido en `za-pedidos` y abre WhatsApp; la tienda responde con la liga de
-   pago o la ficha de OXXO. Etapa 2: Edge Function + Stripe / Mercado Pago (ver `supabase/README.md`).
+   pago o la ficha de OXXO.
+
+## Cómo funciona la compra (1.1.1 · Etapa 2 · pagos seguros)
+
+Se activa poniendo `PAYMENTS_ENDPOINT` en `js/tienda.jsx` (hoy `null` = Etapa 1). Antes: `SECURITY.md` §5 y §6.
+
+1. Bolsa → `db.pay()` envía **solo** prenda, talla, nombre a bordar y cantidad, más los datos del tutor.
+2. `crear-checkout` recalcula todo en el servidor (`supabase/functions/_compartido/precios.js`, mismas reglas que
+   `priceBag()`), guarda el pedido «por pagar» y devuelve la URL de **Stripe Checkout** (tarjeta con 3DS u OXXO).
+   Efectivo al recoger: se guarda el pedido, sin Stripe.
+3. El comprador paga en la página de Stripe y vuelve a `colegio_la_florida/pedido/`, que **solo lee** el estado.
+4. `webhook-stripe` (firmado) es lo único que marca el pedido como pagado.
+
+Sin stock, sin contabilidad, sin CFDI ni Odoo: eso es Etapa 3.
 
 ## Cambios habituales
 
@@ -162,6 +182,14 @@ zarem.mx/
 | 5 | WhatsApp Business API para avisos; preventa del siguiente ciclo escolar |
 
 ## Versiones
+
+### 1.1.1 — 2026-10-10 · Etapa 2: pagos seguros con Stripe (no publicada)
+- Pasarela Stripe Checkout (tarjeta con 3DS y OXXO) sobre Supabase Edge Functions; efectivo al recoger sin pasarela.
+- Precio recalculado en el servidor en centavos (`precios.js`, con pruebas); el navegador solo envía ids y cantidades.
+- `0002_pagos_stripe.sql`: pedidos, pagos y eventos con RLS cerrada y funciones atómicas; webhook firmado e idempotente.
+- Página `pedido/` de solo lectura. Interruptor `PAYMENTS_ENDPOINT` (apagado: el sitio sigue con WhatsApp).
+- Repositorio: `SECURITY.md`, despliegue que publica solo el sitio, escaneo de secretos y `.gitignore` reforzado.
+- Fuera de alcance: stock, contabilidad, CFDI, Odoo (Etapa 3).
 
 ### 1.3.0 — 2026-10-10 · Catálogo real desde Odoo
 - `productos.json` se genera desde `Catalogo.xlsx` (`tools/importar-catalogo.py`): 19 prendas y 246 variantes, cada talla
